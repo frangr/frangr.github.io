@@ -1,0 +1,1 @@
+function functest(p1){console.log("test: "+p1)}
