@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Map</title>
+    <style>
+        #pixelMap {
+            width: 320px;
+            height: 200px;
+            border: 1px solid black;
+        }
+        .pixel {
+            width: 1px;
+            height: 1px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div id="pixelMap"></div>
+
+    <script>
+        // Function to generate a random color in RGB format
+        function getRandomColor() {
+            var r = Math.floor(Math.random() * 256);
+            var g = Math.floor(Math.random() * 256);
+            var b = Math.floor(Math.random() * 256);
+            return "rgb(" + r + "," + g + "," + b + ")";
+        }
+
+        // Function to create the pixel map
+        function createPixelMap() {
+            var pixelMap = document.getElementById("pixelMap");
+            for (var i = 0; i < 320 * 200; i++) {
+                var pixel = document.createElement("div");
+                pixel.className = "pixel";
+                pixelMap.appendChild(pixel);
+            }
+            updatePixelColors(); // Initially fill colors
+        }
+
+        // Function to update the colors of all pixels
+        function updatePixelColors() {
+            var pixels = document.querySelectorAll(".pixel");
+            pixels.forEach(function(pixel) {
+                pixel.style.backgroundColor = getRandomColor();
+            });
+        }
+
+        // Call the function to create the pixel map
+        createPixelMap();
+
+        // Infinite cycle to update pixel colors
+        setInterval(updatePixelColors, 100); // Change color every 100 milliseconds
+    </script>
+</body>
+</html>
