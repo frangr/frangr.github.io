@@ -241,66 +241,42 @@ const MISA_ADDR = 0x301;
 const EXT_ITR_ENABLE = (csr.mie & 0b00001000000000000000000000000000);
 const MSTATUS_ITR_ENABLE = (csr.mstatus & 0b00000000000000000000000000001000);
 
-//VARIABLES
+//EMULATOR VARIABLES/CONST
+let ROM_MEMORY = null
+let RAM_MEMORY = null
+let MM_MEMORY = null
+let VRAM_MEMORY = null
+//RISC-V VARIABLES
 let pc = new Uint8Array(4) //PUT RESET VECTOR
 let reg = new Uint32Array(32) //SYSTEM REGISTERS
 let inst = new Uint8Array(4) //INSTRUCTION REGISTER
-let nmi_pin = 0
 let reset_pin = 0
-let intr_pin = 0
 
+
+function start_frvse()
+{
+	ROM_MEMORY = new Uint8Array(100)
+	RAM_MEMORY = new Uint8Array(100)
+	MM_MEMORY = new Uint8Array(100)
+	VRAM_MEMORY = new Uint32Array(32)
+}
+
+let reset_bool = false
 function reset_routine()
 {
-    static char reset_bool = FALSE;
+	pc[0] = RESET_VECTOR & 0xFF;
+	pc[1] = (RESET_VECTOR >> 8) & 0xFF;
+	pc[2] = (RESET_VECTOR >> 16) & 0xFF;
+	pc[3] = (RESET_VECTOR >> 24) & 0xFF;
 
-    pc = RESET_VECTOR;
-
-    csr.mtvec = MTVEC_INITIAL_VALUE;
-    csr.mcause = MCAUSE_INITIAL_VALUE;
-    csr.mtval = MTVAL_INITIAL_VALUE;
-    csr.mepc = MEPC_INITIAL_VALUE;
-    csr.mstatus = MSTATUS_INITIAL_VALUE;
-    csr.mhartid = MIE_INITIAL_VALUE;
-    csr.misa = MISA_INITIAL_VALUE;
-    csr.mhartid = MHARTID_INITIAL_VALUE;
-
-    //reset_pin = 0;
-    if(reset_bool == FALSE)
+    if(reset_bool == false)
     {
         reset_pin = 0;
-        reset_bool = TRUE;
+        reset_bool = true;
     }
 
-
-    nmi_pin = 0;
-    intr_pin = 0;
-
-    for(uint8_t i = 0; i < 32; i++)
-        if(reg[i])
-            reg[i] = 0;
-
-    fill_screen(0x0);
+	reg = new Uint32Array(32) //RESET GP REGISTERS
 }
-
-function get_CSR(uint16_t addr)
-{
-    switch(addr)
-    {
-    case MTVEC_ADDR:
-        return &csr.mtvec;
-    case MCAUSE_ADDR:
-        return &csr.mcause;
-    case MTVAL_ADDR:
-        return &csr.mtval;
-    case MEPC_ADDR:
-        return &csr.mepc;
-    case MISA_ADDR:
-        return &csr.misa;
-    default:
-        return NULL;
-    }
-}
-
 function lui()
 {
     if((inst >> 7) & 0b11111)
@@ -818,30 +794,6 @@ function riscv32I_core()
 {
     if(reset_pin)
         reset_routine();
-
-    if(nmi_pin)
-    {
-        eti_handler(MCAUSE_EXCEPTION_CODE_Nmi);
-        nmi_pin = 0;
-    }
-
-
-    if(intr_pin)
-    {
-        interrupt_controller_ack();
-
-        uint32_t cmcause;
-        if(itr_code == INTERRUPT_CODE_TIM1 || itr_code == INTERRUPT_CODE_TIM2 || itr_code == INTERRUPT_CODE_TIM3)
-            cmcause = MCAUSE_EXCEPTION_CODE_Machine_timer_interrupt;
-        else
-            cmcause = MCAUSE_EXCEPTION_CODE_Machine_external_interrupt;
-
-        eti_handler(cmcause);
-        /** INTERRUPT ROUTINE, JUMP TO HANDLER AND GET INTERRUPT CODE **/
-    }
-
-	if(false)
-		timer_tick();
 
     send_to_chipset(pc, inst, READ, FOUR_BYTE);
 
