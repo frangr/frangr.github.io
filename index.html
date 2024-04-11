@@ -55,11 +55,14 @@
 	</div>
 
     <script>
-		  var script = document.querySelector('#frvsescr');
-			  script.addEventListener('load', function() {
-				console.log("load")
-				hljs.initHighlightingOnLoad(); 
-			});
+	
+		function init()
+		{
+			functest("t1");
+		}
+	
+		window.onload = init;
+	
         // Function to generate a random color in RGB format
         function getRandomColor() {
             var r = Math.floor(Math.random() * 256);
@@ -89,8 +92,6 @@
 
         // Call the function to create the pixel map
         createPixelMap();
-		
-        functest("t1");
 
         // Infinite cycle to update pixel colors
         setInterval(updatePixelColors, 100); // Change color every 100 milliseconds
