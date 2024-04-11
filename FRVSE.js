@@ -313,12 +313,12 @@ function reset_routine()
 function lui() //#
 {
     if((inst >> 7) & 0x1F)
-        reg[(inst >> 7) & 0x1F] = inst & 0b11111111111111111111000000000000;
+        reg[(inst >> 7) & 0x1F] = inst & 0xFFFFF000;
 }
 function auipc() //#
 {
     if((inst >> 7) & 0x1F)
-        reg[(inst >> 7) & 0x1F] = (inst & 0b11111111111111111111000000000000) + pc; //pc
+        reg[(inst >> 7) & 0x1F] = (inst & 0xFFFFF000) + pc; //pc
 }
 function jal() //#
 {
@@ -327,9 +327,9 @@ function jal() //#
     if((inst >> 7) & 0x1F)
         reg[(inst >> 7) & 0x1F] = pc + 4;
 
-    bf = (((inst & 0b1111111111000000000000000000000) >> 20) | ((inst & 0b100000000000000000000) >> 9) | (inst & 0b11111111000000000000) );
+    bf = (((inst & 0x7FE00000) >> 20) | ((inst & 0x100000) >> 9) | (inst & 0xFF000) );
     if(inst >> 31)
-        bf |= 0b11111111111100000000000000000000;
+        bf |= 0xFFF00000;
 
 	//add_to_array(pc, bf);
     pc += bf;
@@ -363,9 +363,9 @@ function beq() //#
         bf = (((inst & 0xF00) >> 7) | ((inst & 0x7E000000) >> 20) | ((inst & 0x80) << 4)) & 0xFFFFFFFE//(((inst & 0xF00) >> 7) | ((inst & 0x7E000000) >> 20) | ((inst & 0x80) << 4)) & 0xFFFFFFFE;
 
         if(inst >> 31)
-            bf |= 0b11111111111111111111000000000000;
+            bf |= 0xFFFFF000;
         else
-            bf &= 0b00000000000000000000111111111110;
+            bf &= 0xFFE;
 
 		//add_to_array(pc, bf);
         pc += bf;
@@ -382,9 +382,9 @@ function bne() //#
         bf = (((inst & 0xF00) >> 7) | ((inst & 0x7E000000) >> 20) | ((inst & 0x80) << 4)) & 0xFFFFFFFE//(((inst & 0xF00) >> 7) | ((inst & 0x7E000000) >> 20) | ((inst & 0x80) << 4)) & 0xFFFFFFFE;
 
         if(inst >> 31)
-            bf |= 0b11111111111111111111000000000000;
+            bf |= 0xFFFFF000;
         else
-            bf &= 0b00000000000000000000111111111110;
+            bf &= 0xFFE;
 
 		//add_to_array(pc, bf);
         pc += bf;
@@ -402,9 +402,9 @@ function blt() //#
         i32[2] = (((inst & 0xF00) >> 7) | ((inst & 0x7E000000) >> 20) | ((inst & 0x80) << 4)) & 0xFFFFFFFE//(((inst & 0xF00) >> 7) | ((inst & 0x7E000000) >> 20) | ((inst & 0x80) << 4)) & 0xFFFFFFFE;
 
         if(inst >> 31)
-            i32[2] |= 0b11111111111111111111000000000000;
+            i32[2] |= 0xFFFFF000;
         else
-            i32[2] &= 0b00000000000000000000111111111110;
+            i32[2] &= 0xFFE;
 
 		//add_to_array(pc, bf);
         pc += i32[2];
@@ -422,9 +422,9 @@ function bge() //#
         i32[2] = (((inst & 0xF00) >> 7) | ((inst & 0x7E000000) >> 20) | ((inst & 0x80) << 4)) & 0xFFFFFFFE//(((inst & 0xF00) >> 7) | ((inst & 0x7E000000) >> 20) | ((inst & 0x80) << 4)) & 0xFFFFFFFE;
 
         if(inst >> 31)
-            i32[2] |= 0b11111111111111111111000000000000;
+            i32[2] |= 0xFFFFF000;
         else
-            i32[2] &= 0b00000000000000000000111111111110;
+            i32[2] &= 0xFFE;
 
 		//add_to_array(pc, bf);
         pc += i32[2];
@@ -439,9 +439,9 @@ function bltu() //#
 		i32[0] = (((inst & 0xF00) >> 7) | ((inst & 0x7E000000) >> 20) | ((inst & 0x80) << 4)) & 0xFFFFFFFE//(((inst & 0xF00) >> 7) | ((inst & 0x7E000000) >> 20) | ((inst & 0x80) << 4)) & 0xFFFFFFFE;
 
         if(inst >> 31)
-            i32[0] |= 0b11111111111111111111000000000000;
+            i32[0] |= 0xFFFFF000;
         else
-            i32[0] &= 0b00000000000000000000111111111110;
+            i32[0] &= 0xFFE;
 
 		//add_to_array(pc, i32[0]);
         pc += i32[0];
@@ -456,9 +456,9 @@ function bgeu() //#
 		i32[0] = (((inst & 0xF00) >> 7) | ((inst & 0x7E000000) >> 20) | ((inst & 0x80) << 4)) & 0xFFFFFFFE//(((inst & 0xF00) >> 7) | ((inst & 0x7E000000) >> 20) | ((inst & 0x80) << 4)) & 0xFFFFFFFE;
 
         if(inst >> 31)
-            i32[0] |= 0b11111111111111111111000000000000;
+            i32[0] |= 0xFFFFF000;
         else
-            i32[0] &= 0b00000000000000000000111111111110;
+            i32[0] &= 0xFFE;
 
 		//add_to_array(pc, i32[0]);
         pc += i32[0];
@@ -471,7 +471,7 @@ function lb() //#
 	i16[0] = inst >> 20;
 
     if(i16[0] >> 11)
-        i16[0] |= 0b1111000000000000;
+        i16[0] |= 0xF000;
 
     send_to_chipset(reg[((inst >> 15) & 0x1F)] + i16[0], reg[(inst >> 7) & 0x1F], READ, ONE_BYTE);
 
@@ -484,7 +484,7 @@ function lh() //#
 	i16[0] = inst >> 20;
 
     if(i16[0] >> 11)
-        i16[0] |= 0b1111000000000000;
+        i16[0] |= 0xF000;
 
     send_to_chipset(reg[((inst >> 15) & 0x1F)] + i16[0], reg[(inst >> 7) & 0x1F], READ, TWO_BYTE);
 
@@ -497,7 +497,7 @@ function lw() //#
 	i16[0] = inst >> 20;
 
     if(i16[0] >> 11)
-        i16[0] |= 0b1111000000000000;
+        i16[0] |= 0xF000;
 
     send_to_chipset(reg[((inst >> 15) & 0x1F)] + i16[0], reg[(inst >> 7) & 0x1F], READ, FOUR_BYTE);
 }
@@ -506,7 +506,7 @@ function lbu() //#
 	i16[0] = inst >> 20;
 
     if(i16[0] >> 11)
-        i16[0] |= 0b1111000000000000;
+        i16[0] |= 0xF000;
 
     send_to_chipset(reg[((inst >> 15) & 0x1F)] + i16[0], reg[(inst >> 7) & 0x1F], READ, ONE_BYTE);
 }
@@ -515,7 +515,7 @@ function lhu() //#
 	i16[0] = inst >> 20;
 
     if(i16[0] >> 11)
-        i16[0] |= 0b1111000000000000;
+        i16[0] |= 0xF000;
 
     send_to_chipset(reg[((inst >> 15) & 0x1F)] + i16[0], reg[(inst >> 7) & 0x1F], READ, TWO_BYTE);
 }
@@ -524,7 +524,7 @@ function sb() //#
 	i16[0] = ((inst >> 20) & 0xFE0) | ((inst >> 7) & 0x1F);
 
     if(i16[0] >> 11)
-        i16[0] |= 0b1111000000000000;
+        i16[0] |= 0xF000;
 
     send_to_chipset(reg[((inst >> 15) & 0x1F)] + i16[0], reg[(inst >> 20) & 0x1F], WRITE, ONE_BYTE);
 }
@@ -534,7 +534,7 @@ function sh() //#
 	imm[0] = ((inst >> 20) & 0xFE0) | ((inst >> 7) & 0x1F);
 
     if(imm[0] >> 11)
-        imm[0] |= 0b1111000000000000;
+        imm[0] |= 0bF000;
 
     send_to_chipset(reg[((inst >> 15) & 0x1F)] + imm[0], reg[(inst >> 20) & 0x1F], WRITE, TWO_BYTE); //(((inst >> 20) & 0xFE0) | ((inst >> 7) & 0x1F))
 }
@@ -543,18 +543,18 @@ function sw() //#
 	i16[0] = ((inst >> 20) & 0xFE0) | ((inst >> 7) & 0x1F);
 
     if(i16[0] >> 11)
-        i16[0] |= 0b1111000000000000;
+        i16[0] |= 0xF000;
 
     send_to_chipset(reg[((inst >> 15) & 0x1F)] + i16[0], reg[(inst >> 20) & 0x1F], WRITE, FOUR_BYTE); //(((inst >> 20) & 0xFE0) | ((inst >> 7) & 0x1F))
 }
 function addi() //#
 {
-    i32[0] = (inst & 0b01111111111100000000000000000000) >> 20;
+    i32[0] = (inst & 0x7FF00000) >> 20;
 
     if(inst >> 31)
-        i32[0] |= 0b111111111111111111111100000000000;
+        i32[0] |= 0x1FFFFF800;
     else
-        i32[0] &= 0b000000000000000000000011111111111;
+        i32[0] &= 0x7FF;
 
 	i32[1] = reg[((inst >> 15) & 0x1F)]
 	
@@ -566,8 +566,8 @@ function slti() //#
 {
     i16[0] = inst >> 20;
 
-    if(i16[0] & 0b100000000000)
-        i16[0] |= 0b1111000000000000;
+    if(i16[0] & 0x800)
+        i16[0] |= 0xF000;
 
 	i32[0] = reg[((inst >> 15) & 0x1F)]
     reg[(inst >> 7) & 0x1F] = i32[0] < i16[0]? 1 : 0; //(signed short)(inst & 0x80000000 | ((inst >> 20) & 0x7ff))
@@ -576,8 +576,8 @@ function sltiu() //#
 {
     u16[0] = inst >> 20;
 
-    if(u16[0] & 0b100000000000)
-        u16[0] |= 0b1111000000000000;
+    if(u16[0] & 0x800)
+        u16[0] |= 0xF000;
 
     reg[(inst >> 7) & 0x1F] = reg[((inst >> 15) & 0x1F)] < u16[0]? 1 : 0; //(signed short)(inst & 0x80000000 | ((inst >> 20) & 0x7ff))
 }
@@ -585,8 +585,8 @@ function xori() //#
 {
     i16[0] = inst >> 20;
 
-    if(i16[0] & 0b100000000000)
-        i16[0] |= 0b1111000000000000;
+    if(i16[0] & 0x800)
+        i16[0] |= 0xF000;
 
     reg[(inst >> 7) & 0x1F] = reg[((inst >> 15) & 0x1F)] ^ i16[0]; // (signed short)(inst & 0x80000000 | ((inst >> 20) & 0x7ff));
 }
@@ -594,8 +594,8 @@ function ori() //#
 {
     i16[0] = inst >> 20;
 
-    if(i16[0] & 0b100000000000)
-        i16[0] |= 0b1111000000000000;
+    if(i16[0] & 0x800)
+        i16[0] |= 0xF000;
 
     reg[(inst >> 7) & 0x1F] = reg[((inst >> 15) & 0x1F)] | i16[0]; //(signed short)(inst & 0x80000000 | ((inst >> 20) & 0x7ff));
 }
@@ -603,8 +603,8 @@ function andi() //#
 {
     i16[0] = inst >> 20;
 
-    if(i16[0] & 0b100000000000)
-        i16[0] |= 0b1111000000000000;
+    if(i16[0] & 0x800)
+        i16[0] |= 0xF000;
 
     reg[(inst >> 7) & 0x1F] = reg[((inst >> 15) & 0x1F)] & i16[0]; //(signed short)(inst & 0x80000000 | ((inst >> 20) & 0x7ff));
 }
@@ -641,7 +641,7 @@ function sub() //#
 }
 function sll() //#
 {
-    reg[(inst >> 7) & 0x1F] = reg[((inst >> 15) & 0x1F)] << (reg[(inst >> 20) & 0x1F] & 0b11111);
+    reg[(inst >> 7) & 0x1F] = reg[((inst >> 15) & 0x1F)] << (reg[(inst >> 20) & 0x1F] & 0x1F);
 }
 function slt() //#
 {
@@ -660,7 +660,7 @@ function xor() //#
 }
 function srl() //#
 {
-    reg[(inst >> 7) & 0x1F] = reg[((inst >> 15) & 0x1F)] >> (reg[(inst >> 20) & 0x1F] & 0b11111);
+    reg[(inst >> 7) & 0x1F] = reg[((inst >> 15) & 0x1F)] >> (reg[(inst >> 20) & 0x1F] & 0x1F);
 }
 function sra() //#
 {
