@@ -5,11 +5,6 @@ import { font8x8_block } from './VIDEO_DATA.js';
 import { font8x8_box } from './VIDEO_DATA.js';
 import { VGA_RGB_table } from './VIDEO_DATA.js';
 
-function functest(p1)
-{
-	console.log("test: "+p1);
-}
-
 //"MACRO"
 const MAX_INTERRUPT_NUMBER = 8;
 const MAX_NMI_NUMBER = 4;
@@ -201,6 +196,10 @@ let reg = new Uint32Array(32) //SYSTEM REGISTERS
 let inst_arr = new Uint8Array(4) //INSTRUCTION REGISTER
 let reset_pin = 0
 
+function functest(p1)
+{
+	console.log("test: "+p1);
+}
 
 function start_frvse()
 {
