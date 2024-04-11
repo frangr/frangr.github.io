@@ -314,9 +314,7 @@ export const VGA_RGB_table = [
     0x2c402c, 0x2c4030, 0x2c4034, 0x2c403c, 0x2c4040, 0x2c3c40, 0x2c3440, 0x2c3040, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000
 ];
 
-/*
 export { font8x8_basic };
 export { font8x8_block };
 export { font8x8_box };
 export { VGA_RGB_table };
-*/
