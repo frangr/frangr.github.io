@@ -1,4 +1,7 @@
-function functest(p1){console.log("test: "+p1);}
+function functest(p1)
+{
+	console.log("test: "+p1);
+}
 
 import { font8x8_basic } from 'VIDEO_DATA.js'
 import { font8x8_block } from 'VIDEO_DATA.js'
