@@ -789,6 +789,99 @@ function mem_device_controller(device, addr, data, rw, sz)
     }
 }
 
+const CHAR_BASIC = 0
+const CHAR_BLOCK = 1
+const CHAR_BOX = 2
+function get_char_array(charc)
+{
+	switch(charch)
+	{
+		case CHAR_BASIC:
+			return font8x8_basic;
+		case CHAR_BLOCK:
+			return font8x8_block;
+		case CHAR_BOX:
+			return font8x8_box;
+	}
+	
+	return null;
+}
+
+function draw_character(addr, color)
+{
+    const CHAR_COLOR = color & 0xFF;
+    const BACKGROUND_COLOR = ((color >> 8) & 0xFF);
+    const CHARACTER = ((color >> 24) | ((color >> 8) & 0xFF00));
+    const MODE_ALPHA_COLOR = 0xF8
+
+    if((addr/4) > 999)
+        return;
+
+    //return the bitmap of the character
+    let character = get_char_array(CHARACTER);
+
+    if(character == null)
+        return;
+
+    let screen_pos = 0;
+
+    let clr = 0;
+
+    addr *= 2;
+
+    addr += ((addr/8)/40)* (320*7) ; //0xA00;
+
+    for(let i = 0; i < 8; i++)
+    {
+        for(let id = 0; id < 8; id++)
+        {
+            let bit = (character[i] >> id) & 0x1;
+
+            screen_pos = addr+id;
+
+            if(!bit)
+                clr = CHAR_COLOR;
+            else
+                clr = BACKGROUND_COLOR;
+
+            if( clr == MODE_ALPHA_COLOR )
+                continue;
+
+            VRAM_MEMORY[screen_pos] = (VGA_RGB_table[clr] << 8) | 0xFF;
+
+			//UPDATE VIDEO
+        }
+        addr += 320;
+    }
+}
+
+function text_mode_controller(addr, charac, rw)
+{
+    if(rw == WRITE)
+    {
+        CHARACTER_MEMORY[addr/4] = charac;
+        draw_character(addr, CHARACTER_MEMORY[addr/4]);
+    }
+    else if(rw == READ)
+    {
+        charac = CHARACTER_MEMORY[addr/4];
+    }
+}
+
+function video_memory_controller(addr, color, rw)
+{
+    if(rw)
+    {
+        VRAM_MEMORY[addr/4] = color;
+		
+		//SIGNAL TO UPDATE HTML SCREEN
+    }
+    else if(!rw)
+    {
+        color = VRAM_MEMORY[addr/4];
+    }
+}
+
 function send_to_chipset(addr, data, rw, sz)
 {
 	let memory_dev = null
@@ -813,18 +906,6 @@ function send_to_chipset(addr, data, rw, sz)
             return; //FAULT
 
         video_memory_controller(addr-VIDEO_MEMORY_START_ADDRESS, data, rw);
-        return;
-    }
-
-    if(addr == VIDEO_MEMORY_CONTROL_REGISTER)
-    {
-        if(sz != ONE_BYTE)
-            return; //FAULT
-
-        video_memory_control_register = (uint8_t)*data;
-
-        video_memory_control_register_decode();
-
         return;
     }
 
