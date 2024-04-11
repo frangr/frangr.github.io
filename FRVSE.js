@@ -228,8 +228,8 @@ let u16 = new Uint16Array(5)
 let i16 = new Int16Array(5)
 let u32 = new Uint32Array(5)
 let i32 = new Int32Array(5)
-let u64 = new Uint64Array(5)
-let i64 = new Int64Array(5)
+let u64 = new BigUint64Array(5)
+let i64 = new BigInt64Array(5)
 //RISC-V VARIABLES
 //let pc = new Uint8Array(4)
 let pc = null;
