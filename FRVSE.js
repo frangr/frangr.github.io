@@ -185,13 +185,6 @@ const VIDEO_MEMORY_OFFSET = 20020200;
 const HDD_OFFSET = 20276300;
 const HDD_SIZE = 20000000;
 
-const RAM_RANGE = addr >= RAM_OFFSET && addr <= RAM_OFFSET + RAM_SIZE;
-const VIDEO_MEMORY_RANGE = addr >= VIDEO_MEMORY_OFFSET && addr <= VIDEO_MEMORY_OFFSET + VIDEO_MEMORY_SIZE;
-const ROM_RANGE = addr >= ROM_OFFSET && addr <= ROM_OFFSET + ROM_SIZE;
-const HDD_RANGE = addr >= HDD_OFFSET && addr <= HDD_OFFSET + HDD_SIZE;
-const SCP_RANGE = addr >= 0x0 && addr <= 0x2;
-const SERIAL_RANGE = addr === 0x3;
-
 const W = 320;
 const H = 200;
 
