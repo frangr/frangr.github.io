@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<script src="FRVSE.js" type="module"></script>
+<script src="FRVSE.js" type="module" onload="init()"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,8 +60,6 @@
 		{
 			functest("t1");
 		}
-	
-		window.onload = init;
 	
         // Function to generate a random color in RGB format
         function getRandomColor() {
