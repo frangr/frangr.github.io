@@ -5,10 +5,14 @@ function functest(p1)
 
 // *******FRVSE - Franto RISC-V Simple Emulator - by Grieco Francesco*******
 
+const parse = require('VIDEO_DATA.js');
+
+/*
 import { font8x8_basic } from 'VIDEO_DATA.js'
 import { font8x8_block } from 'VIDEO_DATA.js'
 import { font8x8_box } from 'VIDEO_DATA.js'
 import { VGA_RGB_table } from 'VIDEO_DATA.js'
+*/
 
 //"MACRO"
 const MAX_INTERRUPT_NUMBER = 8;
@@ -30,40 +34,9 @@ const CHARACTER_MEMORY_SIZE = 1000; //16000
 const RAM_START_ADDRESS = 0x503342;
 const RAM_SIZE = 0x2DC6C0;
 
-const SCPI_1_ADDRESS = 0x7DFA04;
-const SCPI_2_ADDRESS = 0x7DFA05;
-const SCPI_3_ADDRESS = 0x7DFA06;
-
-const INTERRUPT_MASK_REGISTER = 0x7DFA07;
-
-const INTERRUPT_CODE_ADDRESS = 0x7DFA08;
-const NMI_CODE_ADDRESS = 0x7DFA09;
-
 const MASS_MEMORY_ADDRESS_PORT_ADDRESS = 0x7DFA0A;
 const MASS_MEMORY_DATA_PORT_ADDRESS = 0x7DFA0F;
 const MASS_MEMORY_CONTROL_REGISTER_ADDRESS = 0x7DFA14;
-
-const keyboard_register = 0x7DFA18;
-const audio_db_register = 0x7DFA1B;
-const audio_samr_register = 0x7DFA1E;
-
-const MTIME_ADDRESS_HIGH = 0x7DFA20;
-const MTIME_ADDRESS_LOW = 0x7DFA24;
-
-const TIM1_MTIMECMP_ADDRESS_HIGH = 0x7DFA28;
-const TIM1_MTIMECMP_ADDRESS_LOW = 0x7DFA2C;
-
-const TIM2_MTIMECMP_ADDRESS_HIGH = 0x7DFA30;
-const TIM2_MTIMECMP_ADDRESS_LOW = 0x7DFA34;
-
-const TIM3_MTIMECMP_ADDRESS_HIGH = 0x7DFA38;
-const TIM3_MTIMECMP_ADDRESS_LOW = 0x7DFA3C;
-/**----------------------------------------**/
-
-const INTERRUPT_CODE_KEYBOARD = 1;
-const INTERRUPT_CODE_TIM1 = 2;
-const INTERRUPT_CODE_TIM2 = 4;
-const INTERRUPT_CODE_TIM3 = 8;
 
 // HDD_COMMANDS
 const WRITE_ONE_BYTE = 0;
@@ -72,13 +45,6 @@ const WRITE_FOUR_BYTE = 2;
 const READ_ONE_BYTE = 3;
 const READ_TWO_BYTE = 4;
 const READ_FOUR_BYTE = 5;
-
-// DIRECTORIES
-const ROM_DIRECTORY = "rom_peripheral"; //"../rom_peripheral"
-const MASS_MEMORY_DIRECTORY = "mass_memory_peripheral"; //"../mass_memory_peripheral"
-
-// DEBUG_PRINTF
-// const DEBUG_PRINTF;
 
 // READ WRITE
 const READ = 0;
