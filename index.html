@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<script src="./FRVSE.js" type="module"></script>
+<script src="FRVSE.js" type="module"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -85,6 +85,7 @@
         // Call the function to create the pixel map
         createPixelMap();
         functest("t1");
+		start_frvse()
 
         // Infinite cycle to update pixel colors
         setInterval(updatePixelColors, 100); // Change color every 100 milliseconds
