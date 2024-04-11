@@ -200,14 +200,6 @@ const MIE_INITIAL_VALUE = 0x0;
 const MISA_INITIAL_VALUE = 0x40001100;
 const MHARTID_INITIAL_VALUE = 0x0;
 
-/** MSTATUS **/
-const MSTATUS_MPIE = (csr.mstatus >> 7) & 1;
-
-/** MTVEC **/
-const MTVEC_MODE = csr.mtvec & 3;
-
-/** MCAUSE **/
-const MCAUSE_EXCEPTION_CODE = csr.mcause & 0x7FFFFFFF;
 /** MCAUSE CODE **/
 const MCAUSE_EXCEPTION_CODE_Machine_external_interrupt = 0x8000000B; //11 with highest bit set
 const MCAUSE_EXCEPTION_CODE_Machine_timer_interrupt = 0x80000007; //11 with highest bit set
@@ -224,9 +216,6 @@ const MCAUSE_ADDR = 0x342;
 const MTVAL_ADDR = 0x343;
 const MEPC_ADDR = 0x341;
 const MISA_ADDR = 0x301;
-
-const EXT_ITR_ENABLE = (csr.mie & 0x8000000);
-const MSTATUS_ITR_ENABLE = (csr.mstatus & 8);
 
 //EMULATOR VARIABLES/CONST
 let ROM_MEMORY = null
