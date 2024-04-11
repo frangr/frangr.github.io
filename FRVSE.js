@@ -5,14 +5,10 @@ function functest(p1)
 
 // *******FRVSE - Franto RISC-V Simple Emulator - by Grieco Francesco*******
 
-const parse = require('VIDEO_DATA.js');
-
-/*
 import { font8x8_basic } from 'VIDEO_DATA.js'
 import { font8x8_block } from 'VIDEO_DATA.js'
 import { font8x8_box } from 'VIDEO_DATA.js'
 import { VGA_RGB_table } from 'VIDEO_DATA.js'
-*/
 
 //"MACRO"
 const MAX_INTERRUPT_NUMBER = 8;
