@@ -567,7 +567,7 @@ function sh() //#
 	imm[0] = SW_ADDRESS();
 
     if(imm[0] >> 11)
-        imm[0] |= 0bF000;
+        imm[0] |= 0xF000;
 
     send_to_chipset(reg[RS1()] + imm[0], reg[RS2()], WRITE, TWO_BYTE); //(SW_ADDRESS)
 }
