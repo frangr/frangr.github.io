@@ -204,7 +204,7 @@ function functest(p1)
 function start_frvse()
 {
 	ROM_MEMORY = new Uint8Array(100)
-	RAM_MEMORY = new Uint8Array(100)
+	RAM_MEMORY = new Uint8Array(RAM_SIZE)
 	MM_MEMORY = new Uint8Array(100)
 	VRAM_MEMORY = new Uint32Array(W*H)
 	CHARACTER_MEMORY = new Uint32Array(CHARACTER_MEMORY_SIZE)
