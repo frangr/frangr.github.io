@@ -1,5 +1,10 @@
 function functest(p1){console.log("test: "+p1)}
 
+import { font8x8_basic } from 'VIDEO_DATA.js'
+import { font8x8_block } from 'VIDEO_DATA.js'
+import { font8x8_box } from 'VIDEO_DATA.js'
+import { VGA_RGB_table } from 'VIDEO_DATA.js'
+
 //"MACRO"
 const MAX_INTERRUPT_NUMBER = 8;
 const MAX_NMI_NUMBER = 4;
@@ -246,6 +251,7 @@ let ROM_MEMORY = null
 let RAM_MEMORY = null
 let MM_MEMORY = null
 let VRAM_MEMORY = null
+let CHARACTER_MEMORY = null
 let inst = 0
 let u16 = new Uint16Array(5)
 let i16 = new Int16Array(5)
@@ -266,7 +272,8 @@ function start_frvse()
 	ROM_MEMORY = new Uint8Array(100)
 	RAM_MEMORY = new Uint8Array(100)
 	MM_MEMORY = new Uint8Array(100)
-	VRAM_MEMORY = new Uint32Array(32)
+	VRAM_MEMORY = new Uint32Array(W*H)
+	CHARACTER_MEMORY = new Uint32Array(CHARACTER_MEMORY_SIZE)
 }
 
 function compose_array(arr)
