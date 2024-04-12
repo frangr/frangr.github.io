@@ -519,6 +519,19 @@ const frvse_state_run = "run"
 const frvse_state_step = "step"
 let FRVSE_current_state = frvse_state_void
 
+document.getElementById('file').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const arrayBuffer = event.target.result;
+        const byteArray = new Uint8Array(arrayBuffer);
+        console.log(byteArray);
+    };
+
+    reader.readAsArrayBuffer(file);
+});
+
 function FRVSE_set_state(state){
 	FRVSE_current_state = state;
 }
