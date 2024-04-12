@@ -545,7 +545,7 @@ function updatePixelColors()
 
 function start_frvse()
 {
-	if (FRVSE_state != frvse_state_void)
+	if (FRVSE_current_state != frvse_state_void)
 		return;
 	
 	console.log("FRVSE START");
