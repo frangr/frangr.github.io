@@ -606,7 +606,7 @@ function start_frvse()
 	[9, 0x00FFFFFF]
 	];
 	
-	fill_screen()
+	//fill_screen()
 	//update_pixel(pixel_arr)
 }
 
@@ -1231,6 +1231,7 @@ function draw_character(addr, color)
 
     addr += ((addr/8)/40)* (320*7) ; //0xA00;
 
+	let char_arr = []
     for(let i = 0; i < 8; i++)
     {
         for(let id = 0; id < 8; id++)
@@ -1247,12 +1248,13 @@ function draw_character(addr, color)
             if( clr == MODE_ALPHA_COLOR )
                 continue;
 
-            VRAM_MEMORY[screen_pos] = (VGA_RGB_table[clr] << 8) | 0xFF;
-
-			//UPDATE VIDEO
+			let vga_color = (VGA_RGB_table[clr] << 8) | 0xFF;
+            VRAM_MEMORY[screen_pos] = vga_color;
+			char_arr.push([screen_pos, vga_color])
         }
         addr += 320;
     }
+	update_pixel(char_arr)
 }
 
 function text_mode_controller(addr, charac, rw)
@@ -1274,7 +1276,7 @@ function video_memory_controller(addr, color, rw)
     {
         VRAM_MEMORY[addr/4] = color;
 		
-		//SIGNAL TO UPDATE HTML SCREEN
+		update_pixel([[addr, color]])
     }
     else if(!rw)
     {
