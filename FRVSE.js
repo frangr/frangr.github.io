@@ -595,7 +595,7 @@ function init_frvse()
 	
 	FRVSE_set_state(frvse_state_run);
 	
-	if (RAM_MEMORY == null)
+	if (ROM_MEMORY == null)
 	{
 		ERROR_MESSAGE = "ERROR: ROM MEMORY FILE NOT ADDED.";
 		return 1;

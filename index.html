@@ -82,7 +82,8 @@
 				let arrayBuffer = event.target.result;
 				let uint8Array = new Uint8Array(arrayBuffer);
 				// You can now use the uint8Array as needed
-				console.log(uint8Array);
+				ROM_MEMORY = uint8Array;
+				console.log(ROM_MEMORY);
 			};
 
 			reader.onerror = function() {
