@@ -551,7 +551,7 @@ function updatePixelColors()
 
 function update_pixel(pixel_data)
 {
-	pixels_data.forEach(function() {
+	pixel_data.forEach(function() {
 		let pixel_idx = pixel_data[0];
 		let pixel_rgb = pixel_data[1];
 		
