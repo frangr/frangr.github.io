@@ -551,9 +551,10 @@ function updatePixelColors()
 
 function update_pixel(pixel_data)
 {
+	let cnt = 0;
 	pixel_data.forEach(function() {
-		let pixel_idx = pixel_data[0];
-		let pixel_rgb = pixel_data[1];
+		let pixel_idx = pixel_data[cnt][0];
+		let pixel_rgb = pixel_data[cnt++][1];
 		
 		let red = (pixel_rgb >> 16) & 0xFF;
 		let green = (pixel_rgb >> 8) & 0xFF;
