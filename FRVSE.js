@@ -601,7 +601,8 @@ function init_frvse()
 		return 1;
 	}
 	
-	ROM_MEMORY = new Uint8Array(100)
+	console.log(ROM_MEMORY)
+	
 	RAM_MEMORY = new Uint8Array(RAM_SIZE)
 	MM_MEMORY = new Uint8Array(100)
 	VRAM_MEMORY = new Uint32Array(W*H)
