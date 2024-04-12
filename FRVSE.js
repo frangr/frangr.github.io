@@ -517,8 +517,12 @@ const frvse_state_void = 0
 const frvse_state_stop = 1
 const frvse_state_run = 2
 const frvse_state_step = 3
-let FRVSE_state = frvse_state_void
+enum frvse_state {state_void, state_run, state_stop, state_step}
+let FRVSE_current_state = frvse_state.state_void
 
+function FRVSE_set_state(state){
+	FRVSE_current_state = state;
+}
 
 function createPixelMap() 
 {
@@ -550,7 +554,7 @@ function start_frvse()
 	createPixelMap();
 	updatePixelColors();
 	
-	FRVSE_state = frvse_state_run;
+	FRVSE_set_state(frvse_state.state_run);
 	
 	ROM_MEMORY = new Uint8Array(100)
 	RAM_MEMORY = new Uint8Array(RAM_SIZE)
