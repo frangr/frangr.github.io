@@ -56,24 +56,15 @@
 	</div>
 
     <script>
-	
-	/*
-	  const fileSelector = document.getElementById('fileid');
-	  fileSelector.addEventListener('change', (event) => {
-		const file = event.target.files;
-		const reader = new FileReader();
-
-		reader.onload = function(event) {
-			const arrayBuffer = event.target.result;
-			const byteArray = new Uint8Array(arrayBuffer);
-			console.log(byteArray);
-		};
-	  });
-	*/
-	
 	let fileInput = document.getElementById('fileid');
 	fileInput.addEventListener('change', (event) => {
 		let file = event.target.files[0];
+
+		if(file.size > ROM_MEMORY_SIZE)
+		{
+			ERROR_MESSAGE = "ERROR: ROM file uploaded is too big. limit is "+ROM_MEMORY_SIZE+ " bytes, file uploaded is "+file.size+" bytes";
+			return;
+		}
 
 		if (file) {
 			let reader = new FileReader();
@@ -81,7 +72,6 @@
 			reader.onload = function(event) {
 				let arrayBuffer = event.target.result;
 				let uint8Array = new Uint8Array(arrayBuffer);
-				// You can now use the uint8Array as needed
 				ROM_MEMORY = uint8Array;
 			};
 
