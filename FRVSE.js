@@ -579,8 +579,11 @@ function fill_screen()
 let run_FRVSE = false;
 function FRVSE_main()
 {
-	if(run_FRVSE)
+	while(run_FRVSE)
+	{
+		console.log("run");
 		riscv32I_core()
+	}
 }
 
 let init_lock = false
