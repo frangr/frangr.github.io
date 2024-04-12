@@ -561,7 +561,6 @@ function update_pixel(pixel_data)
 		let blue = pixel_rgb & 0xFF;
 		
 		let pixel = document.getElementById("px"+pixel_idx);
-		console.log("PX: "+pixel_idx)
 		pixel.style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
 	});
 }
@@ -569,7 +568,7 @@ function update_pixel(pixel_data)
 let pixel_cnt = 0;
 function fill_screen()
 {
-	update_pixel([pixel_cnt, 0x00FFFFFF])
+	update_pixel([[pixel_cnt, 0x00FFFFFF]])
 	pixel_cnt++;
 	if(pixel_cnt == W*H)
 		pixel_cnt = 0;
