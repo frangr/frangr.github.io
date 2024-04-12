@@ -575,12 +575,19 @@ function fill_screen()
 	setTimeout(fill_screen, 200);
 }
 
-function start_frvse()
+//main function that executes FRVSE emulator
+let run_FRVSE = false;
+function FRVSE_main()
 {
-	if (FRVSE_current_state != frvse_state_void)
+	if(run_FRVSE)
+		riscv32I_core()
+}
+
+let init_lock = false
+function init_frvse()
+{
+	if (init_lock)
 		return;
-	
-	console.log("FRVSE START");
 	
 	FRVSE_set_state(frvse_state_run);
 	
@@ -591,23 +598,38 @@ function start_frvse()
 	CHARACTER_MEMORY = new Uint32Array(CHARACTER_MEMORY_SIZE)
 	
 	createPixelMap();
-	updatePixelColors();
 	
-	let pixel_arr = [
-	[0, 0x00FFFFFF],
-	[1, 0x00FFFFFF],
-	[2, 0x00FFFFFF],
-	[3, 0x00FFFFFF],
-	[4, 0x00FFFFFF],
-	[5, 0x00FFFFFF],
-	[6, 0x00FFFFFF],
-	[7, 0x00FFFFFF],
-	[8, 0x00FFFFFF],
-	[9, 0x00FFFFFF]
-	];
+	init_lock = true;
+}
+
+function start_frvse()
+{
+	if (FRVSE_current_state != frvse_state_void)
+		return;
 	
-	//fill_screen()
-	//update_pixel(pixel_arr)
+	init_frvse()
+	
+	//start emulator
+	run_FRVSE = true;
+	FRVSE_main();
+}
+
+function stop_frvse()
+{
+	if (FRVSE_current_state != frvse_state_run)
+		return;
+	
+	run_FRVSE = false;
+}
+
+function step_FRVSE()
+{
+	if (FRVSE_current_state == frvse_state_run)
+		return;
+	
+	init_frvse()
+	
+	riscv32I_core()
 }
 
 function compose_array(arr)
@@ -688,6 +710,8 @@ function reset_routine()
 
 	reg = new Uint32Array(32) //RESET GP REGISTERS
 }
+
+//INSTRUCTION FUNCTIONS
 function lui() //#
 {
     if(RD())
@@ -1318,6 +1342,7 @@ function send_to_chipset(addr, data, rw, sz)
     }
 }
 
+//EMULATOR FUNCTION
 function riscv32I_core()
 {
     if(reset_pin)
