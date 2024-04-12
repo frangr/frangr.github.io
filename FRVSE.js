@@ -581,19 +581,21 @@ function start_frvse()
 	
 	createPixelMap();
 	updatePixelColors();
-	update_pixel([0, 0x00FFFFFF]);
-	update_pixel([1, 0x00FFFFFF]);
-	update_pixel([2, 0x00FFFFFF]);
-	update_pixel([3, 0x00FFFFFF]);
-	update_pixel([4, 0x00FFFFFF]);
-	update_pixel([5, 0x00FFFFFF]);
-	update_pixel([6, 0x00FFFFFF]);
-	update_pixel([7, 0x00FFFFFF]);
-	update_pixel([320, 0x00FFFFFF]);
-	update_pixel([321, 0x00FFFFFF]);
-	update_pixel([322, 0x00FFFFFF]);
-	update_pixel([333, 0x00FFFFFF]);
-	update_pixel([334, 0x00FFFFFF]);
+	
+	let pixel_arr = [
+	[0, 0x00FFFFFF],
+	[1, 0x00FFFFFF],
+	[2, 0x00FFFFFF],
+	[3, 0x00FFFFFF],
+	[4, 0x00FFFFFF],
+	[5, 0x00FFFFFF],
+	[6, 0x00FFFFFF],
+	[7, 0x00FFFFFF],
+	[8, 0x00FFFFFF],
+	[9, 0x00FFFFFF]
+	];
+	
+	update_pixel(pixel_arr)
 }
 
 function compose_array(arr)
