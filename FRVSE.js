@@ -513,12 +513,32 @@ let pc = null;
 let reg = new Uint32Array(32) //SYSTEM REGISTERS
 let inst_arr = new Uint8Array(4) //INSTRUCTION REGISTER
 let reset_pin = 0
-
 const frvse_state_void = 0
 const frvse_state_stop = 1
 const frvse_state_run = 2
 const frvse_state_step = 3
 let FRVSE_state = frvse_state_void
+
+
+function createPixelMap() 
+{
+	var pixelMap = document.getElementById("pixelMap");
+	for (var i = 0; i < 320 * 200; i++) {
+		var pixel = document.createElement("div");
+		pixel.className = "pixel";
+		pixelMap.appendChild(pixel);
+	}
+	updatePixelColors(); // Initially fill colors
+}
+
+
+function updatePixelColors() 
+{
+	var pixels = document.querySelectorAll(".pixel");
+	pixels.forEach(function(pixel) {
+		pixel.style.backgroundColor = 0xFF000000;
+	});
+}
 
 function start_frvse()
 {
@@ -526,6 +546,9 @@ function start_frvse()
 		return;
 	
 	console.log("FRVSE START");
+	
+	createPixelMap();
+	updatePixelColors();
 	
 	FRVSE_state = frvse_state_run;
 	
