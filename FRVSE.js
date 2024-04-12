@@ -517,7 +517,7 @@ const frvse_state_void = "void"
 const frvse_state_stop = "stop"
 const frvse_state_run = "run"
 const frvse_state_step = "step"
-let FRVSE_current_state = frvse_state.state_void
+let FRVSE_current_state = frvse_state_void
 
 function FRVSE_set_state(state){
 	FRVSE_current_state = state;
