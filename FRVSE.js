@@ -564,6 +564,13 @@ function update_pixel(pixel_data)
 	});
 }
 
+function fill_screen()
+{
+	for (var i = 0; i < 320 * 200; i++) {
+		update_pixel([i, 0x00FFFFFF])
+	}
+}
+
 function start_frvse()
 {
 	if (FRVSE_current_state != frvse_state_void)
