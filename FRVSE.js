@@ -604,9 +604,10 @@ function init_frvse()
 
 function start_frvse()
 {
-	if (FRVSE_current_state != frvse_state_void)
+	if (FRVSE_current_state == frvse_state_run)
 		return;
 	
+	FRVSE_current_state = frvse_state_run;
 	init_frvse()
 	
 	//start emulator
@@ -619,6 +620,7 @@ function stop_frvse()
 	if (FRVSE_current_state != frvse_state_run)
 		return;
 	
+	FRVSE_current_state = frvse_state_stop;
 	run_FRVSE = false;
 }
 
@@ -628,7 +630,7 @@ function step_FRVSE()
 		return;
 	
 	init_frvse()
-	
+		FRVSE_current_state = frvse_state_step;
 	riscv32I_core()
 }
 
