@@ -565,11 +565,14 @@ function update_pixel(pixel_data)
 	});
 }
 
+let pixel_cnt = 0;
 function fill_screen()
 {
-	for (var i = 0; i < 320 * 200; i++) {
-		update_pixel([i, 0x00FFFFFF])
-	}
+	update_pixel([pixel_cnt, 0x00FFFFFF])
+	pixel_cnt++;
+	if(pixel_cnt == W*H)
+		pixel_cnt = 0;
+	setTimeout(fill_screen, 200);
 }
 
 function start_frvse()
@@ -603,7 +606,8 @@ function start_frvse()
 	[9, 0x00FFFFFF]
 	];
 	
-	update_pixel(pixel_arr)
+	fill_screen()
+	//update_pixel(pixel_arr)
 }
 
 function compose_array(arr)
