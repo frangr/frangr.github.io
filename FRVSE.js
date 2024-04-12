@@ -538,8 +538,14 @@ function createPixelMap()
 function updatePixelColors() 
 {
 	var pixels = document.querySelectorAll(".pixel");
+	let cnt = 0
 	pixels.forEach(function(pixel) {
-		pixel.style.backgroundColor = "rgb(255, 0, 0)";
+		let rgb_cell = VRAM_MEMORY[cnt]
+		let red = (rgb_cell >> 16) & 0xFF;
+		let green = (rgb_cell >> 8) & 0xFF;
+		let blue = rgb_cell & 0xFF;
+		cnt++;
+		pixel.style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
 	});
 }
 
@@ -553,7 +559,7 @@ function start_frvse()
 	createPixelMap();
 	updatePixelColors();
 	
-	FRVSE_set_state(frvse_state.state_run);
+	FRVSE_set_state(frvse_state_run);
 	
 	ROM_MEMORY = new Uint8Array(100)
 	RAM_MEMORY = new Uint8Array(RAM_SIZE)
