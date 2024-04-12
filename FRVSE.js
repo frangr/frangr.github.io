@@ -525,6 +525,8 @@ function start_frvse()
 	if (FRVSE_state != frvse_state_void)
 		return;
 	
+	console.log("FRVSE START");
+	
 	FRVSE_state = frvse_state_run;
 	
 	ROM_MEMORY = new Uint8Array(100)
