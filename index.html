@@ -27,7 +27,8 @@
 		<button type="button" onclick="stop_frvse()">Stop FRVSE</button>
 		<button type="button" onclick="step_frvse()">Step FRVSE</button>
 		<button type="button" onclick="reset_frvse()">Reset FRVSE</button>
-		<input type="file" id="fileid" name="file"/>
+		<input type="file" id="rom_fileid" name="rom_file"/>
+		<input type="file" id="mm_fileid" name="mm_file"/>
 	</div>
 
 	<div id="register_table">
@@ -56,7 +57,7 @@
 	</div>
 
     <script>
-	let fileInput = document.getElementById('fileid');
+	let fileInput = document.getElementById('rom_fileid');
 	fileInput.addEventListener('change', (event) => {
 		let file = event.target.files[0];
 
