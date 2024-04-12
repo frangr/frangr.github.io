@@ -59,8 +59,14 @@
 	
 	  const fileSelector = document.getElementById('fileid');
 	  fileSelector.addEventListener('change', (event) => {
-		const fileList = event.target.files;
-		console.log(fileList);
+		const file = event.target.files;
+		const reader = new FileReader();
+
+		reader.onload = function(event) {
+			const arrayBuffer = event.target.result;
+			const byteArray = new Uint8Array(arrayBuffer);
+			console.log(byteArray);
+		};
 	  });
 	
 		/*
