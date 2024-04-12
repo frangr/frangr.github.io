@@ -518,19 +518,7 @@ const frvse_state_stop = "stop"
 const frvse_state_run = "run"
 const frvse_state_step = "step"
 let FRVSE_current_state = frvse_state_void
-
-document.getElementById('file').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = function(event) {
-        const arrayBuffer = event.target.result;
-        const byteArray = new Uint8Array(arrayBuffer);
-        console.log(byteArray);
-    };
-
-    reader.readAsArrayBuffer(file);
-});
+let ERROR_MESSAGE = ""
 
 function FRVSE_set_state(state){
 	FRVSE_current_state = state;
@@ -607,6 +595,12 @@ function init_frvse()
 	
 	FRVSE_set_state(frvse_state_run);
 	
+	if (RAM_MEMORY == null)
+	{
+		ERROR_MESSAGE = "ERROR: ROM MEMORY FILE NOT ADDED.";
+		return 1;
+	}
+	
 	ROM_MEMORY = new Uint8Array(100)
 	RAM_MEMORY = new Uint8Array(RAM_SIZE)
 	MM_MEMORY = new Uint8Array(100)
@@ -624,7 +618,9 @@ function start_frvse()
 		return;
 	
 	FRVSE_current_state = frvse_state_run;
-	init_frvse()
+	
+	if(init_frvse() == 1)
+		return;
 	
 	//start emulator
 	run_FRVSE = true;
@@ -645,8 +641,10 @@ function step_FRVSE()
 	if (FRVSE_current_state == frvse_state_run)
 		return;
 	
-	init_frvse()
-		FRVSE_current_state = frvse_state_step;
+	if(init_frvse() == 1)
+		return;
+	
+	FRVSE_current_state = frvse_state_step;
 	riscv32I_core()
 }
 

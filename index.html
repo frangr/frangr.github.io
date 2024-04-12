@@ -27,7 +27,7 @@
 		<button type="button" onclick="stop_frvse()">Stop FRVSE</button>
 		<button type="button" onclick="step_frvse()">Step FRVSE</button>
 		<button type="button" onclick="reset_frvse()">Reset FRVSE</button>
-		<input type="file" id="file" name="file"/>
+		<input type="file" id="fileid" name="file"/>
 	</div>
 
 	<div id="register_table">
@@ -56,6 +56,12 @@
 	</div>
 
     <script>
+	
+	  const fileSelector = document.getElementById('fileid');
+	  fileSelector.addEventListener('change', (event) => {
+		const fileList = event.target.files;
+		console.log(fileList);
+	  });
 	
 		/*
         // Function to generate a random color in RGB format
