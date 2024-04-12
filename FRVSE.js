@@ -529,6 +529,7 @@ function createPixelMap()
 	for (var i = 0; i < 320 * 200; i++) {
 		var pixel = document.createElement("div");
 		pixel.className = "pixel";
+		pixel.id = i;
 		pixelMap.appendChild(pixel);
 	}
 	updatePixelColors(); // Initially fill colors
