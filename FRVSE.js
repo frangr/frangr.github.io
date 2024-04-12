@@ -529,12 +529,11 @@ function createPixelMap()
 	for (var i = 0; i < 320 * 200; i++) {
 		var pixel = document.createElement("div");
 		pixel.className = "pixel";
-		pixel.id = i;
+		pixel.id = "px"+i;
 		pixelMap.appendChild(pixel);
 	}
 	updatePixelColors(); // Initially fill colors
 }
-
 
 function updatePixelColors() 
 {
@@ -546,6 +545,21 @@ function updatePixelColors()
 		let green = (rgb_cell >> 8) & 0xFF;
 		let blue = rgb_cell & 0xFF;
 		cnt++;
+		pixel.style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
+	});
+}
+
+function update_pixel(pixel_data)
+{
+	pixels_data.forEach(function() {
+		let pixel_idx = pixel_data[0];
+		let pixel_rgb = pixel_data[1];
+		
+		let red = (pixel_rgb >> 16) & 0xFF;
+		let green = (pixel_rgb >> 8) & 0xFF;
+		let blue = pixel_rgb & 0xFF;
+		
+		let pixel = document.getElementById("px"+pixel_idx);
 		pixel.style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
 	});
 }
