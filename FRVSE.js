@@ -513,11 +513,10 @@ let pc = null;
 let reg = new Uint32Array(32) //SYSTEM REGISTERS
 let inst_arr = new Uint8Array(4) //INSTRUCTION REGISTER
 let reset_pin = 0
-const frvse_state_void = 0
-const frvse_state_stop = 1
-const frvse_state_run = 2
-const frvse_state_step = 3
-enum frvse_state {state_void, state_run, state_stop, state_step}
+const frvse_state_void = "void"
+const frvse_state_stop = "stop"
+const frvse_state_run = "run"
+const frvse_state_step = "step"
 let FRVSE_current_state = frvse_state.state_void
 
 function FRVSE_set_state(state){
