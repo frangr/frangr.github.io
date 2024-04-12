@@ -536,7 +536,7 @@ function updatePixelColors()
 {
 	var pixels = document.querySelectorAll(".pixel");
 	pixels.forEach(function(pixel) {
-		pixel.style.backgroundColor = 0xFF000000;
+		pixel.style.backgroundColor = "rgb(255, 0, 0)";
 	});
 }
 
