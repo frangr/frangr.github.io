@@ -514,13 +514,19 @@ let reg = new Uint32Array(32) //SYSTEM REGISTERS
 let inst_arr = new Uint8Array(4) //INSTRUCTION REGISTER
 let reset_pin = 0
 
-function functest(p1)
-{
-	console.log("test: "+p1);
-}
+const frvse_state_void = 0
+const frvse_state_stop = 1
+const frvse_state_run = 2
+const frvse_state_step = 3
+let FRVSE_state = frvse_state_void
 
 function start_frvse()
 {
+	if (FRVSE_state != frvse_state_void)
+		return;
+	
+	FRVSE_state = frvse_state_run;
+	
 	ROM_MEMORY = new Uint8Array(100)
 	RAM_MEMORY = new Uint8Array(RAM_SIZE)
 	MM_MEMORY = new Uint8Array(100)
