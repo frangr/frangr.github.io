@@ -557,9 +557,6 @@ function start_frvse()
 	
 	console.log("FRVSE START");
 	
-	createPixelMap();
-	updatePixelColors();
-	
 	FRVSE_set_state(frvse_state_run);
 	
 	ROM_MEMORY = new Uint8Array(100)
@@ -567,6 +564,9 @@ function start_frvse()
 	MM_MEMORY = new Uint8Array(100)
 	VRAM_MEMORY = new Uint32Array(W*H)
 	CHARACTER_MEMORY = new Uint32Array(CHARACTER_MEMORY_SIZE)
+	
+	createPixelMap();
+	updatePixelColors();
 }
 
 function compose_array(arr)
