@@ -57,6 +57,7 @@
 
     <script>
 	
+	/*
 	  const fileSelector = document.getElementById('fileid');
 	  fileSelector.addEventListener('change', (event) => {
 		const file = event.target.files;
@@ -68,6 +69,29 @@
 			console.log(byteArray);
 		};
 	  });
+	*/
+	
+	let fileInput = document.getElementById('fileid');
+	fileInput.addEventListener('change', (event) => {
+		let file = event.target.files[0];
+
+		if (file) {
+			let reader = new FileReader();
+
+			reader.onload = function(event) {
+				let arrayBuffer = event.target.result;
+				let uint8Array = new Uint8Array(arrayBuffer);
+				// You can now use the uint8Array as needed
+				console.log(uint8Array);
+			};
+
+			reader.onerror = function() {
+				console.error('Error reading file:', reader.error);
+			};
+
+			reader.readAsArrayBuffer(file);
+		}
+	});
 	
 		/*
         // Function to generate a random color in RGB format
