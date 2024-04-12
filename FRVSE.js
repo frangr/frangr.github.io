@@ -561,6 +561,7 @@ function update_pixel(pixel_data)
 		let blue = pixel_rgb & 0xFF;
 		
 		let pixel = document.getElementById("px"+pixel_idx);
+		console.log("PX: "+pixel_idx)
 		pixel.style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
 	});
 }
