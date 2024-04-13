@@ -1286,7 +1286,6 @@ function get_char_array(charc)
 
 function draw_character(addr, color)
 {
-	throw new Error("DRAW CHAR");
 	/*
 	CHARACTER STRING
 	
@@ -1413,6 +1412,7 @@ function send_to_chipset(addr, data, rw, sz)
 		return
 	}
 
+	console.log(addr)
     if(addr >= VIDEO_MEMORY_START_ADDRESS && addr <= (VIDEO_MEMORY_START_ADDRESS + VIDEO_MEMORY_SIZE) )
     {
         if(sz != FOUR_BYTE)
