@@ -655,7 +655,7 @@ function init_frvse()
 	for (i in html_reg_id) 
 	{
 		html_reg_id[i] = document.getElementById("x"+i+"id");
-		console.log("reg: "+html_reg_id[i])
+		console.log("reg: "+"x"+i+"id")
 	}
 	
 	init_lock = true;
