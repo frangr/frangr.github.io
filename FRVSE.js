@@ -1343,7 +1343,7 @@ function send_to_chipset(addr, data, rw, sz)
     else if(addr >= RAM_START_ADDRESS && addr <= (RAM_START_ADDRESS+RAM_SIZE)-1)
 	{
 		memory_dev = RAM_MEMORY
-		addr_offset = RAM_START_ADDRESS;
+		addr_offset = addr - RAM_START_ADDRESS;
 	}
     else if(addr >= MM_START_ADDRESS && addr <= (MM_START_ADDRESS+MM_SIZE)-1)
 	{
