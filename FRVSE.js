@@ -651,7 +651,7 @@ function init_frvse()
 	createPixelMap();
 	
 	html_pc_id = document.getElementById("pcid");
-	console.log("html: "+html_pc_id;
+	console.log("html: "+html_pc_id);
 	
 	for (i in html_reg_id) 
 	{
