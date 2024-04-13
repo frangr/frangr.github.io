@@ -9,7 +9,7 @@
         #pixelMap {
             width: 320px;
             height: 200px;
-            border: 1px solid black;
+            border: 3px solid black;
         }
         .pixel {
             width: 1px;
@@ -20,7 +20,7 @@
 </head>
 <body>
 	<head>FRVSE - Franto RISC-V Simple Emulator (RISCV32IM)</head>
-	
+	<br>
 	<a href="">See how to use FRVSE</a>.
 	
 	<div id="screenid">
@@ -29,7 +29,9 @@
 		<button type="button" onclick="stop_frvse()">Stop FRVSE</button>
 		<button type="button" onclick="step_frvse()">Step FRVSE</button>
 		<button type="button" onclick="reset_frvse()">Reset FRVSE</button>
+		<br>
 		<input type="file" id="rom_fileid" name="rom_file"/>
+		<br>
 		<input type="file" id="mm_fileid" name="mm_file"/>
 	</div>
 
@@ -41,7 +43,7 @@
 			</tr>
 			<tr>
 				<td>PC</td>
-				<td>0x0</td>
+				<td id="pcid">0x0</td>
 			</tr>
 			<tr>
 				<th>Name</th>
@@ -51,9 +53,99 @@
 			</tr>
 			<tr>
 				<td>x0 zero</td>
-				<td>0x0</td>
+				<td id="x0id">0x0</td>
+				<td>x16 a6</td>
+				<td id="x16id">0x0</td>
+			</tr>
+			<tr>
 				<td>x1 ra</td>
-				<td>0x0</td>
+				<td id="x1id">0x0</td>
+				<td>x17 a7</td>
+				<td id="x17id">0x0</td>
+			</tr>
+			<tr>
+				<td>x2 sp</td>
+				<td id="x2id">0x0</td>
+				<td>x18 s2</td>
+				<td id="x18id">0x0</td>
+			</tr>
+			<tr>
+				<td>x3 gp</td>
+				<td id="x3id">0x0</td>
+				<td>x19 s3</td>
+				<td id="x19id">0x0</td>
+			</tr>
+			<tr>
+				<td>x4 tp</td>
+				<td id="x4id">0x0</td>
+				<td>x20 s4</td>
+				<td id="x20id">0x0</td>
+			</tr>
+			<tr>
+				<td>x5 t0</td>
+				<td id="x5id">0x0</td>
+				<td>x21 s5</td>
+				<td id="x21id">0x0</td>
+			</tr>
+			<tr>
+				<td>x6 t1</td>
+				<td id="x6id">0x0</td>
+				<td>x22 s6</td>
+				<td id="x22id">0x0</td>
+			</tr>
+			<tr>
+				<td>x7 t2</td>
+				<td id="x7id">0x0</td>
+				<td>x23 s7</td>
+				<td id="x23id">0x0</td>
+			</tr>
+			<tr>
+				<td>x8 s0/fp</td>
+				<td id="x8id">0x0</td>
+				<td>x24 s8</td>
+				<td id="x24id">0x0</td>
+			</tr>
+			<tr>
+				<td>x9 s1</td>
+				<td id="x9id">0x0</td>
+				<td>x25 s9</td>
+				<td id="x25id">0x0</td>
+			</tr>
+			<tr>
+				<td>x10 a0</td>
+				<td id="x10id">0x0</td>
+				<td>x26 s10</td>
+				<td id="x26id">0x0</td>
+			</tr>
+			<tr>
+				<td>x11 a1</td>
+				<td id="x11id">0x0</td>
+				<td>x27 s11</td>
+				<td id="x27id">0x0</td>
+			</tr>
+			<tr>
+				<td>x12 a2</td>
+				<td id="x12id">0x0</td>
+				<td>x28 t3</td>
+				<td id="x28id">0x0</td>
+			</tr>
+			<tr>
+				<td>x13 a3</td>
+				<td id="x13id">0x0</td>
+				<td>x29 t4</td>
+				<td id="x29id">0x0</td>
+			</tr>
+			<tr>
+				<td>x14 a4</td>
+				<td id="x14id">0x0</td>
+				<td>x30 t5</td>
+				<td id="x30id">0x0</td>
+			</tr>
+			<tr>
+				<td>x15 a5</td>
+				<td id="x15id">0x0</td>
+				<td>x31 t6</td>
+				<td id="x31id">0x0</td>
 			</tr>
 		</table>
 	</div>

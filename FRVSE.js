@@ -1704,6 +1704,9 @@ function riscv32I_core()
             return;
     }
 
+	let pcreg = document.getElementById("pcid");
+	pcreg = "FF";
+
 	//add_to_array(pc, 4)
     pc += 4;
 }
