@@ -619,7 +619,6 @@ function FRVSE_main()
 {
 	while(run_FRVSE)
 	{
-		console.log("run");
 		riscv32I_core()
 	}
 }
@@ -768,7 +767,6 @@ function reset_routine()
 //INSTRUCTION FUNCTIONS
 function lui() //#
 {
-	console.log("LUI")
     if(RD())
         reg[RD()] = inst & 0xFFFFF000;
 }
@@ -1429,6 +1427,11 @@ function riscv32I_core()
 
 	inst = compose_array(inst_arr);
 
+	console.log(inst)
+
+	if(pc == 0x2C)
+		throw new Error("END INST");
+
     switch(inst & 0x7F)
     {
         case LUI:
@@ -1656,7 +1659,6 @@ function riscv32I_core()
                     //eti_handler(MCAUSE_EBREAK);
                     return;
                 case MRET:
-					throw new Error("MRET: "+pc);
                     //pc = csr.mepc;
                     return;
                 case WFI:
