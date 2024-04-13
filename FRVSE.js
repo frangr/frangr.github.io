@@ -351,16 +351,16 @@ const CHARACTER_MEMORY_SIZE = 1000; //16000
 const ROM_MEMORY_START_ADDRESS = 0x0;
 const ROM_MEMORY_SIZE = 0x2DC6C0; //3MB
 
-const RAM_START_ADDRESS = ROM_MEMORY_START_ADDRESS + ROM_MEMORY_SIZE;
+const RAM_START_ADDRESS = ROM_MEMORY_START_ADDRESS + ROM_MEMORY_SIZE; //0x2DC6C0
 const RAM_SIZE = 0x4C4B40; //5MB
 
-const MM_START_ADDRESS = RAM_START_ADDRESS + RAM_SIZE;
+const MM_START_ADDRESS = RAM_START_ADDRESS + RAM_SIZE; //0x7A1200
 const MM_SIZE = 0x7A1200; //8MB
 
-const VIDEO_MEMORY_START_ADDRESS = MM_START_ADDRESS + MM_SIZE;
+const VIDEO_MEMORY_START_ADDRESS = MM_START_ADDRESS + MM_SIZE; //0xF42400
 const VIDEO_MEMORY_SIZE = 0x3E800;
 
-const TEXT_MODE_MEMORY_START_ADDRESS = VIDEO_MEMORY_START_ADDRESS + VIDEO_MEMORY_SIZE;
+const TEXT_MODE_MEMORY_START_ADDRESS = VIDEO_MEMORY_START_ADDRESS + VIDEO_MEMORY_SIZE; //0xF80C00
 const TEXT_MODE_MEMORY_SIZE = 0xFA0; //4000 bytes (1000 4-byte word for each character)
 
 /**----------------------------------------**/
@@ -1271,14 +1271,14 @@ const CHAR_BLOCK = 1
 const CHAR_BOX = 2
 function get_char_array(charc)
 {
-	switch(charch)
+	switch(charch >> 8)
 	{
 		case CHAR_BASIC:
-			return font8x8_basic;
+			return font8x8_basic[charch & 0xFF];
 		case CHAR_BLOCK:
-			return font8x8_block;
+			return font8x8_block[charch & 0xFF];
 		case CHAR_BOX:
-			return font8x8_box;
+			return font8x8_box[charch & 0xFF];
 	}
 	
 	return null;
@@ -1286,10 +1286,21 @@ function get_char_array(charc)
 
 function draw_character(addr, color)
 {
+	/*
+	CHARACTER STRING
+	
+	1  2  3  4
+	00-00-00-00
+	
+	1 byte(MSB): font
+	2 byte: ascii character
+	3 byte: char color
+	4 byte(LSB): background color
+	*/
     const CHAR_COLOR = color & 0xFF;
     const BACKGROUND_COLOR = ((color >> 8) & 0xFF);
-    const CHARACTER = ((color >> 24) | ((color >> 8) & 0xFF00));
-    const MODE_ALPHA_COLOR = 0xF8
+    const CHARACTER = color >> 16;
+    const MODE_ALPHA_COLOR = 0xF8;
 
     if((addr/4) > 999)
         return;
@@ -1427,7 +1438,7 @@ function riscv32I_core()
 
 	inst = compose_array(inst_arr);
 
-	console.log(inst)
+	console.log(inst_arr)
 
 	if(pc == 0x2C)
 		throw new Error("END INST");
