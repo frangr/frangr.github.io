@@ -327,9 +327,16 @@ const VGA_RGB_table = [
 const MAX_INTERRUPT_NUMBER = 8;
 const MAX_NMI_NUMBER = 4;
 
-/**----------------------------------------**/
+/*
 const ROM_MEMORY_START_ADDRESS = 0x0;
 const ROM_MEMORY_SIZE = 0x4C4B40;
+
+const RAM_START_ADDRESS = 0x503342;
+const RAM_SIZE = 0x2DC6C0;
+
+const MASS_MEMORY_ADDRESS_PORT_ADDRESS = 0x7DFA0A;
+const MASS_MEMORY_DATA_PORT_ADDRESS = 0x7DFA0F;
+const MASS_MEMORY_CONTROL_REGISTER_ADDRESS = 0x7DFA14;
 
 const VIDEO_MEMORY_START_ADDRESS = 0x4C4B41;
 const VIDEO_MEMORY_SIZE = 0x3E800;
@@ -339,13 +346,43 @@ const TEXT_MODE_MEMORY_START_ADDRESS = 0x7DFA3D;
 const TEXT_MODE_MEMORY_SIZE = 0xFA0;
 
 const CHARACTER_MEMORY_SIZE = 1000; //16000
+*/
 
-const RAM_START_ADDRESS = 0x503342;
-const RAM_SIZE = 0x2DC6C0;
+const ROM_MEMORY_START_ADDRESS = 0x0;
+const ROM_MEMORY_SIZE = 0x4C4B40;
 
-const MASS_MEMORY_ADDRESS_PORT_ADDRESS = 0x7DFA0A;
-const MASS_MEMORY_DATA_PORT_ADDRESS = 0x7DFA0F;
-const MASS_MEMORY_CONTROL_REGISTER_ADDRESS = 0x7DFA14;
+const RAM_START_ADDRESS = ROM_MEMORY_START_ADDRESS + ROM_MEMORY_SIZE;
+const RAM_SIZE = 0x7A1200;
+
+const MM_START_ADDRESS = RAM_START_ADDRESS + RAM_SIZE;
+const MM_SIZE = 0x7A1200;
+
+const VIDEO_MEMORY_START_ADDRESS = MM_START_ADDRESS + MM_SIZE;
+const VIDEO_MEMORY_SIZE = 0x3E800;
+
+const TEXT_MODE_MEMORY_START_ADDRESS = VIDEO_MEMORY_START_ADDRESS + VIDEO_MEMORY_SIZE;
+const TEXT_MODE_MEMORY_SIZE = 0xFA0;
+
+/**----------------------------------------**/
+/*
+const ROM_MEMORY_START_ADDRESS = 0x0;
+const ROM_MEMORY_SIZE = 0x4C4B40;
+
+const RAM_START_ADDRESS = 0x4C4B40;
+const RAM_SIZE = 0x7A1200;
+
+const MM_START_ADDRESS = 0x7A1200;
+const MM_SIZE = 0x7A1200;
+
+const VIDEO_MEMORY_START_ADDRESS = 0x7A120C;
+const VIDEO_MEMORY_SIZE = 0x3E800;
+
+const TEXT_MODE_MEMORY_START_ADDRESS = 0x7DFA0C;
+const TEXT_MODE_MEMORY_SIZE = 0xFA0;
+
+const CHARACTER_MEMORY_SIZE = 1000;
+*/
+/**----------------------------------------**/
 
 // HDD_COMMANDS
 const WRITE_ONE_BYTE = 0;
@@ -606,7 +643,7 @@ function init_frvse()
 	RAM_MEMORY = new Uint8Array(RAM_SIZE)
 	MM_MEMORY = new Uint8Array(100)
 	VRAM_MEMORY = new Uint32Array(W*H)
-	CHARACTER_MEMORY = new Uint32Array(CHARACTER_MEMORY_SIZE)
+	CHARACTER_MEMORY = new Uint32Array(TEXT_MODE_MEMORY_SIZE/4)
 	
 	createPixelMap();
 	
@@ -1332,7 +1369,7 @@ function send_to_chipset(addr, data, rw, sz)
 	
 	let addr_offset = 0
 	
-    if(addr >= ROM_MEMORY_START_ADDRESS && addr <= (ROM_MEMORY_START_ADDRESS + ROM_MEMORY_SIZE) )
+    if(addr >= ROM_MEMORY_START_ADDRESS && addr <= (ROM_MEMORY_START_ADDRESS + ROM_MEMORY_SIZE)-1)
 	{
 		addr_offset = addr - ROM_MEMORY_START_ADDRESS;
 		
@@ -1619,7 +1656,7 @@ function riscv32I_core()
                     //eti_handler(MCAUSE_EBREAK);
                     return;
                 case MRET:
-                    pc = csr.mepc;
+                    //pc = csr.mepc;
                     return;
                 case WFI:
                     //CORE_LOG("WFI\n");
