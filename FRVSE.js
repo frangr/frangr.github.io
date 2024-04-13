@@ -324,7 +324,7 @@ const VGA_RGB_table = [
 ];
 
 let html_pc_id
-let html_reg_id
+let html_reg_id = []
 
 //"MACRO"
 const MAX_INTERRUPT_NUMBER = 8;
@@ -656,7 +656,7 @@ function init_frvse()
 	html_reg_id = new Uint8Array(32)
 	
 	for (i in html_reg_id) 
-		html_reg_id[i] = document.getElementById("x0id"); //"x"+i+"id"
+		html_reg_id.push(document.getElementById("x"+i+"id"));
 	
 	console.log("html2: "+html_reg_id);
 	
@@ -1719,7 +1719,7 @@ function riscv32I_core()
 
 	html_pc_id.textContent = pc
 	for (i in html_reg_id) 
-		html_reg_id[i].textContent = "FF"//reg[i]
+		html_reg_id[i].textContent = reg[i]
 
 	//add_to_array(pc, 4)
     pc += 4;
