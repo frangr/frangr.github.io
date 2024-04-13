@@ -1018,8 +1018,6 @@ function addi() //#
 	i32[1] += i32[0];
 
     reg[RD()] = i32[1];
-	
-	throw new Error("ADDI INSTRUCTION: "+pc);
 }
 function slti() //#
 {
@@ -1658,6 +1656,7 @@ function riscv32I_core()
                     //eti_handler(MCAUSE_EBREAK);
                     return;
                 case MRET:
+					throw new Error("MRET: "+pc);
                     //pc = csr.mepc;
                     return;
                 case WFI:
