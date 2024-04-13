@@ -1713,6 +1713,8 @@ function riscv32I_core()
     }
 
 	html_pc_id.textContent = pc
+	for (i in html_reg_id) 
+		html_reg_id[i].textContent = reg[i]
 
 	//add_to_array(pc, 4)
     pc += 4;
