@@ -1286,6 +1286,7 @@ function get_char_array(charc)
 
 function draw_character(addr, color)
 {
+	throw new Error("DRAW CHAR");
 	/*
 	CHARACTER STRING
 	
