@@ -1315,7 +1315,7 @@ function draw_character(addr, color)
 
     let clr = 0;
 
-    addr *= 2;
+    //addr *= 2;
 
     addr += ((addr/8)/40)* (320*7) ; //0xA00;
 
@@ -1349,12 +1349,12 @@ function text_mode_controller(addr, charac, rw)
 {
     if(rw == WRITE)
     {
-        CHARACTER_MEMORY[addr/4] = charac;
-        draw_character(addr, CHARACTER_MEMORY[addr/4]);
+        CHARACTER_MEMORY[addr] = charac;
+        draw_character(addr, CHARACTER_MEMORY[addr]);
     }
     else if(rw == READ)
     {
-        charac = CHARACTER_MEMORY[addr/4];
+        charac = CHARACTER_MEMORY[addr];
     }
 }
 
