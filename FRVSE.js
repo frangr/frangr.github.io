@@ -1413,7 +1413,7 @@ function send_to_chipset(addr, data, rw, sz)
 	}
 
 	console.log(addr)
-    if(addr >= VIDEO_MEMORY_START_ADDRESS && addr <= (VIDEO_MEMORY_START_ADDRESS + VIDEO_MEMORY_SIZE) )
+    if(addr >= VIDEO_MEMORY_START_ADDRESS && addr <= (VIDEO_MEMORY_START_ADDRESS + VIDEO_MEMORY_SIZE)-1)
     {
         if(sz != FOUR_BYTE)
             return; //FAULT
@@ -1422,7 +1422,7 @@ function send_to_chipset(addr, data, rw, sz)
         return;
     }
 
-    if(addr >= TEXT_MODE_MEMORY_START_ADDRESS && addr <= (TEXT_MODE_MEMORY_START_ADDRESS + TEXT_MODE_MEMORY_SIZE) )
+    if(addr >= TEXT_MODE_MEMORY_START_ADDRESS && addr <= (TEXT_MODE_MEMORY_START_ADDRESS + TEXT_MODE_MEMORY_SIZE)-1)
     {
         text_mode_controller(addr-TEXT_MODE_MEMORY_START_ADDRESS, data, rw);
         return;
