@@ -324,6 +324,7 @@ const VGA_RGB_table = [
 ];
 
 let html_pc_id
+let html_reg_id = new Uint8Array(32)
 
 //"MACRO"
 const MAX_INTERRUPT_NUMBER = 8;
@@ -650,6 +651,9 @@ function init_frvse()
 	createPixelMap();
 	
 	html_pc_id = document.getElementById("pcid");
+	
+	for (i in html_reg_id) 
+		html_reg_id[i] = document.getElementById("x"+i+"id");
 	
 	init_lock = true;
 }
