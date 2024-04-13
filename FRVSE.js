@@ -651,13 +651,12 @@ function init_frvse()
 	createPixelMap();
 	
 	html_pc_id = document.getElementById("pcid");
-	console.log("html: "+html_pc_id);
+	console.log("html1: "+html_pc_id);
 	
 	for (i in html_reg_id) 
-	{
 		html_reg_id[i] = document.getElementById("x"+i+"id");
-		console.log("reg: "+"x"+i+"id")
-	}
+	
+	console.log("html2: "+html_reg_id);
 	
 	init_lock = true;
 }
