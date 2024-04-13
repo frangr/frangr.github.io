@@ -324,7 +324,7 @@ const VGA_RGB_table = [
 ];
 
 let html_pc_id
-let html_reg_id = {}
+let html_reg_id = new Array(32)
 
 //"MACRO"
 const MAX_INTERRUPT_NUMBER = 8;
@@ -654,7 +654,7 @@ function init_frvse()
 	console.log("html1: "+html_pc_id);
 	
 	for (i in html_reg_id) 
-		html_reg_id.push(document.getElementById("x"+i+"id"));
+		html_reg_id[i] = document.getElementById("x"+i+"id");
 	
 	console.log("html2: "+html_reg_id);
 	
