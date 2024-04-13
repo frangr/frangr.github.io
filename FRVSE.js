@@ -731,6 +731,7 @@ function reset_routine()
 //INSTRUCTION FUNCTIONS
 function lui() //#
 {
+	console.log("LUI")
     if(RD())
         reg[RD()] = inst & 0xFFFFF000;
 }
