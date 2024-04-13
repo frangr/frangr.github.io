@@ -1442,7 +1442,7 @@ function riscv32I_core()
 
 	console.log(inst_arr)
 
-	if(pc == 0x2C)
+	if(pc == 0xb8)
 		throw new Error("END INST");
 
     switch(inst & 0x7F)
