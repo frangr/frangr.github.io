@@ -656,7 +656,7 @@ function init_frvse()
 	for (i in html_reg_id) 
 		html_reg_id.push(document.getElementById("x"+i+"id"));
 	
-	console.log("html2: "+html_reg_id);
+	console.log("html2: "+html_reg_id[0]);
 	
 	init_lock = true;
 }
