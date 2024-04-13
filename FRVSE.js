@@ -1018,6 +1018,8 @@ function addi() //#
 	i32[1] += i32[0];
 
     reg[RD()] = i32[1];
+	
+	throw new Error("ADDI INSTRUCTION: "+pc);
 }
 function slti() //#
 {
