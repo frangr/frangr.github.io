@@ -1717,6 +1717,7 @@ function riscv32I_core()
 	{
 		console.log("reg")
 		html_reg_id[i].textContent = reg[i]
+		console.log(reg[i])
 	}
 
 	//add_to_array(pc, 4)
