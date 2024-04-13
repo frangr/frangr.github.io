@@ -1269,7 +1269,7 @@ function mem_device_controller(device, addr, data, rw, sz)
 const CHAR_BASIC = 0
 const CHAR_BLOCK = 1
 const CHAR_BOX = 2
-function get_char_array(charc)
+function get_char_array(charch)
 {
 	switch(charch >> 8)
 	{
