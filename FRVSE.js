@@ -323,6 +323,8 @@ const VGA_RGB_table = [
     0x2c402c, 0x2c4030, 0x2c4034, 0x2c403c, 0x2c4040, 0x2c3c40, 0x2c3440, 0x2c3040, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000
 ];
 
+let html_pc_id = document.getElementById("pcid");
+
 //"MACRO"
 const MAX_INTERRUPT_NUMBER = 8;
 const MAX_NMI_NUMBER = 4;
@@ -1704,8 +1706,7 @@ function riscv32I_core()
             return;
     }
 
-	let pcreg = document.getElementById("pcid");
-	pcreg = "FF";
+	html_pc_id.textContent = pc
 
 	//add_to_array(pc, 4)
     pc += 4;
