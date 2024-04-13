@@ -579,9 +579,9 @@ function updatePixelColors()
 	let cnt = 0
 	pixels.forEach(function(pixel) {
 		let rgb_cell = VRAM_MEMORY[cnt]
-		let red = (rgb_cell >> 16) & 0xFF;
-		let green = (rgb_cell >> 8) & 0xFF;
-		let blue = rgb_cell & 0xFF;
+		let red = (rgb_cell >> 24) & 0xFF;
+		let green = (rgb_cell >> 16) & 0xFF;
+		let blue = (rgb_cell >> 8) & 0xFF;
 		cnt++;
 		pixel.style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
 	});
