@@ -1329,16 +1329,38 @@ function send_to_chipset(addr, data, rw, sz)
 {
 	let memory_dev = null
 	
+	let addr_offset = 0
+	
     if(addr >= ROM_MEMORY_START_ADDRESS && addr <= (ROM_MEMORY_START_ADDRESS + ROM_MEMORY_SIZE) )
+	{
+		addr_offset = addr - ROM_MEMORY_START_ADDRESS;
+		
+		//if(addr_offset > ROM_MEMORY_SIZE)
+			//return;
+		
 		memory_dev = ROM_MEMORY
+	}
     else if(addr >= RAM_START_ADDRESS && addr <= (RAM_START_ADDRESS+RAM_SIZE)-1)
+	{
 		memory_dev = RAM_MEMORY
+		addr_offset = RAM_START_ADDRESS;
+	}
     else if(addr >= MM_START_ADDRESS && addr <= (MM_START_ADDRESS+MM_SIZE)-1)
-		memory_dev = MM_MEMORY
+	{
+		if(MM_MEMORY == null)
+			return;
+		
+		addr_offset = addr - MM_START_ADDRESS;
+		
+		//if(addr_offset > MM_SIZE)
+			//return;
+		
+		memory_dev = MM_MEMORY;
+	}
 	
 	if (memory_dev != null)
 	{
-		mem_device_controller(memory_dev, addr, data, rw, sz)
+		mem_device_controller(memory_dev, addr_offset, data, rw, sz)
 		memory_dev = null
 		return
 	}
