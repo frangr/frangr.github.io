@@ -654,7 +654,7 @@ function init_frvse()
 	console.log("html1: "+html_pc_id);
 	
 	for(let i = 0; i < 32; i++)
-		html_reg_id[i].push(document.getElementById("x"+i+"id"));
+		html_reg_id.push(document.getElementById("x"+i+"id"));
 	
 	console.log("html2: "+html_reg_id);
 	
