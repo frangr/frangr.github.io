@@ -653,7 +653,10 @@ function init_frvse()
 	html_pc_id = document.getElementById("pcid");
 	
 	for (i in html_reg_id) 
+	{
 		html_reg_id[i] = document.getElementById("x"+i+"id");
+		console.log("reg: "+html_reg_id[i])
+	}
 	
 	init_lock = true;
 }
@@ -1714,11 +1717,7 @@ function riscv32I_core()
 
 	html_pc_id.textContent = pc
 	for (i in html_reg_id) 
-	{
-		console.log("reg")
 		html_reg_id[i].textContent = reg[i]
-		console.log(reg[i])
-	}
 
 	//add_to_array(pc, 4)
     pc += 4;
