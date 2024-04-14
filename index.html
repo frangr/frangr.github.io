@@ -191,6 +191,7 @@
 				let arrayBuffer = event.target.result;
 				let uint8Array = new Uint8Array(arrayBuffer);
 				ROM_MEMORY = uint8Array;
+				build_hex_table(ROM_MEMORY, "hex_view")
 			};
 
 			reader.onerror = function() {
@@ -329,7 +330,6 @@
 		var tblScrl = document.querySelector('.tbl_scrl');
 		tblScrl.style.width = (table.offsetWidth+25) + 'px';
 	}
-    build_hex_table(arr, "hex_view")
 	</script>
 </body>
 </html>
