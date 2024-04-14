@@ -164,11 +164,11 @@
 		</table>
 	</div>
 
-	<button type="button" onclick="show_memory(ROM_MEMORY, 'ROM Memory')">Show ROM</button>
-	<button type="button" onclick="show_memory(RAM_MEMORY, 'RAM Memory')">Show RAM</button>
-	<button type="button" onclick="show_memory(MM_MEMORY, 'Mass Memory')">Show Mass Memory</button>
-	<button type="button" onclick="show_memory(VRAM_MEMORY, 'VRAM Memory')">Show Video Memory</button>
-	<button type="button" onclick="show_memory(CHARACTER_MEMORY, 'Character Memory')">Character Memory</button>
+	<button type="button" onclick="show_memory(ROM_MEMORY)">Show ROM</button>
+	<button type="button" onclick="show_memory(RAM_MEMORY)">Show RAM</button>
+	<button type="button" onclick="show_memory(MM_MEMORY)">Show Mass Memory</button>
+	<button type="button" onclick="show_memory(VRAM_MEMORY)">Show Video Memory</button>
+	<button type="button" onclick="show_memory(CHARACTER_MEMORY)">Character Memory</button>
 
 	<b id="memory_title"></b>
 
@@ -338,10 +338,31 @@
 		tblScrl.style.width = (table.offsetWidth+25) + 'px';
 	}
 	
-	function show_memory(mem, mname)
+	function show_memory(mem)
 	{
 		if(mem == null)
 			return;
+		
+		let mname = "NULL";
+		
+		switch(mem)
+		{
+			case ROM_MEMORY:
+				mname = "ROM Memory";
+				break;
+			case RAM_MEMORY:
+				mname = "RAM Memory";
+				break;
+			case MM_MEMORY:
+				mname = "MASS Memory";
+				break;
+			case VRAM_MEMORY:
+				mname = "VRAM Memory";
+				break;
+			case CHARACTER_MEMORY:
+				mname = "CHARACTER Memory";
+				break;
+		}
 		
 		build_hex_table(mem, "hex_view")
 		document.getElementById('memory_title').textContent = mname;
