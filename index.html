@@ -343,11 +343,14 @@
 		let smem = null
 		let mname = null
 		
+		console.log("SM1")
+		
 		switch(mem)
 		{
 			case 0:
 				mname = "ROM Memory";
 				smem = ROM_MEMORY;
+				console.log("SM2")
 				break;
 			case 1:
 				mname = "RAM Memory";
@@ -367,8 +370,12 @@
 				break;
 		}
 		
+		console.log("SM3")
+		
 		if(smem == null || mname == null)
 			return
+		
+		console.log("SM4")
 		
 		build_hex_table(smem, "hex_view")
 		document.getElementById('memory_title').textContent = mname;
