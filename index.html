@@ -164,11 +164,11 @@
 		</table>
 	</div>
 
-	<button type="button" onclick="show_memory(0)">Show ROM</button>
-	<button type="button" onclick="show_memory(1)">Show RAM</button>
-	<button type="button" onclick="show_memory(2)">Show Mass Memory</button>
-	<button type="button" onclick="show_memory(3)">Show Video Memory</button>
-	<button type="button" onclick="show_memory(4)">Character Memory</button>
+	<button type="button" onclick="show_memory(ROM_MEMORY, 'ROM Memory')">Show ROM</button>
+	<button type="button" onclick="show_memory(RAM_MEMORY, 'RAM Memory')">Show RAM</button>
+	<button type="button" onclick="show_memory(MM_MEMORY, 'Mass Memory')">Show Mass Memory</button>
+	<button type="button" onclick="show_memory(VRAM_MEMORY, 'VRAM Memory')">Show Video Memory</button>
+	<button type="button" onclick="show_memory(CHARACTER_MEMORY, 'Character Memory')">Character Memory</button>
 	<br>
 	<b id="memory_title"></b>
 	<br>
@@ -338,39 +338,9 @@
 		tblScrl.style.width = (table.offsetWidth+25) + 'px';
 	}
 	
-	function show_memory(mem)
+	function show_memory(mem, mname)
 	{
-		let smem = null
-		let mname = null
-		
-		switch(mem)
-		{
-			case 0:
-				mname = "ROM Memory";
-				smem = ROM_MEMORY;
-				break;
-			case 1:
-				mname = "RAM Memory";
-				smem = RAM_MEMORY;
-				break;
-			case 2:
-				mname = "MASS Memory";
-				smem = MM_MEMORY;
-				break;
-			case 3:
-				mname = "VRAM Memory";
-				smem = VRAM_MEMORY;
-				break;
-			case 4:
-				mname = "CHARACTER Memory";
-				smem = CHARACTER_MEMORY;
-				break;
-		}
-		
-		if(smem == null || mname == null)
-			return
-		
-		build_hex_table(smem, "hex_view")
+		build_hex_table(mem, "hex_view")
 		document.getElementById('memory_title').textContent = mname;
 	}
 	</script>
