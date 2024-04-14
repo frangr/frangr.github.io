@@ -540,6 +540,7 @@ let RAM_MEMORY = null
 let MM_MEMORY = null
 let VRAM_MEMORY = null
 let CHARACTER_MEMORY = null
+let ascii_char_memory = null
 let inst = 0
 let u16 = new Uint16Array(5)
 let i16 = new Int16Array(5)
@@ -647,6 +648,7 @@ function init_frvse()
 	MM_MEMORY = new Uint8Array(100)
 	VRAM_MEMORY = new Uint32Array(W*H)
 	CHARACTER_MEMORY = new Uint32Array(TEXT_MODE_MEMORY_SIZE/4)
+	ascii_char_memory = new Uint8Array(TEXT_MODE_MEMORY_SIZE/4)
 	
 	createPixelMap();
 	
@@ -1324,6 +1326,9 @@ function draw_character(addr, color)
 
     if(character == null)
         return;
+
+	console.log("ADDR: "+addr)
+	//ascii_char_memory[] = (CHARACTER) & 0xFF;
 
     let screen_pos = 0;
 
