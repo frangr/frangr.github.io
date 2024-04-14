@@ -542,6 +542,7 @@ let VRAM_MEMORY = null
 let CHARACTER_MEMORY = null
 let ascii_char_memory = null
 let inst = 0
+let hex_dec = false
 let u16 = new Uint16Array(5)
 let i16 = new Int16Array(5)
 let u32 = new Uint32Array(5)
@@ -731,6 +732,23 @@ function add_to_array(arr, val)
 	let valres = compose_array(arr)
 	valres += val
 	value_in_array(arr, valres)
+}
+
+function toHex32(number) {
+    let hexString = Number(number).toString(16).toUpperCase();
+    
+    while (hexString.length < 8) {
+        hexString = '0' + hexString;
+    }
+
+    return hexString;
+}
+
+function update_reg()
+{
+	html_pc_id.textContent = hex_dec == false? toHex32(pc) : pc;
+	for (i in html_reg_id) 
+		html_reg_id[i].textContent = hex_dec == false? toHex32(reg[i]) : reg[i];
 }
 
 function FUNCT3(){return (inst >> 12) & 0x7;}
@@ -1721,9 +1739,7 @@ function riscv32I_core()
             return;
     }
 
-	html_pc_id.textContent = pc
-	for (i in html_reg_id) 
-		html_reg_id[i].textContent = reg[i]
+	update_reg()
 
 	//add_to_array(pc, 4)
     pc += 4;
