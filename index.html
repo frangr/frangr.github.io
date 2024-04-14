@@ -164,6 +164,12 @@
 		</table>
 	</div>
 
+	<button type="button" onclick="show_memory(ROM_MEMORY)">Show ROM</button>
+	<button type="button" onclick="show_memory(RAM_MEMORY)">Show RAM</button>
+	<button type="button" onclick="show_memory(MM_MEMORY)">Show Mass Memory</button>
+	<button type="button" onclick="show_memory(VRAM_MEMORY)">Show Video Memory</button>
+	<button type="button" onclick="show_memory(CHARACTER_MEMORY)">Character Memory</button>
+
 	<div class="tbl_scrl">
 		<table id="hex_view">
 			<thead>
@@ -191,7 +197,6 @@
 				let arrayBuffer = event.target.result;
 				let uint8Array = new Uint8Array(arrayBuffer);
 				ROM_MEMORY = uint8Array;
-				build_hex_table(ROM_MEMORY, "hex_view")
 			};
 
 			reader.onerror = function() {
@@ -329,6 +334,14 @@
 		
 		var tblScrl = document.querySelector('.tbl_scrl');
 		tblScrl.style.width = (table.offsetWidth+25) + 'px';
+	}
+	
+	function show_memory(mem)
+	{
+		if(mem == null)
+			return;
+		
+		build_hex_table(mem, "hex_view")
 	}
 	</script>
 </body>
