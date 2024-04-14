@@ -1327,8 +1327,7 @@ function draw_character(addr, color)
     if(character == null)
         return;
 
-	console.log("ADDR: "+addr)
-	//ascii_char_memory[] = (CHARACTER) & 0xFF;
+	ascii_char_memory[addr] = (CHARACTER) & 0xFF;
 
     let screen_pos = 0;
 
