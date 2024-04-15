@@ -682,7 +682,7 @@ function start_frvse()
 	if (FRVSE_current_state == frvse_state_run)
 		return;
 	
-	FRVSE_current_state = frvse_state_run;
+	FRVSE_set_state(frvse_state_run);
 	
 	if(init_frvse() == 1)
 		return;
@@ -697,7 +697,7 @@ function stop_frvse()
 	if (FRVSE_current_state != frvse_state_run)
 		return;
 	
-	FRVSE_current_state = frvse_state_stop;
+	FRVSE_set_state(frvse_state_stop);
 	run_FRVSE = false;
 }
 
@@ -709,7 +709,7 @@ function step_FRVSE()
 	if(init_frvse() == 1)
 		return;
 	
-	FRVSE_current_state = frvse_state_step;
+	FRVSE_set_state(frvse_state_step);
 	riscv32I_core()
 }
 
