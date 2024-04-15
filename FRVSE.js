@@ -701,7 +701,7 @@ function stop_frvse()
 	run_FRVSE = false;
 }
 
-function step_FRVSE()
+function step_frvse()
 {
 	if (FRVSE_current_state == frvse_state_run)
 		return;
