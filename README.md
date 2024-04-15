@@ -8,7 +8,7 @@ FRVSE is intended for educational purposes and is pretty straightforward to use.
 
 
 
-[Link to My Section](#my-section)
+- [FRVSE Architecture](#my-section)
 
 
 
