@@ -64,9 +64,12 @@
 				<button type="button" onclick="step_frvse()">Step FRVSE</button>
 				<button type="button" onclick="reset_frvse()">Reset FRVSE</button>
 			</div>
-			<input type="file" id="rom_fileid" name="rom_file"/>
 			<br>
-			<input type="file" id="mm_fileid" name="mm_file"/>
+			<b>ROM Path </b><input type="file" id="rom_fileid" name="rom_file"/>
+			<br>
+			<b>Mass Memory Path </b><input type="file" id="mm_fileid" name="mm_file"/>
+			<br>
+			<button type="button" onclick="download_screen()">Download Screen</button>
 		</div>
 
 		<div id="register_table" style="display:inline-block;">
@@ -196,13 +199,13 @@
 	</div>
 	
 	<br>
-	<b id="memory_title">No memory available.</b>
+	<b id="memory_title"  style="display: flex; justify-content: center;">No memory available.</b>
 	<br>
 	<div class="tbl_scrl">
-		<table id="hex_view" style="display: flex; justify-content: center;">
-			<thead style="display: flex; justify-content: center;">
+		<table id="hex_view">
+			<thead>
 			</thead>
-			<tbody style="display: flex; justify-content: center;">
+			<tbody>
 			</tbody>
 		</table>
 	</div>
@@ -369,6 +372,42 @@
 		build_hex_table(mem, "hex_view")
 		document.getElementById('memory_title').textContent = mname;
 	}
+	
+	function download_screen()
+	{
+		const pixelMap = document.getElementById('pixelMap');
+		const pixels = pixelMap.getElementsByClassName('pixel');
+		const width = pixelMap.offsetWidth;
+		const height = pixelMap.offsetHeight;
+
+		// Create a canvas element
+		const canvas = document.createElement('canvas');
+		canvas.width = width;
+		canvas.height = height;
+		const ctx = canvas.getContext('2d');
+
+		// Loop through each pixel div and draw it onto the canvas
+		Array.from(pixels).forEach(pixel => {
+			const rect = pixel.getBoundingClientRect();
+			const color = window.getComputedStyle(pixel).getPropertyValue('background-color');
+			ctx.fillStyle = color;
+			ctx.fillRect(rect.left - pixelMap.getBoundingClientRect().left, rect.top - pixelMap.getBoundingClientRect().top, rect.width, rect.height);
+		});
+
+		// Convert the canvas to a PNG image
+		const dataURL = canvas.toDataURL('image/png');
+
+		// Create a download link and trigger the download
+		const a = document.createElement('a');
+		a.href = dataURL;
+		a.download = 'pixelmap.png';
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+	}
+	
+	build_hex_table(arr, "hex_view")
+	
 	</script>
 </body>
 </html>
