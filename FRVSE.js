@@ -540,7 +540,7 @@ let RAM_MEMORY = null
 let MM_MEMORY = null
 let VRAM_MEMORY = null
 let CHARACTER_MEMORY = null
-let ascii_char_memory = null
+//let ascii_char_memory = null
 let inst = 0
 let hex_dec = false
 let u16 = new Uint16Array(5)
@@ -564,6 +564,17 @@ let ERROR_MESSAGE = ""
 
 function FRVSE_set_state(state){
 	FRVSE_current_state = state;
+	var state_message = document.getElementById("state_message");
+	state_message.textContent = "FRVSE state: "+state;
+	state_message.style.color = "black";
+}
+
+function FRVSE_error(err)
+{
+	var state_message = document.getElementById("state_message");
+	state_message.textContent = err;
+	ERROR_MESSAGE = err;
+	state_message.style.color = "red";
 }
 
 function createPixelMap() 
@@ -639,7 +650,7 @@ function init_frvse()
 	
 	if (ROM_MEMORY == null)
 	{
-		ERROR_MESSAGE = "ERROR: ROM MEMORY FILE NOT ADDED.";
+		FRVSE_error("ERROR: ROM MEMORY FILE NOT ADDED.")
 		return 1;
 	}
 	
@@ -649,7 +660,7 @@ function init_frvse()
 	MM_MEMORY = new Uint8Array(100)
 	VRAM_MEMORY = new Uint32Array(W*H)
 	CHARACTER_MEMORY = new Uint32Array(TEXT_MODE_MEMORY_SIZE/4)
-	ascii_char_memory = new Uint8Array(TEXT_MODE_MEMORY_SIZE/4)
+	//ascii_char_memory = new Uint8Array(TEXT_MODE_MEMORY_SIZE/4)
 	
 	createPixelMap();
 	
@@ -1351,7 +1362,7 @@ function draw_character(addr, color)
     if(character == null)
         return;
 
-	ascii_char_memory[addr] = (CHARACTER) & 0xFF;
+	//ascii_char_memory[addr] = (CHARACTER) & 0xFF;
 
     let screen_pos = 0;
 

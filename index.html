@@ -52,7 +52,6 @@
 <body>
 	<b style="display: flex; justify-content: center;">FRVSE - Franto RISC-V Simple Emulator (RISCV32IM)</b>
 	<a href="https://github.com/frangr/frangr.github.io/blob/main/README.md" target=”_blank” style="display: flex; justify-content: center;">See how to use FRVSE</a>
-	<br>
 	
 	<div id="upper" style="display: flex; justify-content: center;">
 		<div id="screenid" style="display:inline-block;">
@@ -63,13 +62,17 @@
 				<button type="button" onclick="stop_frvse()">Stop FRVSE</button>
 				<button type="button" onclick="step_frvse()">Step FRVSE</button>
 				<button type="button" onclick="reset_frvse()">Reset FRVSE</button>
+				<button type="button" onclick="download_screen()">Download Screen</button>
 			</div>
+			<b id="state_message" style="display: flex; justify-content: center;">FRVSE state: void</b>
+			<b>ROM Path:</b>
 			<br>
-			<b>ROM Path </b><input type="file" id="rom_fileid" name="rom_file"/>
+			<input type="file" id="rom_fileid" name="rom_file"/>
 			<br>
-			<b>Mass Memory Path </b><input type="file" id="mm_fileid" name="mm_file"/>
+			<b>Mass Memory Path:</b>
 			<br>
-			<button type="button" onclick="download_screen()">Download Screen</button>
+			<input type="file" id="mm_fileid" name="mm_file"/>
+			<b style="display: flex; justify-content: center;">(Emulator can write selected files, depending on executed instructions)</b>
 		</div>
 
 		<div id="register_table" style="display:inline-block;">
