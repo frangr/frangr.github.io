@@ -50,15 +50,15 @@
     </style>
 </head>
 <body>
-	<head style="text-align: center;">FRVSE - Franto RISC-V Simple Emulator (RISCV32IM)</head>
+	<b style="display: flex; justify-content: center;">FRVSE - Franto RISC-V Simple Emulator (RISCV32IM)</b>
+	<a href="https://github.com/frangr/frangr.github.io/blob/main/README.md" target=”_blank” style="display: flex; justify-content: center;">See how to use FRVSE</a>
 	<br>
-	<a href="">See how to use FRVSE</a>
 	
-	<div id="upper">
+	<div id="upper" style="display: flex; justify-content: center;">
 		<div id="screenid" style="display:inline-block;">
 			<div id="pixelMap"></div>
 			
-			<div id="screen_button">
+			<div id="screen_button"  style="display: flex; justify-content: center;">
 				<button type="button" onclick="start_frvse()">Start FRVSE</button>
 				<button type="button" onclick="stop_frvse()">Stop FRVSE</button>
 				<button type="button" onclick="step_frvse()">Step FRVSE</button>
@@ -185,15 +185,20 @@
 		</div>
 	</div>
 	
-	<button type="button" onclick="show_memory(ROM_MEMORY, 'ROM Memory')">Show ROM</button>
-	<button type="button" onclick="show_memory(RAM_MEMORY, 'RAM Memory')">Show RAM</button>
-	<button type="button" onclick="show_memory(MM_MEMORY, 'Mass Memory')">Show Mass Memory</button>
-	<button type="button" onclick="show_memory(VRAM_MEMORY, 'VRAM Memory')">Show Video Memory</button>
-	<button type="button" onclick="show_memory(CHARACTER_MEMORY, 'Character Memory')">Character Memory</button>
+	<hr>
+	
+	<div style="display: flex; justify-content: center;">
+		<button type="button" onclick="show_memory(ROM_MEMORY, 'ROM Memory')">Show ROM</button>
+		<button type="button" onclick="show_memory(RAM_MEMORY, 'RAM Memory')">Show RAM</button>
+		<button type="button" onclick="show_memory(MM_MEMORY, 'Mass Memory')">Show Mass Memory</button>
+		<button type="button" onclick="show_memory(VRAM_MEMORY, 'VRAM Memory')">Show Video Memory</button>
+		<button type="button" onclick="show_memory(CHARACTER_MEMORY, 'Character Memory')">Character Memory</button>
+	</div>
+	
 	<br>
-	<b id="memory_title"></b>
+	<b id="memory_title" style="display: flex; justify-content: center;">No memory available.</b>
 	<br>
-	<div class="tbl_scrl">
+	<div class="tbl_scrl"  style="display: flex; justify-content: center;">
 		<table id="hex_view">
 			<thead>
 			</thead>
