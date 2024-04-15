@@ -751,6 +751,12 @@ function update_reg()
 		html_reg_id[i].textContent = hex_dec == false? toHex32(reg[i]) : reg[i];
 }
 
+function reg_mode(mode)
+{
+	hex_dec = mode;
+	update_reg()
+}
+
 function FUNCT3(){return (inst >> 12) & 0x7;}
 
 function FUNCT7(){return (inst >> 25);}
