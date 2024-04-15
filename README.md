@@ -9,10 +9,12 @@ FRVSE is intended for educational purposes and is pretty straightforward to use.
 
 
 - [FRVSE Architecture](#my-section)
-
-
-
-
+- [Memory mapped address map](#my-section)
+- [Peripherals](#my-section)
+- [How to make FRVSE execute my code?](#my-section)
+- [Using the GUI](#my-section)
+- [The Video peripheral](#my-section)
+- [The Text Mode peripheral](#my-section)
 
 
 
