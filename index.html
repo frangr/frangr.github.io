@@ -191,15 +191,15 @@
 		<button type="button" onclick="show_memory(ROM_MEMORY, 'ROM Memory')">Show ROM</button>
 		<button type="button" onclick="show_memory(RAM_MEMORY, 'RAM Memory')">Show RAM</button>
 		<button type="button" onclick="show_memory(MM_MEMORY, 'Mass Memory')">Show Mass Memory</button>
-		<button type="button" onclick="show_memory(VRAM_MEMORY, 'VRAM Memory')">Show Video Memory</button>
-		<button type="button" onclick="show_memory(CHARACTER_MEMORY, 'Character Memory')">Character Memory</button>
+		<button type="button" onclick="show_memory(new Uint8Array(VRAM_MEMORY.buffer), 'VRAM Memory')">Show Video Memory</button>
+		<button type="button" onclick="show_memory(new Uint8Array(CHARACTER_MEMORY.buffer), 'Character Memory')">Character Memory</button>
 	</div>
 	
 	<br>
 	<b id="memory_title" style="display: flex; justify-content: center;">No memory available.</b>
 	<br>
-	<div class="tbl_scrl"  style="display: flex; justify-content: center;">
-		<table id="hex_view">
+	<div class="tbl_scrl">
+		<table id="hex_view" style="display: flex; justify-content: center;">
 			<thead>
 			</thead>
 			<tbody>
