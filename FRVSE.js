@@ -634,7 +634,7 @@ self.onmessage = function(event) {
 		
 		while(true)
 		{
-			console.log("while true")
+			console.log("while : "+run_FRVSE)
 			while(run_FRVSE)
 			{
 				console.log("RUN FRVSE")
