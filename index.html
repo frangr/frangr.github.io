@@ -221,10 +221,16 @@
 	
 	const frvse_worker = new Worker('FRVSE.js');
 	
+	/*
 	frvse_worker.addEventListener("message", ({ data }) => {
 	  // Echoes "Hello, window!" to the console from the worker.
 	  console.log(data);
 	});
+	*/
+	
+	frvse_worker.onmessage = function(event) {
+		console.log('Message from worker:', event.data);
+	};
 	
 	function FRVSE_start()
 	{
