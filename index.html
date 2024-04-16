@@ -59,7 +59,7 @@
 			<div id="pixelMap"></div>
 			
 			<div id="screen_button"  style="display: flex; justify-content: center;">
-				<button type="button" onclick="start_frvse(); frvse_worker.postMessage('start');">Start FRVSE</button>
+				<button type="button" onclick="FRVSE_start()">Start FRVSE</button>
 				<button type="button" onclick="stop_frvse()">Stop FRVSE</button>
 				<button type="button" onclick="step_frvse()">Step FRVSE</button>
 				<button type="button" onclick="reset_frvse()">Reset FRVSE</button>
@@ -220,6 +220,12 @@
     <script>
 	
 	const frvse_worker = new Worker('FRVSE.js');
+	
+	function FRVSE_start()
+	{
+		start_frvse(); 
+		frvse_worker.postMessage('start');
+	}
 	
 	let fileInput = document.getElementById('rom_fileid');
 	fileInput.addEventListener('change', (event) => {
