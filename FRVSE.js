@@ -633,11 +633,14 @@ self.onmessage = function(event) {
 		console.log("run_FRVSE = "+run_FRVSE)
 		
 		while(true)
+		{
+			console.log("while true")
 			while(run_FRVSE)
 			{
 				console.log("RUN FRVSE")
 				riscv32I_core()
 			}
+		}
     }
 };
 
