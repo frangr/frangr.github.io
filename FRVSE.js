@@ -631,11 +631,13 @@ let run_FRVSE = false;
 self.onmessage = function(event) {
     if (event.data === 'start') {
 		console.log("run_FRVSE = "+run_FRVSE)
-        while(run_FRVSE)
-		{
-			console.log("RUN FRVSE")
-			riscv32I_core()
-		}
+		
+		while(true)
+			while(run_FRVSE)
+			{
+				console.log("RUN FRVSE")
+				riscv32I_core()
+			}
     }
 };
 
