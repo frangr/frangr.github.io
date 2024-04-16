@@ -688,6 +688,8 @@ function init_frvse()
 	console.log("html2: "+html_reg_id);
 	
 	init_lock = true;
+	
+	self.postMessage('Hello from worker! You said: ' + MM_MEMORY);
 }
 
 function start_frvse()
