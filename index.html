@@ -21,6 +21,7 @@
 			overflow-x: auto; /* Horizontal scroll */
 			overflow-y: auto; /* Vertical scroll */
 			max-height: 300px; /* Set a maximum height if needed */
+			//max-width: 816px;
 			/*max-width: 750px;  Set a maximum height if needed */
 			/* You can adjust the styles according to your design requirements */
 		}
@@ -78,114 +79,114 @@
 		<div id="register_table" style="display:inline-block;">
 			<table>
 				<tr>
-					<td colspan="2"><button type="button" onclick="reg_mode(true)" style="width: 130px;">DEC</button></th>
-					<td colspan="2"><button type="button" onclick="reg_mode(false)" style="width: 130px;">HEX</button></th>
+					<td colspan="2" style="background-color: rgb(99, 122, 144)"><button type="button" onclick="reg_mode(true)" style="width: 130px;">DEC</button></th>
+					<td colspan="2" style="background-color: rgb(99, 122, 144)"><button type="button" onclick="reg_mode(false)" style="width: 130px;">HEX</button></th>
 				</tr>
 				<tr>
-					<td colspan="2">PC</td>
-					<td id="pcid" colspan="2">-</td>
+					<td colspan="2" style="background-color: rgb(61, 87, 124);color:white">PC</td>
+					<td id="pcid" colspan="2" style="background-color: rgb(61, 87, 124);color:white">-</td>
 				</tr>
 				<tr>
-					<th>Name</th>
-					<th>Value</th>
-					<th>Name</th>
-					<th>Value</th>
+					<th style="background-color: rgb(32,54,79);color:white">Name</th>
+					<th style="background-color: rgb(46,79,117);color:white">Value</th>
+					<th style="background-color: rgb(32,54,79);color:white">Name</th>
+					<th style="background-color: rgb(46,79,117);color:white">Value</th>
+				</tr>	
+				<tr>
+					<td style="background-color:#38628f;color:white">x0 zero</td>
+					<td id="x0id" style="width: 100px; background-color:#477db7;color:white">-</td>
+					<td style="background-color:#38628f;color:white">x16 a6</td>
+					<td id="x16id" style="width: 100px; background-color:#477db7;color:white">-</td>
 				</tr>
 				<tr>
-					<td>x0 zero</td>
-					<td id="x0id" style="width: 100px;">-</td>
-					<td>x16 a6</td>
-					<td id="x16id" style="width: 100px;">-</td>
+					<td style="background-color:#38628f;color:white">x1 ra</td>
+					<td id="x1id" style="background-color:#477db7;color:white">-</td>
+					<td style="background-color:#38628f;color:white">x17 a7</td>
+					<td id="x17id" style="background-color:#477db7;color:white">-</td>
 				</tr>
 				<tr>
-					<td>x1 ra</td>
-					<td id="x1id">-</td>
-					<td>x17 a7</td>
-					<td id="x17id">-</td>
+					<td style="background-color:#38628f;color:white">x2 sp</td>
+					<td id="x2id" style="background-color:#477db7;color:white">-</td>
+					<td style="background-color:#38628f;color:white">x18 s2</td>
+					<td id="x18id" style="background-color:#477db7;color:white">-</td>
 				</tr>
 				<tr>
-					<td>x2 sp</td>
-					<td id="x2id">-</td>
-					<td>x18 s2</td>
-					<td id="x18id">-</td>
+					<td style="background-color:#38628f;color:white">x3 gp</td>
+					<td id="x3id" style="background-color:#477db7;color:white">-</td>
+					<td style="background-color:#38628f;color:white">x19 s3</td>
+					<td id="x19id" style="background-color:#477db7;color:white">-</td>
 				</tr>
 				<tr>
-					<td>x3 gp</td>
-					<td id="x3id">-</td>
-					<td>x19 s3</td>
-					<td id="x19id">-</td>
+					<td style="background-color:#38628f;color:white">x4 tp</td>
+					<td id="x4id" style="background-color:#477db7;color:white">-</td>
+					<td style="background-color:#38628f;color:white">x20 s4</td>
+					<td id="x20id" style="background-color:#477db7;color:white">-</td>
 				</tr>
 				<tr>
-					<td>x4 tp</td>
-					<td id="x4id">-</td>
-					<td>x20 s4</td>
-					<td id="x20id">-</td>
+					<td style="background-color:#38628f;color:white">x5 t0</td>
+					<td id="x5id" style="background-color:#477db7;color:white">-</td>
+					<td style="background-color:#38628f;color:white">x21 s5</td>
+					<td id="x21id" style="background-color:#477db7;color:white">-</td>
 				</tr>
 				<tr>
-					<td>x5 t0</td>
-					<td id="x5id">-</td>
-					<td>x21 s5</td>
-					<td id="x21id">-</td>
+					<td style="background-color:#38628f;color:white">x6 t1</td>
+					<td id="x6id" style="background-color:#477db7;color:white">-</td>
+					<td style="background-color:#38628f;color:white">x22 s6</td>
+					<td id="x22id" style="background-color:#477db7;color:white">-</td>
 				</tr>
 				<tr>
-					<td>x6 t1</td>
-					<td id="x6id">-</td>
-					<td>x22 s6</td>
-					<td id="x22id">-</td>
+					<td style="background-color:#38628f;color:white">x7 t2</td>
+					<td id="x7id" style="background-color:#477db7;color:white">-</td>
+					<td style="background-color:#38628f;color:white">x23 s7</td>
+					<td id="x23id" style="background-color:#477db7;color:white">-</td>
 				</tr>
 				<tr>
-					<td>x7 t2</td>
-					<td id="x7id">-</td>
-					<td>x23 s7</td>
-					<td id="x23id">-</td>
+					<td style="background-color:#38628f;color:white">x8 s0/fp</td>
+					<td id="x8id" style="background-color:#477db7;color:white">-</td>
+					<td style="background-color:#38628f;color:white">x24 s8</td>
+					<td id="x24id" style="background-color:#477db7;color:white">-</td>
 				</tr>
 				<tr>
-					<td>x8 s0/fp</td>
-					<td id="x8id">-</td>
-					<td>x24 s8</td>
-					<td id="x24id">-</td>
+					<td style="background-color:#38628f;color:white">x9 s1</td>
+					<td id="x9id" style="background-color:#477db7;color:white">-</td>
+					<td style="background-color:#38628f;color:white">x25 s9</td>
+					<td id="x25id" style="background-color:#477db7;color:white">-</td>
 				</tr>
 				<tr>
-					<td>x9 s1</td>
-					<td id="x9id">-</td>
-					<td>x25 s9</td>
-					<td id="x25id">-</td>
+					<td style="background-color:#38628f;color:white">x10 a0</td>
+					<td id="x10id" style="background-color:#477db7;color:white">-</td>
+					<td style="background-color:#38628f;color:white">x26 s10</td>
+					<td id="x26id" style="background-color:#477db7;color:white">-</td>
 				</tr>
 				<tr>
-					<td>x10 a0</td>
-					<td id="x10id">-</td>
-					<td>x26 s10</td>
-					<td id="x26id">-</td>
+					<td style="background-color:#38628f;color:white">x11 a1</td>
+					<td id="x11id" style="background-color:#477db7;color:white">-</td>
+					<td style="background-color:#38628f;color:white">x27 s11</td>
+					<td id="x27id" style="background-color:#477db7;color:white">-</td>
 				</tr>
 				<tr>
-					<td>x11 a1</td>
-					<td id="x11id">-</td>
-					<td>x27 s11</td>
-					<td id="x27id">-</td>
+					<td style="background-color:#38628f;color:white">x12 a2</td>
+					<td id="x12id" style="background-color:#477db7;color:white">-</td>
+					<td style="background-color:#38628f;color:white">x28 t3</td>
+					<td id="x28id" style="background-color:#477db7;color:white">-</td>
 				</tr>
 				<tr>
-					<td>x12 a2</td>
-					<td id="x12id">-</td>
-					<td>x28 t3</td>
-					<td id="x28id">-</td>
+					<td style="background-color:#38628f;color:white">x13 a3</td>
+					<td id="x13id" style="background-color:#477db7;color:white">-</td>
+					<td style="background-color:#38628f;color:white">x29 t4</td>
+					<td id="x29id" style="background-color:#477db7;color:white">-</td>
 				</tr>
 				<tr>
-					<td>x13 a3</td>
-					<td id="x13id">-</td>
-					<td>x29 t4</td>
-					<td id="x29id">-</td>
+					<td style="background-color:#38628f;color:white">x14 a4</td>
+					<td id="x14id" style="background-color:#477db7;color:white">-</td>
+					<td style="background-color:#38628f;color:white">x30 t5</td>
+					<td id="x30id" style="background-color:#477db7;color:white">-</td>
 				</tr>
 				<tr>
-					<td>x14 a4</td>
-					<td id="x14id">-</td>
-					<td>x30 t5</td>
-					<td id="x30id">-</td>
-				</tr>
-				<tr>
-					<td>x15 a5</td>
-					<td id="x15id">-</td>
-					<td>x31 t6</td>
-					<td id="x31id">-</td>
+					<td style="background-color:#38628f;color:white">x15 a5</td>
+					<td id="x15id" style="background-color:#477db7;color:white">-</td>
+					<td style="background-color:#38628f;color:white">x31 t6</td>
+					<td id="x31id" style="background-color:#477db7;color:white">-</td>
 				</tr>
 			</table>
 		</div>
@@ -204,13 +205,16 @@
 	<br>
 	<b id="memory_title"  style="display: flex; justify-content: center;">No memory available.</b>
 	<br>
-	<div class="tbl_scrl">
-		<table id="hex_view">
-			<thead>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
+	
+	<div class="hex_cnt" style="display: flex; justify-content: center;">
+		<div class="tbl_scrl">
+			<table id="hex_view">
+				<thead>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
 	</div>
 
     <script>
@@ -367,7 +371,9 @@
 		}
 		
 		var tblScrl = document.querySelector('.tbl_scrl');
-		tblScrl.style.width = (table.offsetWidth+25) + 'px';
+		
+		//tblScrl.style.width = (table.offsetWidth+25) + 'px';
+		//console.log("WIDTH: ", tblScrl.style.width)
 	}
 	
 	function show_memory(mem, mname)
@@ -408,8 +414,6 @@
 		a.click();
 		document.body.removeChild(a);
 	}
-	
-	build_hex_table(arr, "hex_view")
 	
 	</script>
 </body>
