@@ -626,8 +626,17 @@ function fill_screen()
 	setTimeout(fill_screen, 200);
 }
 
-//main function that executes FRVSE emulator
 let run_FRVSE = false;
+//main function that executes FRVSE emulator
+self.onmessage = function(event) {
+    if (event.data === 'start') {
+        while(run_FRVSE)
+		{
+			riscv32I_core()
+		}
+    }
+};
+
 function FRVSE_main()
 {
 	while(run_FRVSE)
@@ -671,12 +680,6 @@ function init_frvse()
 	init_lock = true;
 }
 
-self.onmessage = function(event) {
-    if (event.data === 'start') {
-        console.log("start")
-    }
-};
-
 function start_frvse()
 {
 	if (FRVSE_current_state == frvse_state_run)
@@ -689,7 +692,7 @@ function start_frvse()
 	
 	//start emulator
 	run_FRVSE = true;
-	FRVSE_main();
+	//FRVSE_main();
 }
 
 function stop_frvse()
