@@ -673,7 +673,7 @@ function init_frvse()
 
 self.onmessage = function(event) {
     if (event.data === 'start') {
-        console.start("start")
+        console.log("start")
     }
 };
 
