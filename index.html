@@ -222,10 +222,7 @@
 	const frvse_worker = new Worker('FRVSE.js');
 	
 	function FRVSE_start()
-	{
-		start_frvse(); 
 		frvse_worker.postMessage('start');
-	}
 	
 	let fileInput = document.getElementById('rom_fileid');
 	fileInput.addEventListener('change', (event) => {

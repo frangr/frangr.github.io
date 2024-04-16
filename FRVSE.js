@@ -632,6 +632,9 @@ self.onmessage = function(event) {
     if (event.data === 'start') {
 		console.log("run_FRVSE = "+run_FRVSE)
 		
+		if(!start_frvse())
+			return;
+		
 		while(true)
 		{
 			console.log("while : "+run_FRVSE)
@@ -690,10 +693,10 @@ function init_frvse()
 function start_frvse()
 {
 	if (FRVSE_current_state == frvse_state_run)
-		return;
+		return false;
 	
 	if(init_frvse() == 1)
-		return;
+		return false;
 	
 	FRVSE_set_state(frvse_state_run);
 	
@@ -701,6 +704,7 @@ function start_frvse()
 	run_FRVSE = true;
 	console.log("start_frvse()")
 	//FRVSE_main();
+	return true;
 }
 
 function stop_frvse()
