@@ -218,6 +218,10 @@
 	</div>
 
     <script>
+	
+	const frvse_worker = new Worker('FRVSE.js');
+	frvse_worker.postMessage('start');
+	
 	let fileInput = document.getElementById('rom_fileid');
 	fileInput.addEventListener('change', (event) => {
 		let file = event.target.files[0];

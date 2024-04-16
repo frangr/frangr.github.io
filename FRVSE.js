@@ -671,6 +671,12 @@ function init_frvse()
 	init_lock = true;
 }
 
+self.onmessage = function(event) {
+    if (event.data === 'start') {
+        console.start("start")
+    }
+};
+
 function start_frvse()
 {
 	if (FRVSE_current_state == frvse_state_run)
