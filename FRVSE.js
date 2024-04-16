@@ -630,6 +630,7 @@ let run_FRVSE = false;
 //main function that executes FRVSE emulator
 self.onmessage = function(event) {
     if (event.data === 'start') {
+		console.log("run_FRVSE = "+run_FRVSE)
         while(run_FRVSE)
 		{
 			console.log("RUN FRVSE")
@@ -693,6 +694,7 @@ function start_frvse()
 	
 	//start emulator
 	run_FRVSE = true;
+	console.log("start_frvse()")
 	//FRVSE_main();
 }
 
