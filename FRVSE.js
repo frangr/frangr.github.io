@@ -658,6 +658,8 @@ function FRVSE_main()
 let init_lock = false
 function init_frvse()
 {
+	self.postMessage('Hello from worker! You said: ' + MM_MEMORY);
+	
 	if (init_lock)
 		return;
 	
@@ -688,8 +690,6 @@ function init_frvse()
 	console.log("html2: "+html_reg_id);
 	
 	init_lock = true;
-	
-	self.postMessage('Hello from worker! You said: ' + MM_MEMORY);
 }
 
 function start_frvse()
