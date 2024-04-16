@@ -366,6 +366,8 @@ const VIDEO_MEMORY_SIZE = 0x3E800;
 const TEXT_MODE_MEMORY_START_ADDRESS = VIDEO_MEMORY_START_ADDRESS + VIDEO_MEMORY_SIZE; //0xF80C00
 const TEXT_MODE_MEMORY_SIZE = 0xFA0; //4000 bytes (1000 4-byte word for each character)
 
+const STOP_REGISTER_ADDRESS = TEXT_MODE_MEMORY_START_ADDRESS + TEXT_MODE_MEMORY_SIZE //F81BA0
+
 /**----------------------------------------**/
 /*
 const ROM_MEMORY_START_ADDRESS = 0x0;
@@ -459,12 +461,6 @@ const CSRRC = 0x3;
 const CSRRWI = 0x5;
 const CSRRSI = 0x6;
 const CSRRCI = 0x7;
-/*
-#define CSRRWI 1
-#define CSRRSI 2
-#define CSRRCI 14
-*/
-
 const FUNCT7_SUB_SRA = 0x20;
 const FUNCT7_RTYPE = 0;
 const FUNCT7_MULDIV = 0x1;
@@ -1465,7 +1461,6 @@ function send_to_chipset(addr, data, rw, sz)
 		return
 	}
 
-	console.log(addr)
     if(addr >= VIDEO_MEMORY_START_ADDRESS && addr <= (VIDEO_MEMORY_START_ADDRESS + VIDEO_MEMORY_SIZE)-1)
     {
         if(sz != FOUR_BYTE)
@@ -1480,6 +1475,14 @@ function send_to_chipset(addr, data, rw, sz)
         text_mode_controller(addr-TEXT_MODE_MEMORY_START_ADDRESS, data, rw);
         return;
     }
+	
+	if(addr == STOP_REGISTER_ADDRESS)
+	{
+        if(sz != ONE_BYTE)
+            return;
+		stop_frvse();
+		return;
+	}
 }
 
 //EMULATOR FUNCTION
@@ -1491,11 +1494,6 @@ function riscv32I_core()
     send_to_chipset(pc, inst_arr, READ, FOUR_BYTE);
 
 	inst = compose_array(inst_arr);
-
-	console.log(inst_arr)
-
-	if(pc == 0xb8)
-		throw new Error("END INST");
 
     switch(inst & 0x7F)
     {
