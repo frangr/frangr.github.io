@@ -678,10 +678,10 @@ function start_frvse()
 	if (FRVSE_current_state == frvse_state_run)
 		return;
 	
-	FRVSE_set_state(frvse_state_run);
-	
 	if(init_frvse() == 1)
 		return;
+	
+	FRVSE_set_state(frvse_state_run);
 	
 	//start emulator
 	run_FRVSE = true;
