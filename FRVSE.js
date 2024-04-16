@@ -658,7 +658,7 @@ function FRVSE_main()
 let init_lock = false
 function init_frvse()
 {
-	self.postMessage('Hello from worker! You said: ' + MM_MEMORY);
+	self.postMessage('Hello from worker! You said: ' + u16);
 	
 	if (init_lock)
 		return;
