@@ -257,7 +257,8 @@
 
 			reader.onload = function(event) {
 				let arrayBuffer = event.target.result;
-				let uint8Array = new Uint8Array(arrayBuffer);
+				//let uint8Array = new Uint8Array(arrayBuffer);
+				let uint8Array = new SharedArrayBuffer(arrayBuffer.buffer)
 				ROM_MEMORY = uint8Array;
 				
 				/*WORKER ROM TEST*/

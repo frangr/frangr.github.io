@@ -576,6 +576,9 @@ function FRVSE_error(err)
 
 function createPixelMap() 
 {
+	self.postMessage("PXMAP");
+	return;
+	
 	var pixelMap = document.getElementById("pixelMap");
 	for (var i = 0; i < 320 * 200; i++) {
 		var pixel = document.createElement("div");
@@ -633,8 +636,6 @@ self.onmessage = function(event) {
 	if (event.data[0] === "ROMU") //transfer ROM file
 	{
 		ROM_MEMORY = event.data[1]
-		console.log("RMEM: "+event.data[1])
-		console.log("ROM UPLOADED: "+ROM_MEMORY)
 	}
     if (event.data === 'start') {
 		console.log("run_FRVSE = "+run_FRVSE)
@@ -790,12 +791,11 @@ function toHex32(number) {
 function update_reg()
 {
 	self.postMessage("REG");
+	return;
 	
-	/*
 	html_pc_id.textContent = hex_dec == false? toHex32(pc) : pc;
 	for (i in html_reg_id) 
 		html_reg_id[i].textContent = hex_dec == false? toHex32(reg[i]) : reg[i];
-	*/
 }
 
 function reg_mode(mode)
