@@ -220,6 +220,8 @@
     <script>
 	
 	const frvse_worker = new Worker('FRVSE.js');
+	let html_pc_id
+	let html_reg_id
 	
 	/*
 	frvse_worker.addEventListener("message", ({ data }) => {
@@ -235,6 +237,20 @@
 			console.log("pixel!");
 		if(event.data == "HEX")
 			console.log("hex!");
+		if(event.data == "CPXM") //CREATE PIXEL Map
+		{
+			createPixelMap();
+		}
+		if(event.data[0] == "UPXD") //CALL UPDATE PIXEL DATA
+		{
+			update_pixel(event.data[1])
+		}
+		if(event.data[0] == "EMUM") //EMULATOR MESSAGE
+		{
+			var state_message = document.getElementById("state_message");
+			state_message.textContent = event.data[1];
+			state_message.style.color = event.data[2];
+		}
 	};
 	
 	function FRVSE_start()
@@ -257,13 +273,11 @@
 
 			reader.onload = function(event) {
 				let arrayBuffer = event.target.result;
-				//let uint8Array = new Uint8Array(arrayBuffer);
-				let uint8Array = new SharedArrayBuffer(arrayBuffer.buffer)
+				let uint8Array = new Uint8Array(arrayBuffer);
 				ROM_MEMORY = uint8Array;
 				
-				/*WORKER ROM TEST*/
-				let romvar = ["ROMU", uint8Array.buffer]
-				frvse_worker.postMessage(romvar);
+				/*SEND UPLOADED FILE TO WORKER*/
+				frvse_worker.postMessage(["ROMU", uint8Array.buffer]);
 			};
 
 			reader.onerror = function() {
@@ -445,6 +459,58 @@
 		a.click();
 		document.body.removeChild(a);
 	}
+	
+	function init_frvsep()
+	{
+		html_pc_id = document.getElementById("pcid");
+		console.log("html1: "+html_pc_id);
+		
+		html_reg_id = []
+		
+		for(let i = 0; i < 32; i++)
+			html_reg_id.push(document.getElementById("x"+i+"id"));
+	}
+	
+	function createPixelMap() 
+	{
+		var pixelMap = document.getElementById("pixelMap");
+		for (var i = 0; i < 320 * 200; i++) {
+			var pixel = document.createElement("div");
+			pixel.className = "pixel";
+			pixel.id = "px"+i;
+			pixelMap.appendChild(pixel);
+		}
+
+		var pixels = document.querySelectorAll(".pixel");
+		let cnt = 0
+		pixels.forEach(function(pixel) {
+			let rgb_cell = 0x00000000; //VRAM_MEMORY[cnt]
+			let red = (rgb_cell >> 16) & 0xFF;
+			let green = (rgb_cell >> 8) & 0xFF;
+			let blue = rgb_cell & 0xFF;
+			cnt++;
+			pixel.style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
+		});
+	}
+	
+	function update_pixel(pixel_data)
+	{
+		let cnt = 0;
+		pixel_data.forEach(function() {
+			let pixel_idx = pixel_data[cnt][0];
+			let pixel_rgb = pixel_data[cnt++][1];
+			
+			let red = (pixel_rgb >> 24) & 0xFF;
+			let green = (pixel_rgb >> 16) & 0xFF;
+			let blue = (pixel_rgb >> 8) & 0xFF;
+			
+			
+			let pixel = document.getElementById("px"+pixel_idx);
+			pixel.style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
+		});
+	}
+	
+	init_frvsep();
 	
 	</script>
 </body>

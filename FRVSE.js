@@ -323,8 +323,8 @@ const VGA_RGB_table = [
     0x2c402c, 0x2c4030, 0x2c4034, 0x2c403c, 0x2c4040, 0x2c3c40, 0x2c3440, 0x2c3040, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000
 ];
 
-let html_pc_id
-let html_reg_id
+//let html_pc_id
+//let html_reg_id
 
 //"MACRO"
 const MAX_INTERRUPT_NUMBER = 8;
@@ -560,6 +560,9 @@ let ERROR_MESSAGE = ""
 
 function FRVSE_set_state(state){
 	FRVSE_current_state = state;
+	FRVSE_message("FRVSE state: "+state, "black")
+	return
+	FRVSE_current_state = state;
 	var state_message = document.getElementById("state_message");
 	state_message.textContent = "FRVSE state: "+state;
 	state_message.style.color = "black";
@@ -567,6 +570,8 @@ function FRVSE_set_state(state){
 
 function FRVSE_error(err)
 {
+	ERROR_MESSAGE = err;
+	FRVSE_message(err, "red")
 	return
 	var state_message = document.getElementById("state_message");
 	state_message.textContent = err;
@@ -574,50 +579,14 @@ function FRVSE_error(err)
 	state_message.style.color = "red";
 }
 
-function createPixelMap() 
+function FRVSE_message(mex, color)
 {
-	self.postMessage("PXMAP");
-	return;
-	
-	var pixelMap = document.getElementById("pixelMap");
-	for (var i = 0; i < 320 * 200; i++) {
-		var pixel = document.createElement("div");
-		pixel.className = "pixel";
-		pixel.id = "px"+i;
-		pixelMap.appendChild(pixel);
-	}
-	updatePixelColors(); // Initially fill colors
-}
-
-function updatePixelColors() 
-{
-	var pixels = document.querySelectorAll(".pixel");
-	let cnt = 0
-	pixels.forEach(function(pixel) {
-		let rgb_cell = VRAM_MEMORY[cnt]
-		let red = (rgb_cell >> 16) & 0xFF;
-		let green = (rgb_cell >> 8) & 0xFF;
-		let blue = rgb_cell & 0xFF;
-		cnt++;
-		pixel.style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
-	});
+	self.postMessage(["EMUM", mex, color]);
 }
 
 function update_pixel(pixel_data)
 {
-	let cnt = 0;
-	pixel_data.forEach(function() {
-		let pixel_idx = pixel_data[cnt][0];
-		let pixel_rgb = pixel_data[cnt++][1];
-		
-		let red = (pixel_rgb >> 24) & 0xFF;
-		let green = (pixel_rgb >> 16) & 0xFF;
-		let blue = (pixel_rgb >> 8) & 0xFF;
-		
-		
-		let pixel = document.getElementById("px"+pixel_idx);
-		pixel.style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
-	});
+	self.postMessage(["UPXD", pixel_data]);
 }
 
 let pixel_cnt = 0;
@@ -690,8 +659,15 @@ function init_frvse()
 	CHARACTER_MEMORY = new Uint32Array(TEXT_MODE_MEMORY_SIZE/4)
 	//ascii_char_memory = new Uint8Array(TEXT_MODE_MEMORY_SIZE/4)
 	
-	createPixelMap();
+	/**CREATE PIXELMAP**/
+	self.postMessage("CPXM");
+	//createPixelMap();
+	/**CREATE PIXELMAP**/
 	
+	/** CREATE REG DATA **/
+	self.postMessage("CREG");
+	
+	/*
 	html_pc_id = document.getElementById("pcid");
 	console.log("html1: "+html_pc_id);
 	
@@ -699,8 +675,9 @@ function init_frvse()
 	
 	for(let i = 0; i < 32; i++)
 		html_reg_id.push(document.getElementById("x"+i+"id"));
+	*/
 	
-	console.log("html2: "+html_reg_id);
+	/** CREATE REG DATA **/
 	
 	init_lock = true;
 }
