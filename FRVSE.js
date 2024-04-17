@@ -629,7 +629,7 @@ function fill_screen()
 let run_FRVSE = false;
 function FRVSE_main()
 {
-	setInterval(riscv32I_core, 1);
+	setInterval(run_func, 1);
 	
 	/*
 	while(true)
@@ -639,6 +639,12 @@ function FRVSE_main()
 			riscv32I_core()
 		}
 	*/
+}
+
+function run_func()
+{
+	if(run_FRVSE == true)
+		riscv32I_core()
 }
 
 let init_lock = false
