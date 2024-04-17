@@ -259,6 +259,7 @@
 				let arrayBuffer = event.target.result;
 				let uint8Array = new Uint8Array(arrayBuffer);
 				ROM_MEMORY = uint8Array;
+				console.log("ROMMEM "+ROM_MEMORY)
 			};
 
 			reader.onerror = function() {
