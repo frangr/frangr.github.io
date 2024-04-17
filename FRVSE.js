@@ -1771,7 +1771,7 @@ function riscv32I_core()
             return;
     }
 
-	update_reg()
+	//update_reg()
 
 	//add_to_array(pc, 4)
     pc += 4;
