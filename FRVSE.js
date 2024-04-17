@@ -634,7 +634,10 @@ self.onmessage = function(event) {
 		console.log("run_FRVSE = "+run_FRVSE)
 		
 		if(!start_frvse())
+		{
+			console.log("A7")
 			return;
+		}
 		
 		while(true)
 		{
@@ -659,14 +662,17 @@ function FRVSE_main()
 let init_lock = false
 function init_frvse()
 {	
+	console.log("A4")
 	if (init_lock)
 		return;
 	
+	console.log("A5")
 	if (ROM_MEMORY == null)
 	{
 		FRVSE_error("ERROR: ROM MEMORY FILE NOT ADDED.")
 		return 1;
 	}
+	console.log("A6")
 	
 	console.log(ROM_MEMORY)
 	
@@ -693,11 +699,14 @@ function init_frvse()
 
 function start_frvse()
 {
+	console.log("A1")
 	if (FRVSE_current_state == frvse_state_run)
 		return false;
 	
+	console.log("A2")
 	if(init_frvse() == 1)
 		return false;
+	console.log("A3")
 	
 	FRVSE_set_state(frvse_state_run);
 	
