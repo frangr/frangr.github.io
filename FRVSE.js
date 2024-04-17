@@ -629,10 +629,11 @@ function fill_screen()
 let run_FRVSE = false;
 function FRVSE_main()
 {
-	while(run_FRVSE)
-	{
-		riscv32I_core()
-	}
+	while(true)
+		while(run_FRVSE)
+		{
+			riscv32I_core()
+		}
 }
 
 let init_lock = false
