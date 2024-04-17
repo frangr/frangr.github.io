@@ -229,7 +229,12 @@
 	*/
 	
 	frvse_worker.onmessage = function(event) {
-		console.log('Message from worker:', event.data);
+		if(event.data == "REG")
+			console.log("reg: "+reg);
+		if(event.data == "PIX")
+			console.log("pixel!");
+		if(event.data == "HEX")
+			console.log("hex!");
 	};
 	
 	function FRVSE_start()

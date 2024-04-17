@@ -658,7 +658,8 @@ function FRVSE_main()
 let init_lock = false
 function init_frvse()
 {
-	self.postMessage('Hello from worker! You said: ' + u16);
+	//MESSAGE TO HTML INDEX
+	self.postMessage("REG");
 	
 	if (init_lock)
 		return;
@@ -774,9 +775,13 @@ function toHex32(number) {
 
 function update_reg()
 {
+	self.postMessage("REG");
+	
+	/*
 	html_pc_id.textContent = hex_dec == false? toHex32(pc) : pc;
 	for (i in html_reg_id) 
 		html_reg_id[i].textContent = hex_dec == false? toHex32(reg[i]) : reg[i];
+	*/
 }
 
 function reg_mode(mode)
