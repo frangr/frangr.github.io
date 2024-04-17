@@ -586,6 +586,7 @@ function FRVSE_message(mex, color)
 
 function update_pixel(pixel_data)
 {
+	return
 	self.postMessage(["UPXD", pixel_data]);
 }
 
