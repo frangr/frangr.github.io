@@ -630,6 +630,10 @@ function fill_screen()
 let run_FRVSE = false;
 //main function that executes FRVSE emulator
 self.onmessage = function(event) {
+	if (event.data[0] === "ROMU") //transfer ROM file
+	{
+		console.log("ROMU")
+	}
     if (event.data === 'start') {
 		console.log("run_FRVSE = "+run_FRVSE)
 		
