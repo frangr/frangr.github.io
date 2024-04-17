@@ -567,6 +567,7 @@ function FRVSE_set_state(state){
 
 function FRVSE_error(err)
 {
+	return
 	var state_message = document.getElementById("state_message");
 	state_message.textContent = err;
 	ERROR_MESSAGE = err;
