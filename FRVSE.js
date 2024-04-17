@@ -658,10 +658,7 @@ function FRVSE_main()
 
 let init_lock = false
 function init_frvse()
-{
-	//MESSAGE TO HTML INDEX
-	self.postMessage("REG");
-	
+{	
 	if (init_lock)
 		return;
 	
