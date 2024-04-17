@@ -629,12 +629,16 @@ function fill_screen()
 let run_FRVSE = false;
 function FRVSE_main()
 {
+	setInterval(riscv32I_core(), 1);
+	
+	/*
 	while(true)
 		while(run_FRVSE)
 		{
 			console.log("FRVSE RUN")
 			riscv32I_core()
 		}
+	*/
 }
 
 let init_lock = false
@@ -1488,6 +1492,8 @@ function send_to_chipset(addr, data, rw, sz)
 //EMULATOR FUNCTION
 function riscv32I_core()
 {
+	console.log("RISCV");
+	
     if(reset_pin)
         reset_routine();
 
