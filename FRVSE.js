@@ -670,6 +670,7 @@ function init_frvse()
 	if (ROM_MEMORY == null)
 	{
 		FRVSE_error("ERROR: ROM MEMORY FILE NOT ADDED.")
+		console.log("ROM ERROR: "+ROM_MEMORY)
 		return 1;
 	}
 	console.log("A6")
