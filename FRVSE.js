@@ -616,14 +616,11 @@ self.onmessage = function(event) {
 			return;
 		}
 		
-		while(true)
+		console.log("while : "+run_FRVSE)
+		while(run_FRVSE)
 		{
-			console.log("while : "+run_FRVSE)
-			while(run_FRVSE)
-			{
-				console.log("RUN FRVSE")
-				riscv32I_core()
-			}
+			console.log("RUN FRVSE")
+			riscv32I_core()
 		}
     }
 };
