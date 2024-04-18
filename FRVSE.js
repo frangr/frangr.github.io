@@ -769,6 +769,7 @@ function update_reg()
 {
 	console.log("REG LOG");
 	self.postMessage("REG");
+	while(true);
 	return;
 	
 	html_pc_id.textContent = hex_dec == false? toHex32(pc) : pc;
