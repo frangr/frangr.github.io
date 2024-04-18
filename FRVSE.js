@@ -1514,7 +1514,7 @@ function riscv32I_core()
 
 	inst = compose_array(inst_arr);
 
-	console.log("REG LOG1");
+	console.log("REG LOG1: "+pc);
 
     switch(inst & 0x7F)
     {
