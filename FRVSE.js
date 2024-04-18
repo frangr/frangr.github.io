@@ -1510,7 +1510,6 @@ function send_to_chipset(addr, data, rw, sz)
 }
 
 //EMULATOR FUNCTION
-let emu_cnt = 0
 function riscv32I_core()
 {
 	console.log("reset_pin: ... "+reset_pin)
@@ -1528,8 +1527,13 @@ function riscv32I_core()
 
 	console.log("EMU CNT: "+emu_cnt)
 
-	if(emu_cnt++ == 30000)
-		run_FRVSE = false;
+	if (typeof self !== 'undefined' && self instanceof WorkerGlobalScope) {
+	  // Code is being executed inside a web worker
+	  console.log("Code is being executed inside a web worker.");
+	} else {
+	  // Code is being executed in the main thread
+	  console.log("Code is being executed in the main thread.");
+	}
 
     switch(inst & 0x7F)
     {
