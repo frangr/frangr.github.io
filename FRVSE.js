@@ -1789,7 +1789,7 @@ function riscv32I_core()
     }
 
 	console.log("REG LOG2");
-	update_reg()
+	//update_reg()
 
 	//add_to_array(pc, 4)
     pc += 4;
