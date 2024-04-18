@@ -623,10 +623,7 @@ self.onmessage = function(event) {
 			{
 				console.log("RUN FRVSE")
 				riscv32I_core()
-				
-				run_FRVSE = false;
 			}
-			break;
 		}
     }
 };
