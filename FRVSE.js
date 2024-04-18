@@ -581,12 +581,12 @@ function FRVSE_error(err)
 
 function FRVSE_message(mex, color)
 {
-	self.postMessage(["EMUM", mex, color]);
+	//self.postMessage(["EMUM", mex, color]);
 }
 
 function update_pixel(pixel_data)
 {
-	self.postMessage(["UPXD", pixel_data]);
+	//self.postMessage(["UPXD", pixel_data]);
 }
 
 let pixel_cnt = 0;
@@ -608,6 +608,9 @@ self.onmessage = function(event) {
 		console.log("ROM_MEMORY:: "+ROM_MEMORY)
 	}
     if (event.data === 'start') {
+		
+		FRVSE_main()
+		/*
 		console.log("run_FRVSE = "+run_FRVSE)
 		
 		if(!start_frvse())
@@ -622,13 +625,23 @@ self.onmessage = function(event) {
 			console.log("RUN FRVSE")
 			riscv32I_core()
 		}
+		*/
     }
 };
 
 function FRVSE_main()
 {
+	console.log("run_FRVSE = "+run_FRVSE)
+	if(!start_frvse())
+	{
+		console.log("A7")
+		return;
+	}
+	
+	console.log("while : "+run_FRVSE)
 	while(run_FRVSE)
 	{
+		console.log("RUN FRVSE")
 		riscv32I_core()
 	}
 }
@@ -658,12 +671,12 @@ function init_frvse()
 	//ascii_char_memory = new Uint8Array(TEXT_MODE_MEMORY_SIZE/4)
 	
 	/**CREATE PIXELMAP**/
-	self.postMessage("CPXM");
+	//self.postMessage("CPXM");
 	//createPixelMap();
 	/**CREATE PIXELMAP**/
 	
 	/** CREATE REG DATA **/
-	self.postMessage("CREG");
+	//self.postMessage("CREG");
 	
 	/*
 	html_pc_id = document.getElementById("pcid");
@@ -766,7 +779,7 @@ function toHex32(number) {
 function update_reg()
 {
 	console.log("REG LOG");
-	self.postMessage(["REG", reg]);
+	//self.postMessage(["REG", reg]);
 	return;
 	
 	html_pc_id.textContent = hex_dec == false? toHex32(pc) : pc;
