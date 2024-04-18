@@ -581,12 +581,12 @@ function FRVSE_error(err)
 
 function FRVSE_message(mex, color)
 {
-	//self.postMessage(["EMUM", mex, color]);
+	self.postMessage(["EMUM", mex, color]);
 }
 
 function update_pixel(pixel_data)
 {
-	//self.postMessage(["UPXD", pixel_data]);
+	self.postMessage(["UPXD", pixel_data]);
 }
 
 let pixel_cnt = 0;
@@ -682,12 +682,12 @@ function init_frvse()
 	//ascii_char_memory = new Uint8Array(TEXT_MODE_MEMORY_SIZE/4)
 	
 	/**CREATE PIXELMAP**/
-	//self.postMessage("CPXM");
+	self.postMessage("CPXM");
 	//createPixelMap();
 	/**CREATE PIXELMAP**/
 	
 	/** CREATE REG DATA **/
-	//self.postMessage("CREG");
+	self.postMessage("CREG");
 	
 	/*
 	html_pc_id = document.getElementById("pcid");
@@ -790,7 +790,7 @@ function toHex32(number) {
 function update_reg()
 {
 	console.log("REG LOG");
-	//self.postMessage(["REG", reg]);
+	self.postMessage(["REG", reg]);
 	return;
 	
 	html_pc_id.textContent = hex_dec == false? toHex32(pc) : pc;
