@@ -581,12 +581,12 @@ function FRVSE_error(err)
 
 function FRVSE_message(mex, color)
 {
-	//self.postMessage(["EMUM", mex, color]);
+	self.postMessage(["EMUM", mex, color]);
 }
 
 function update_pixel(pixel_data)
 {
-	//self.postMessage(["UPXD", pixel_data]);
+	self.postMessage(["UPXD", pixel_data]);
 }
 
 let pixel_cnt = 0;
@@ -658,12 +658,12 @@ function init_frvse()
 	//ascii_char_memory = new Uint8Array(TEXT_MODE_MEMORY_SIZE/4)
 	
 	/**CREATE PIXELMAP**/
-	//self.postMessage("CPXM");
+	self.postMessage("CPXM");
 	//createPixelMap();
 	/**CREATE PIXELMAP**/
 	
 	/** CREATE REG DATA **/
-	//self.postMessage("CREG");
+	self.postMessage("CREG");
 	
 	/*
 	html_pc_id = document.getElementById("pcid");
@@ -766,7 +766,7 @@ function toHex32(number) {
 function update_reg()
 {
 	console.log("REG LOG");
-	//self.postMessage(["REG", reg]);
+	self.postMessage(["REG", reg]);
 	return;
 	
 	html_pc_id.textContent = hex_dec == false? toHex32(pc) : pc;
@@ -1510,6 +1510,7 @@ function send_to_chipset(addr, data, rw, sz)
 }
 
 //EMULATOR FUNCTION
+let emu_cnt = 0
 function riscv32I_core()
 {
 	console.log("reset_pin: ... "+reset_pin)
@@ -1524,6 +1525,9 @@ function riscv32I_core()
 	inst = compose_array(inst_arr);
 
 	console.log("REG LOG1: "+pc+" -- "+inst);
+
+	if(emu_cnt++ == 7000)
+		run_FRVSE = false;
 
     switch(inst & 0x7F)
     {
