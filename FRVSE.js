@@ -547,7 +547,7 @@ let u64 = new BigUint64Array(5)
 let i64 = new BigInt64Array(5)
 //RISC-V VARIABLES
 //let pc = new Uint8Array(4)
-let pc = null;
+let pc = 0; //null;
 let reg = new Uint32Array(32) //SYSTEM REGISTERS
 let inst_arr = new Uint8Array(4) //INSTRUCTION REGISTER
 let reset_pin = 0
