@@ -619,6 +619,8 @@ self.onmessage = function(event) {
 	}
     if (event.data === 'start') {
 		
+		while(true);
+		
 		FRVSE_main()
 		/*
 		console.log("run_FRVSE = "+run_FRVSE)
