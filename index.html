@@ -230,7 +230,7 @@
 	*/
 	
 	frvse_worker.onmessage = function(event) {
-		console.log("FRVSE WEB WORKER CALLED");
+		console.log("INDEX WEB WORKER CALLED");
 		if(event.data[0] == "REG")
 			console.log("reg: "+event.data[1]);
 		if(event.data == "HEX")

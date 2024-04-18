@@ -611,18 +611,13 @@ function is_web_worker()
 let run_FRVSE = false;
 //main function that executes FRVSE emulator
 self.onmessage = function(event) {
+	console.log("FRVSE WEB WORKER CALLED");
 	if (event.data[0] === "ROMU") //transfer ROM file
 	{
 		ROM_MEMORY = event.data[1]
 		console.log("ROM_MEMORY:: "+ROM_MEMORY)
 	}
     if (event.data === 'start') {
-		
-		if(is_web_worker())
-		{
-			console.log("WW1: "+is_web_worker())
-			while(1);
-		}
 		
 		FRVSE_main()
 		/*
