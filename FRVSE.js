@@ -767,6 +767,7 @@ function toHex32(number) {
 
 function update_reg()
 {
+	console.log("REG LOG");
 	self.postMessage("REG");
 	return;
 	
@@ -1771,7 +1772,7 @@ function riscv32I_core()
             return;
     }
 
-	//update_reg()
+	update_reg()
 
 	//add_to_array(pc, 4)
     pc += 4;
