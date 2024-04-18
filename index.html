@@ -278,7 +278,8 @@
 				//ROM_MEMORY = uint8Array;
 				
 				/*SEND UPLOADED FILE TO WORKER*/
-				frvse_worker.postMessage(["ROMU", uint8Array.buffer]);
+				frvse_worker.postMessage(["ROMU", uint8Array]);
+				//frvse_worker.postMessage(["ROMU", uint8Array.buffer]);
 			};
 
 			reader.onerror = function() {
