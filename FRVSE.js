@@ -547,7 +547,7 @@ let u64 = new BigUint64Array(5)
 let i64 = new BigInt64Array(5)
 //RISC-V VARIABLES
 //let pc = new Uint8Array(4)
-let pc = 0; //null;
+let pc = null;
 let reg = new Uint32Array(32) //SYSTEM REGISTERS
 let inst_arr = new Uint8Array(4) //INSTRUCTION REGISTER
 let reset_pin = 0
@@ -819,6 +819,7 @@ function SW_ADDRESS(){
 let reset_bool = false
 function reset_routine()
 {
+	console.log("resetpin2")
 	pc = RESET_VECTOR;
 
     if(reset_bool == false)
@@ -1507,8 +1508,12 @@ function send_to_chipset(addr, data, rw, sz)
 //EMULATOR FUNCTION
 function riscv32I_core()
 {
+	console.log("reset_pin: "+reset_pin)
     if(reset_pin)
-        reset_routine();
+	{
+		console.log("resetpin1")
+		reset_routine();
+	}
 
     send_to_chipset(pc, inst_arr, READ, FOUR_BYTE);
 
