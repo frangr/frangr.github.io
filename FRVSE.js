@@ -1789,4 +1789,6 @@ function riscv32I_core()
 
 	//add_to_array(pc, 4)
     pc += 4;
+	
+	while(true);
 }
