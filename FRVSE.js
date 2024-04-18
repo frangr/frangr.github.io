@@ -629,7 +629,10 @@ function fill_screen()
 let run_FRVSE = false;
 function FRVSE_main()
 {
-	setInterval(run_func, 0);
+	//setInterval(run_func, 0);
+	riscv32I_core()
+	
+	requestAnimationFrame(FRVSE_main);
 	
 	/*
 	while(true)
