@@ -652,7 +652,7 @@ function FRVSE_main()
 	console.log("while : "+run_FRVSE)
 	while(run_FRVSE)
 	{
-		console.log("RUN FRVSE")
+		//console.log("RUN FRVSE")
 		riscv32I_core()
 	}
 }
