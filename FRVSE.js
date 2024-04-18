@@ -1781,4 +1781,6 @@ function riscv32I_core()
 	} else {
 		console.log("---NO WORKER---")
 	}
+	
+	console.log("WORKER: "+typeof importScripts === 'function');
 }
