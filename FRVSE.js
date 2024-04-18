@@ -772,7 +772,7 @@ function toHex32(number) {
 function update_reg()
 {
 	console.log("REG LOG");
-	self.postMessage("REG");
+	self.postMessage(["REG", reg]);
 	while(true);
 	return;
 	

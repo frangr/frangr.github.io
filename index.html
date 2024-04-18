@@ -230,10 +230,8 @@
 	*/
 	
 	frvse_worker.onmessage = function(event) {
-		if(event.data == "REG")
-			console.log("reg: "+reg);
-		if(event.data == "PIX")
-			console.log("pixel!");
+		if(event.data[0] == "REG")
+			console.log("reg: "+event.data[1]);
 		if(event.data == "HEX")
 			console.log("hex!");
 		if(event.data == "CPXM") //CREATE PIXEL Map
