@@ -621,6 +621,13 @@ self.onmessage = function(event) {
 			while(run_FRVSE)
 			{
 				console.log("RUN FRVSE")
+				
+				if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
+					console.log("---WORKER---")
+				} else {
+					console.log("---NO WORKER---")
+				}
+				
 				riscv32I_core()
 			}
 		}
