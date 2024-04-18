@@ -1514,6 +1514,8 @@ function riscv32I_core()
 
 	inst = compose_array(inst_arr);
 
+	console.log("REG LOG1");
+
     switch(inst & 0x7F)
     {
         case LUI:
@@ -1773,6 +1775,7 @@ function riscv32I_core()
             return;
     }
 
+	console.log("REG LOG2");
 	update_reg()
 
 	//add_to_array(pc, 4)
