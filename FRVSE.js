@@ -1525,8 +1525,6 @@ function riscv32I_core()
 
 	console.log("REG LOG1: "+pc+" -- "+inst);
 
-	console.log("EMU CNT: "+emu_cnt)
-
 	if (typeof self !== 'undefined' && self instanceof WorkerGlobalScope) {
 	  // Code is being executed inside a web worker
 	  console.log("Code is being executed inside a web worker.");
