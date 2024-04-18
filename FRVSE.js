@@ -581,12 +581,12 @@ function FRVSE_error(err)
 
 function FRVSE_message(mex, color)
 {
-	self.postMessage(["EMUM", mex, color]);
+	//self.postMessage(["EMUM", mex, color]);
 }
 
 function update_pixel(pixel_data)
 {
-	self.postMessage(["UPXD", pixel_data]);
+	//self.postMessage(["UPXD", pixel_data]);
 }
 
 let pixel_cnt = 0;
@@ -766,7 +766,7 @@ function toHex32(number) {
 function update_reg()
 {
 	console.log("REG LOG");
-	self.postMessage(["REG", reg]);
+	//self.postMessage(["REG", reg]);
 	return;
 	
 	html_pc_id.textContent = hex_dec == false? toHex32(pc) : pc;
@@ -1789,6 +1789,4 @@ function riscv32I_core()
 
 	//add_to_array(pc, 4)
     pc += 4;
-	
-	while(true);
 }
