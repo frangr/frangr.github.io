@@ -832,6 +832,7 @@ function reset_routine()
     }
 
 	reg = new Uint32Array(32) //RESET GP REGISTERS
+	console.log("REGTEST: "+reg)
 }
 
 //INSTRUCTION FUNCTIONS
@@ -1296,8 +1297,10 @@ function remu() //#
 
 function mem_device_controller(device, addr, data, rw, sz)
 {
+	console.log("MEM DEV2")
     if(rw == READ)
     {
+		console.log("MEM DEV3")
         switch(sz)
         {
         case ONE_BYTE:
@@ -1317,6 +1320,7 @@ function mem_device_controller(device, addr, data, rw, sz)
     }
     else if(rw == WRITE)
     {
+		console.log("MEM DEV4")
         switch(sz)
         {
         case ONE_BYTE:
@@ -1446,12 +1450,14 @@ function video_memory_controller(addr, color, rw)
 
 function send_to_chipset(addr, data, rw, sz)
 {
+	console.log("CHIPSET")
 	let memory_dev = null
 	
 	let addr_offset = 0
 	
     if(addr >= ROM_MEMORY_START_ADDRESS && addr <= (ROM_MEMORY_START_ADDRESS + ROM_MEMORY_SIZE)-1)
 	{
+		console.log("ROM MEM")
 		addr_offset = addr - ROM_MEMORY_START_ADDRESS;
 		
 		//if(addr_offset > ROM_MEMORY_SIZE)
@@ -1479,6 +1485,7 @@ function send_to_chipset(addr, data, rw, sz)
 	
 	if (memory_dev != null)
 	{
+		console.log("MEM DEV1")
 		mem_device_controller(memory_dev, addr_offset, data, rw, sz)
 		memory_dev = null
 		return
