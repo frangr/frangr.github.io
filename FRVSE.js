@@ -611,28 +611,28 @@ function is_web_worker()
 let run_FRVSE = false;
 //main function that executes FRVSE emulator
 self.onmessage = function(event) {
-	console.log("FRVSE WEB WORKER CALLED");
+	//console.log("FRVSE WEB WORKER CALLED");
 	if (event.data[0] === "ROMU") //transfer ROM file
 	{
 		ROM_MEMORY = event.data[1]
-		console.log("ROM_MEMORY:: "+ROM_MEMORY)
+		//console.log("ROM_MEMORY:: "+ROM_MEMORY)
 	}
     if (event.data === 'start') {
 		
 		FRVSE_main()
 		/*
-		console.log("run_FRVSE = "+run_FRVSE)
+		//console.log("run_FRVSE = "+run_FRVSE)
 		
 		if(!start_frvse())
 		{
-			console.log("A7")
+			//console.log("A7")
 			return;
 		}
 		
-		console.log("while : "+run_FRVSE)
+		//console.log("while : "+run_FRVSE)
 		while(run_FRVSE)
 		{
-			console.log("RUN FRVSE")
+			//console.log("RUN FRVSE")
 			riscv32I_core()
 		}
 		*/
@@ -641,15 +641,15 @@ self.onmessage = function(event) {
 
 function FRVSE_main()
 {
-	console.log("run_FRVSE = "+run_FRVSE)
-	console.log("WW2: "+is_web_worker())
+	//console.log("run_FRVSE = "+run_FRVSE)
+	//console.log("WW2: "+is_web_worker())
 	if(!start_frvse())
 	{
-		console.log("A7")
+		//console.log("A7")
 		return;
 	}
 	
-	console.log("while : "+run_FRVSE)
+	//console.log("while : "+run_FRVSE)
 	while(run_FRVSE)
 	{
 		//console.log("RUN FRVSE")
@@ -660,20 +660,20 @@ function FRVSE_main()
 let init_lock = false
 function init_frvse()
 {	
-	console.log("A4")
+	//console.log("A4")
 	if (init_lock)
 		return;
 	
-	console.log("A5")
+	//console.log("A5")
 	if (ROM_MEMORY == null)
 	{
 		FRVSE_error("ERROR: ROM MEMORY FILE NOT ADDED.")
-		console.log("ROM ERROR: "+ROM_MEMORY)
+		//console.log("ROM ERROR: "+ROM_MEMORY)
 		return 1;
 	}
-	console.log("A6")
+	//console.log("A6")
 	
-	console.log(ROM_MEMORY)
+	//console.log(ROM_MEMORY)
 	
 	RAM_MEMORY = new Uint8Array(RAM_SIZE)
 	MM_MEMORY = new Uint8Array(100)
@@ -691,7 +691,7 @@ function init_frvse()
 	
 	/*
 	html_pc_id = document.getElementById("pcid");
-	console.log("html1: "+html_pc_id);
+	//console.log("html1: "+html_pc_id);
 	
 	html_reg_id = []
 	
@@ -706,20 +706,20 @@ function init_frvse()
 
 function start_frvse()
 {
-	console.log("A1")
+	//console.log("A1")
 	if (FRVSE_current_state == frvse_state_run)
 		return false;
 	
-	console.log("A2")
+	//console.log("A2")
 	if(init_frvse() == 1)
 		return false;
-	console.log("A3")
+	//console.log("A3")
 	
 	FRVSE_set_state(frvse_state_run);
 	
 	//start emulator
 	run_FRVSE = true;
-	console.log("start_frvse()")
+	//console.log("start_frvse()")
 	//FRVSE_main();
 	return true;
 }
@@ -789,7 +789,7 @@ function toHex32(number) {
 
 function update_reg()
 {
-	console.log("REG LOG");
+	//console.log("REG LOG");
 	self.postMessage(["REG", reg]);
 	return;
 	
@@ -840,7 +840,7 @@ function SW_ADDRESS(){
 let reset_bool = false
 function reset_routine()
 {
-	console.log("resetpin2")
+	//console.log("resetpin2")
 	pc = RESET_VECTOR;
 
     if(reset_bool == false)
@@ -850,7 +850,7 @@ function reset_routine()
     }
 
 	reg = new Uint32Array(32) //RESET GP REGISTERS
-	console.log("REGTEST: "+reg)
+	//console.log("REGTEST: "+reg)
 }
 
 //INSTRUCTION FUNCTIONS
@@ -1315,10 +1315,10 @@ function remu() //#
 
 function mem_device_controller(device, addr, data, rw, sz)
 {
-	console.log("MEM DEV2")
+	//console.log("MEM DEV2")
     if(rw == READ)
     {
-		console.log("MEM DEV3")
+		//console.log("MEM DEV3")
         switch(sz)
         {
         case ONE_BYTE:
@@ -1338,7 +1338,7 @@ function mem_device_controller(device, addr, data, rw, sz)
     }
     else if(rw == WRITE)
     {
-		console.log("MEM DEV4")
+		//console.log("MEM DEV4")
         switch(sz)
         {
         case ONE_BYTE:
@@ -1468,14 +1468,14 @@ function video_memory_controller(addr, color, rw)
 
 function send_to_chipset(addr, data, rw, sz)
 {
-	console.log("CHIPSET")
+	//console.log("CHIPSET")
 	let memory_dev = null
 	
 	let addr_offset = 0
 	
     if(addr >= ROM_MEMORY_START_ADDRESS && addr <= (ROM_MEMORY_START_ADDRESS + ROM_MEMORY_SIZE)-1)
 	{
-		console.log("ROM MEM")
+		//console.log("ROM MEM")
 		addr_offset = addr - ROM_MEMORY_START_ADDRESS;
 		
 		//if(addr_offset > ROM_MEMORY_SIZE)
@@ -1503,7 +1503,7 @@ function send_to_chipset(addr, data, rw, sz)
 	
 	if (memory_dev != null)
 	{
-		console.log("MEM DEV1")
+		//console.log("MEM DEV1")
 		mem_device_controller(memory_dev, addr_offset, data, rw, sz)
 		memory_dev = null
 		return
@@ -1536,11 +1536,10 @@ function send_to_chipset(addr, data, rw, sz)
 //EMULATOR FUNCTION
 function riscv32I_core()
 {
-	return;
-	console.log("reset_pin: ... "+reset_pin)
+	//console.log("reset_pin: ... "+reset_pin)
     if(reset_pin)
 	{
-		console.log("resetpin1")
+		//console.log("resetpin1")
 		reset_routine();
 	}
 
@@ -1548,7 +1547,7 @@ function riscv32I_core()
 
 	inst = compose_array(inst_arr);
 
-	console.log("REG LOG1: "+pc+" -- "+inst);
+	//console.log("REG LOG1: "+pc+" -- "+inst);
 
     switch(inst & 0x7F)
     {
@@ -1809,7 +1808,7 @@ function riscv32I_core()
             return;
     }
 
-	console.log("REG LOG2");
+	//console.log("REG LOG2");
 	update_reg()
 
 	//add_to_array(pc, 4)
