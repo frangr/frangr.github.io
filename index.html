@@ -512,6 +512,14 @@
 	
 	init_frvsep();
 	
+	if (typeof self !== 'undefined' && self instanceof WorkerGlobalScope) {
+	  // Code is being executed inside a web worker
+	  console.log("Code is being executed inside a web worker.");
+	} else {
+	  // Code is being executed in the main thread
+	  console.log("Code is being executed in the main thread.");
+	}
+	
 	</script>
 </body>
 </html>

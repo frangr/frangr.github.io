@@ -1525,14 +1525,6 @@ function riscv32I_core()
 
 	console.log("REG LOG1: "+pc+" -- "+inst);
 
-	if (typeof self !== 'undefined' && self instanceof WorkerGlobalScope) {
-	  // Code is being executed inside a web worker
-	  console.log("Code is being executed inside a web worker.");
-	} else {
-	  // Code is being executed in the main thread
-	  console.log("Code is being executed in the main thread.");
-	}
-
     switch(inst & 0x7F)
     {
         case LUI:
