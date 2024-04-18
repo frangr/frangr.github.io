@@ -1508,7 +1508,7 @@ function send_to_chipset(addr, data, rw, sz)
 //EMULATOR FUNCTION
 function riscv32I_core()
 {
-	console.log("state test: ... "+frvse_state_step)
+	console.log("reset_pin: ... "+reset_pin)
     if(reset_pin)
 	{
 		console.log("resetpin1")
