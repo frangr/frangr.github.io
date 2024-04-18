@@ -649,8 +649,6 @@ function FRVSE_main()
 		return;
 	}
 	
-	while(true);
-	
 	console.log("while : "+run_FRVSE)
 	while(run_FRVSE)
 	{
@@ -1550,6 +1548,8 @@ function riscv32I_core()
 	inst = compose_array(inst_arr);
 
 	console.log("REG LOG1: "+pc+" -- "+inst);
+
+	return;
 
     switch(inst & 0x7F)
     {
