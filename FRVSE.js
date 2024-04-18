@@ -599,6 +599,15 @@ function fill_screen()
 	setTimeout(fill_screen, 200);
 }
 
+function is_web_worker()
+{
+	if (typeof self !== 'undefined' && self instanceof WorkerGlobalScope) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 let run_FRVSE = false;
 //main function that executes FRVSE emulator
 self.onmessage = function(event) {
@@ -608,6 +617,12 @@ self.onmessage = function(event) {
 		console.log("ROM_MEMORY:: "+ROM_MEMORY)
 	}
     if (event.data === 'start') {
+		
+		if(is_web_worker())
+		{
+			console.log("WW1: "+is_web_worker())
+			while(1);
+		}
 		
 		FRVSE_main()
 		/*
@@ -632,6 +647,7 @@ self.onmessage = function(event) {
 function FRVSE_main()
 {
 	console.log("run_FRVSE = "+run_FRVSE)
+	console.log("WW2: "+is_web_worker())
 	if(!start_frvse())
 	{
 		console.log("A7")
