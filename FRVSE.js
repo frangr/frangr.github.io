@@ -605,6 +605,7 @@ self.onmessage = function(event) {
 	if (event.data[0] === "ROMU") //transfer ROM file
 	{
 		ROM_MEMORY = event.data[1]
+		console.log("ROM_MEMORY:: "+ROM_MEMORY)
 	}
     if (event.data === 'start') {
 		console.log("run_FRVSE = "+run_FRVSE)
