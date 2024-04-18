@@ -1526,7 +1526,9 @@ function riscv32I_core()
 
 	console.log("REG LOG1: "+pc+" -- "+inst);
 
-	if(emu_cnt++ == 7000)
+	console.log("EMU CNT: "+emu_cnt)
+
+	if(emu_cnt++ == 30000)
 		run_FRVSE = false;
 
     switch(inst & 0x7F)
