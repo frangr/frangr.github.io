@@ -627,9 +627,9 @@ self.addEventListener('message', function(event) {
 		console.log("RM: "+ROM_MEMORY)
 		
 		//let memarr = mem_arr[event.data[1]].slice(event.data[2], event.data[2]+512);
-		let pars = parseInt(event.data[2]) + 10
-		console.log("CALC: "+pars)
-		let memarr = ROM_MEMORY.slice(pars, pars+10);
+		let pars = parseInt(event.data[2])
+		let pars1 = pars + 10
+		let memarr = ROM_MEMORY.slice(pars, pars1);
 		console.log("MEMARR: "+memarr)
 		self.postMessage(["HEX_RET", memarr]);
 		return;
