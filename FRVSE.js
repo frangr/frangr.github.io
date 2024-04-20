@@ -679,7 +679,7 @@ self.addEventListener('message', function(event) {
 			memarr = MM_MEMORY;
 		
 		if(memarr != null)
-			self.postMessage(["DWNBR", ROM_MEMORY]);
+			self.postMessage(["DWNBR", memarr]);
 		return;
 	}
     if (event.data === 'start') {
