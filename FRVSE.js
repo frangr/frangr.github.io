@@ -623,15 +623,37 @@ self.addEventListener('message', function(event) {
 	}
 	if (event.data[0] === "HEX_REQ") //transfer ROM file
 	{
-		console.log("HEX REQ: "+event.data)
-		console.log("RM: "+ROM_MEMORY)
+		let pars = parseInt(event.data[2])
+		let memarr = null;
+		switch( parseInt(event.data[1]) )
+		{
+			case 0:
+				memarr = ROM_MEMORY.slice(pars, pars+512);
+				break;
+			case 1:
+				memarr = RAM_MEMORY.slice(pars, pars+512);
+				break;
+			case 2:
+				memarr = MM_MEMORY.slice(pars, pars+512);
+				break;
+			case 3:
+				memarr = VRAM_MEMORY.slice(pars, pars+512);
+				break;
+			case 4:
+				memarr = CHARACTER_MEMORY.slice(pars, pars+512);
+				break;
+		}
+		self.postMessage(["HEX_RET", memarr]);
+		return;
 		
+		/*
 		//let memarr = mem_arr[event.data[1]].slice(event.data[2], event.data[2]+512);
 		let pars = parseInt(event.data[2])
 		console.log("DATA1: "+parseInt(event.data[1]))
 		let memarr = mem_arr[0].slice(pars, pars+512);
 		self.postMessage(["HEX_RET", memarr]);
 		return;
+		*/
 	}
 	if (event.data[0] === "DWNB") //transfer ROM file
 	{
