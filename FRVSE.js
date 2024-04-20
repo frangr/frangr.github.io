@@ -559,10 +559,6 @@ const frvse_state_step = "step"
 let FRVSE_current_state = frvse_state_void
 let ERROR_MESSAGE = ""
 
-while(true)
-{
-}
-
 function FRVSE_set_state(state){
 	FRVSE_current_state = state;
 	FRVSE_message("FRVSE state: "+state, "black")
