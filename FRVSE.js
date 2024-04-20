@@ -715,20 +715,11 @@ self.onmessage = function(event) {
 
 function FRVSE_main()
 {
-	//console.log("run_FRVSE = "+run_FRVSE)
-	//console.log("WW2: "+is_web_worker())
 	if(!start_frvse())
-	{
-		//console.log("A7")
 		return;
-	}
 	
-	//console.log("while : "+run_FRVSE)
 	while(run_FRVSE)
-	{
-		//console.log("RUN FRVSE")
 		riscv32I_core()
-	}
 }
 
 let init_lock = false
@@ -1886,6 +1877,8 @@ function riscv32I_core()
 
 	//console.log("REG LOG2");
 	update_reg()
+	
+	while(true);
 	
 	console.log("RISCV")
 
