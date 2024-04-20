@@ -617,23 +617,24 @@ self.onmessage = function(event) {
 	{
 		ROM_MEMORY = event.data[1]
 		//console.log("ROM_MEMORY:: "+ROM_MEMORY)
-		return;
+		//return;
 	}
 	if (event.data[0] === "HEX_REQ") //transfer ROM file
 	{
 		console.log("HEX REQ")
 		self.postMessage(["HEX_RET", mem_arr[event.data[1]].slice(event.data[2],event.data[2]+512)]);
-		return;
+		//return;
 	}
 	if (event.data[0] === "DWNB") //transfer ROM file
 	{
 		self.postMessage(["DWNBR", mem_arr[event.data[1]]]);
-		return;
+		//return;
 	}
     if (event.data === 'start') {
 		
 		FRVSE_main()
-		return;
+		//return;
+		
 		/*
 		//console.log("run_FRVSE = "+run_FRVSE)
 		
