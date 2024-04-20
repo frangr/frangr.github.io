@@ -342,9 +342,9 @@
 		*/
 
 		if (file) {
-			let reader = new FileReader();
+			let mreader = new FileReader();
 
-			reader.onload = function(event) {
+			mreader.onload = function(event) {
 				let arrayBuffer = event.target.result;
 				let uint8Array = new Uint8Array(arrayBuffer);
 				//ROM_MEMORY = uint8Array;
@@ -354,11 +354,11 @@
 				//frvse_worker.postMessage(["ROMU", uint8Array.buffer]);
 			};
 
-			reader.onerror = function() {
-				console.error('Error reading file:', reader.error);
+			mreader.onerror = function() {
+				console.error('Error reading file:', mreader.error);
 			};
 
-			reader.readAsArrayBuffer(file);
+			mreader.readAsArrayBuffer(file);
 		}
 	});
 	
