@@ -536,6 +536,7 @@ let RAM_MEMORY = null
 let MM_MEMORY = null
 let VRAM_MEMORY = null
 let CHARACTER_MEMORY = null
+let mem_arr = [ROM_MEMORY, RAM_MEMORY, MM_MEMORY, VRAM_MEMORY, CHARACTER_MEMORY]
 //let ascii_char_memory = null
 let inst = 0
 let hex_dec = false
@@ -616,10 +617,22 @@ self.onmessage = function(event) {
 	{
 		ROM_MEMORY = event.data[1]
 		//console.log("ROM_MEMORY:: "+ROM_MEMORY)
+		return;
+	}
+	if (event.data[0] === "HEX_REQ") //transfer ROM file
+	{
+		self.postMessage(["HEX_RET", mem_arr[event.data[1]].slice(event.data[2],event.data[2]+512)]);
+		return;
+	}
+	if (event.data[0] === "DWNB") //transfer ROM file
+	{
+		self.postMessage(["DWNBR", mem_arr[event.data[1]]]);
+		return;
 	}
     if (event.data === 'start') {
 		
 		FRVSE_main()
+		return;
 		/*
 		//console.log("run_FRVSE = "+run_FRVSE)
 		
@@ -790,7 +803,7 @@ function toHex32(number) {
 function update_reg()
 {
 	//console.log("REG LOG");
-	self.postMessage(["REG", reg]);
+	self.postMessage(["REG", pc, reg]);
 	return;
 	
 	html_pc_id.textContent = hex_dec == false? toHex32(pc) : pc;
