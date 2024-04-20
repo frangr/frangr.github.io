@@ -951,6 +951,8 @@ function jal() //#
 
 	//add_to_array(pc, bf);
     pc += bf;
+	
+	console.log("JAL")
 }
 function jalr() //#
 {
