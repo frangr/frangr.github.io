@@ -559,6 +559,11 @@ const frvse_state_step = "step"
 let FRVSE_current_state = frvse_state_void
 let ERROR_MESSAGE = ""
 
+while(true)
+{
+	console.log("RUNNING CYCLE")
+}
+
 function FRVSE_set_state(state){
 	FRVSE_current_state = state;
 	FRVSE_message("FRVSE state: "+state, "black")
@@ -612,7 +617,7 @@ function is_web_worker()
 let run_FRVSE = false;
 //main function that executes FRVSE emulator
 //self.onmessage = function(event) {
-self.addEventListener('message', async function(event) {
+self.addEventListener('message', function(event) {
 	console.log("EVENT: "+event)
 	//console.log("FRVSE WEB WORKER CALLED");
 	if (event.data[0] === "ROMU") //transfer ROM file
