@@ -628,6 +628,7 @@ self.addEventListener('message', function(event) {
 		
 		//let memarr = mem_arr[event.data[1]].slice(event.data[2], event.data[2]+512);
 		let memarr = ROM_MEMORY.slice(event.data[2], event.data[2]+512);
+		console.log("MEMARR: "+memarr)
 		self.postMessage(["HEX_RET", memarr]);
 		return;
 	}
