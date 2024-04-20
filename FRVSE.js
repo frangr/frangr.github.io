@@ -611,7 +611,8 @@ function is_web_worker()
 
 let run_FRVSE = false;
 //main function that executes FRVSE emulator
-self.onmessage = function(event) {
+//self.onmessage = function(event) {
+self.addEventListener('message', function(event) {
 	console.log("EVENT: "+event)
 	//console.log("FRVSE WEB WORKER CALLED");
 	if (event.data[0] === "ROMU") //transfer ROM file
@@ -654,7 +655,7 @@ self.onmessage = function(event) {
 		}
 		*/
     }
-};
+});
 
 function FRVSE_main()
 {
