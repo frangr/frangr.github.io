@@ -427,9 +427,6 @@
 		thead.innerHTML = "";
 		tbody.innerHTML = "";
 		
-		console.log("FARE CHE QUANDO CAMBI MEMORIA, LA VARIABLE CURRENT_PAGE VIENE AZZERATA");
-		while(1);
-		
 		pages = Math.trunc(totlen/512); //Math.trunc(array.length/512);
 		pages = array.length%512? pages+1 : pages;
 		hex_page_id.max = pages;
