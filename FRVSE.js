@@ -625,7 +625,7 @@ self.addEventListener('message', function(event) {
 	{
 		console.log("HEX REQ: "+event.data)
 		let mem_arr1 = [ROM_MEMORY, RAM_MEMORY, MM_MEMORY, VRAM_MEMORY, CHARACTER_MEMORY]
-		self.postMessage(["HEX_RET", mem_arr1[event.data[1]].slice(event.data[2],event.data[2]+512)]);
+		self.postMessage(["HEX_RET", ROM_MEMORY[event.data[1]].slice(event.data[2],event.data[2]+512)]);
 		return;
 	}
 	if (event.data[0] === "DWNB") //transfer ROM file
