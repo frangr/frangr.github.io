@@ -271,7 +271,7 @@
 		if(event.data[0] == "HEX_RET") //EMULATOR MESSAGE
 		{
 			console.log("HEX RET: "+event.data[1])
-			build_hex_table(event.data[1], "hex_view")
+			build_hex_table(event.data[1], "hex_view", parseInt(event.data[2]))
 		}
 		if(event.data[0] == "DWNBR") //EMULATOR MESSAGE
 		{
@@ -381,7 +381,7 @@
 		//build_hex_table(arr, "hex_view")
 	}
 	
-	function build_hex_table(array, tableid)
+	function build_hex_table(array, tableid, totlen)
 	{
 		console.log("HEX TABLE")
 		let table = document.getElementById(tableid);
@@ -396,7 +396,7 @@
 		thead.innerHTML = "";
 		tbody.innerHTML = "";
 		
-		pages = Math.trunc(array.length/512);
+		pages = Math.trunc(totlen/512); //Math.trunc(array.length/512);
 		pages = array.length%512? pages+1 : pages;
 		hex_page_id.max = pages;
 		hex_mpage_id.value = pages;
