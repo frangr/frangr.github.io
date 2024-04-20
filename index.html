@@ -540,6 +540,7 @@
 			prev_hex = idx;
 		}
 		
+		hex_page_id.value = current_page;
 		frvse_worker.postMessage(["HEX_REQ", sel_mem, (current_page-1)*512]);
 	}
 	
