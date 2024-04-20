@@ -348,9 +348,9 @@
 	function set_hex_page()
 	{
 		if(hex_page_id.value < 1)
-			return;
+			hex_page_id.value = 1;
 		if(hex_page_id.value > pages)
-			return;
+			hex_page_id.value = pages;
 		if(hex_page_id.value == current_page)
 			return;
 		

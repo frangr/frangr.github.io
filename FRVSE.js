@@ -646,12 +646,12 @@ self.addEventListener('message', function(event) {
 			case 3:
 				console.log("vramm: "+VRAM_MEMORY.buffer)
 				memarr = new Uint8Array(VRAM_MEMORY.buffer.slice(pars, pars+512));
-				lenarr = VRAM_MEMORY.buffer.length
+				lenarr = (VRAM_MEMORY.length)*4
 				break;
 			case 4:
 				console.log("charm: "+CHARACTER_MEMORY.buffer)
 				memarr = new Uint8Array(CHARACTER_MEMORY.buffer.slice(pars, pars+512));
-				lenarr = CHARACTER_MEMORY.buffer.length
+				lenarr = (CHARACTER_MEMORY.length)*4
 				break;
 		}
 		if(memarr)
