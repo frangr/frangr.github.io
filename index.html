@@ -329,6 +329,39 @@
 		}
 	});
 	
+	let fileInput1 = document.getElementById('rom_fileid');
+	fileInput1.addEventListener('change', (event) => {
+		let file = event.target.files[0];
+
+		/*
+		if(file.size > ROM_MEMORY_SIZE)
+		{
+			ERROR_MESSAGE = "ERROR: ROM file uploaded is too big. limit is "+ROM_MEMORY_SIZE+ " bytes, file uploaded is "+file.size+" bytes";
+			return;
+		}
+		*/
+
+		if (file) {
+			let reader = new FileReader();
+
+			reader.onload = function(event) {
+				let arrayBuffer = event.target.result;
+				let uint8Array = new Uint8Array(arrayBuffer);
+				//ROM_MEMORY = uint8Array;
+				
+				/*SEND UPLOADED FILE TO WORKER*/
+				frvse_worker.postMessage(["MMU", uint8Array]);
+				//frvse_worker.postMessage(["ROMU", uint8Array.buffer]);
+			};
+
+			reader.onerror = function() {
+				console.error('Error reading file:', reader.error);
+			};
+
+			reader.readAsArrayBuffer(file);
+		}
+	});
+	
 	function download_buffer(nu)
 	{
 		frvse_worker.postMessage(["DWNB", nu]);

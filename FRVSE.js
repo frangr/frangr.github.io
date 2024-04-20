@@ -621,6 +621,12 @@ self.addEventListener('message', function(event) {
 		//console.log("ROM_MEMORY:: "+ROM_MEMORY)
 		return;
 	}
+	if (event.data[0] === "MMU") //transfer ROM file
+	{
+		MM_MEMORY = event.data[1]
+		//console.log("ROM_MEMORY:: "+ROM_MEMORY)
+		return;
+	}
 	if (event.data[0] === "HEX_REQ") //transfer ROM file
 	{
 		let pars = parseInt(event.data[2])
