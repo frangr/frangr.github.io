@@ -276,7 +276,7 @@
 		if(event.data[0] == "DWNBR") //EMULATOR MESSAGE
 		{
 		  //create a file and put the content, name and type
-		  var file = new File([event.data[1]], 'dump.hex', {type: "text/plain"});
+		  var file = new File([event.data[1]], event.data[2]+".hex", {type: "text/plain"});
 
 		  //create a ObjectURL in order to download the created file
 		  url = window.URL.createObjectURL(file);

@@ -673,13 +673,20 @@ self.addEventListener('message', function(event) {
 	{
 		//self.postMessage(["DWNBR", mem_arr[parseInt(event.data[1])]]);
 		let memarr = null;
+		let mename = null;
 		if( parseInt(event.data[1]) == 0 )
+		{
 			memarr = ROM_MEMORY;
+			mename = "rom_dump";
+		}
 		else
+		{
 			memarr = MM_MEMORY;
+			mename = "mass_memory_dump";
+		}
 		
 		if(memarr != null)
-			self.postMessage(["DWNBR", memarr]);
+			self.postMessage(["DWNBR", memarr, mename]);
 		return;
 	}
     if (event.data === 'start') {
