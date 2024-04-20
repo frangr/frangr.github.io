@@ -561,7 +561,6 @@ let ERROR_MESSAGE = ""
 
 while(true)
 {
-	console.log("RUNNING CYCLE")
 }
 
 function FRVSE_set_state(state){
