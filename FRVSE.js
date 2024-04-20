@@ -628,7 +628,8 @@ self.addEventListener('message', function(event) {
 		
 		//let memarr = mem_arr[event.data[1]].slice(event.data[2], event.data[2]+512);
 		let pars = parseInt(event.data[2])
-		let memarr = mem_arr[parseInt(event.data[1])].slice(pars, pars+512);
+		console.log("DATA1: "+parseInt(event.data[1]))
+		let memarr = mem_arr[0].slice(pars, pars+512);
 		self.postMessage(["HEX_RET", memarr]);
 		return;
 	}
