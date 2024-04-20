@@ -621,6 +621,7 @@ self.onmessage = function(event) {
 	}
 	if (event.data[0] === "HEX_REQ") //transfer ROM file
 	{
+		console.log("HEX REQ")
 		self.postMessage(["HEX_RET", mem_arr[event.data[1]].slice(event.data[2],event.data[2]+512)]);
 		return;
 	}
