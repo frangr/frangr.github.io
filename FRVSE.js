@@ -1885,7 +1885,7 @@ function riscv32I_core()
 	//console.log("REG LOG2");
 	update_reg()
 	
-	console.log("MESS: "+self.onmessage)
+	console.log("RISCV")
 
 	//add_to_array(pc, 4)
     pc += 4;
