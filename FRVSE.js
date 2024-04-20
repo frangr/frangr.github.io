@@ -611,8 +611,8 @@ function is_web_worker()
 
 let run_FRVSE = false;
 //main function that executes FRVSE emulator
-self.onmessage = function(event) {
-//self.addEventListener('message', function(event) {
+//self.onmessage = function(event) {
+self.addEventListener('message', function(event) {
 	console.log("EVENT: "+event)
 	//console.log("FRVSE WEB WORKER CALLED");
 	if (event.data[0] === "ROMU") //transfer ROM file
@@ -711,7 +711,7 @@ self.onmessage = function(event) {
 		}
 		*/
     }
-};
+});
 
 function FRVSE_main()
 {
@@ -719,7 +719,10 @@ function FRVSE_main()
 		return;
 	
 	while(run_FRVSE)
+	{
 		riscv32I_core()
+		self.postMessage(["REG", pc, reg]);
+	}
 }
 
 let init_lock = false
@@ -1875,12 +1878,7 @@ function riscv32I_core()
             return;
     }
 
-	//console.log("REG LOG2");
-	update_reg()
-	
-	while(true);
-	
-	console.log("RISCV")
+	//update_reg()
 
 	//add_to_array(pc, 4)
     pc += 4;
