@@ -264,9 +264,7 @@
 		}
 		if(event.data[0] == "EMUM") //EMULATOR MESSAGE
 		{
-			var state_message = document.getElementById("state_message");
-			state_message.textContent = event.data[1];
-			state_message.style.color = event.data[2];
+			emum(event.data[1], event.data[2]);
 		}
 		if(event.data[0] == "HEX_RET") //EMULATOR MESSAGE
 		{
@@ -294,6 +292,13 @@
 	function FRVSE_start()
 	{
 		frvse_worker.postMessage('start');
+	}
+	
+	function emum(mex, color)
+	{
+		var state_message = document.getElementById("state_message");
+		state_message.textContent = mex;
+		state_message.style.color = color;
 	}
 	
 	let fileInput = document.getElementById('rom_fileid');
