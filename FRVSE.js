@@ -667,7 +667,7 @@ self.addEventListener('message', function(event) {
 	{
 		//self.postMessage(["DWNBR", mem_arr[parseInt(event.data[1])]]);
 		let memarr = null;
-		if( parseInt(event.data[0]) == 0 )
+		if( parseInt(event.data[1]) == 0 )
 			memarr = ROM_MEMORY;
 		else
 			memarr = MM_MEMORY;
