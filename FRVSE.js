@@ -642,6 +642,11 @@ self.addEventListener('message', function(event) {
 					memarr = MM_MEMORY.slice(pars, pars+512);
 					lenarr = MM_MEMORY.length
 				}
+				else
+				{
+					memarr = []
+					lenarr = 0
+				}
 				break;
 			case 3:
 				console.log("vramm: "+VRAM_MEMORY.buffer)
