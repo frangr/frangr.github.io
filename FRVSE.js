@@ -637,10 +637,10 @@ self.addEventListener('message', function(event) {
 				memarr = MM_MEMORY.slice(pars, pars+512);
 				break;
 			case 3:
-				memarr = VRAM_MEMORY.slice(pars, pars+512);
+				memarr = VRAM_MEMORY.buffer.slice(pars, pars+512);
 				break;
 			case 4:
-				memarr = CHARACTER_MEMORY.slice(pars, pars+512);
+				memarr = CHARACTER_MEMORY.buffer.slice(pars, pars+512);
 				break;
 		}
 		self.postMessage(["HEX_RET", memarr]);
