@@ -273,6 +273,25 @@
 			console.log("HEX RET: "+event.data[1])
 			build_hex_table(event.data[1], "hex_view")
 		}
+		if(event.data[0] == "DWNBR") //EMULATOR MESSAGE
+		{
+			const fs = require('fs');
+
+			// Convert the array into a Buffer
+			const buffer = Buffer.from(event.data[1]);
+
+			// Specify the file path
+			const filePath = event.data[2];
+
+			// Write the Buffer to a binary file
+			fs.writeFile(filePath, buffer, (err) => {
+			  if (err) {
+				console.error('Error writing file:', err);
+				return;
+			  }
+			  console.log('Array has been written to', filePath);
+			});
+		}
 	};
 	
 	function FRVSE_start()
