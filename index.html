@@ -535,7 +535,10 @@
 		sel_mem = idx;
 		document.getElementById('memory_title').textContent = sel_mem_arr[idx];
 		console.log("SHOW MEMORY")
-		frvse_worker.postMessage(["HEX_REQ", sel_mem, (current_page-1)*512]);
+		
+		let pageclc = current_page-1;
+		current_page = 1;
+		frvse_worker.postMessage(["HEX_REQ", sel_mem, pageclc*512]);
 	}
 	
 	function download_screen()
