@@ -660,7 +660,7 @@ self.addEventListener('message', function(event) {
 	}
 	if (event.data[0] === "DWNB") //transfer ROM file
 	{
-		self.postMessage(["DWNBR", mem_arr[event.data[1]]]);
+		self.postMessage(["DWNBR", mem_arr[parseInt(event.data[1])]]);
 		return;
 	}
     if (event.data === 'start') {
