@@ -534,13 +534,20 @@
 		document.getElementById('memory_title').textContent = sel_mem_arr[idx];
 		console.log("SHOW MEMORY")
 		
+		console.log("PREV HEX1: "+prev_hex)
+		
 		if(prev_hex != idx)
 		{
 			current_page = 1;
 			prev_hex = idx;
 		}
 		
+		console.log("PREV HEX2: "+prev_hex+" - "+idx+" - "+current_page+" - "+hex_page_id.value);
+		
 		hex_page_id.value = current_page;
+		
+		console.log("HEXP: "+hex_page_id.value)
+		
 		frvse_worker.postMessage(["HEX_REQ", sel_mem, (current_page-1)*512]);
 	}
 	
