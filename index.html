@@ -266,7 +266,7 @@
 		}
 		if(event.data[0] == "HEX_RET") //EMULATOR MESSAGE
 		{
-			console.log("HEX RET")
+			console.log("HEX RET: "+event.data[1])
 			build_hex_table(event.data[1], "hex_view")
 		}
 	};
