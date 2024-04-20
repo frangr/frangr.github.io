@@ -275,14 +275,19 @@
 		}
 		if(event.data[0] == "DWNBR") //EMULATOR MESSAGE
 		{
-			const data = event.data[1]
-			console.log(data)
-			const file = new Blob([Uint8Array.from(data, c => c.charCodeAt(0))])
+		  //create a file and put the content, name and type
+		  var file = new File([event.data[1]], 'dump.hex', {type: "text/plain"});
 
-			const a = document.createElement('a'); //document.getElementById("a")
-			const url = URL.createObjectURL(file)
-			a.href = url;
-			a.download = "test.txt";
+		  //create a ObjectURL in order to download the created file
+		  url = window.URL.createObjectURL(file);
+
+		  //create a hidden link and set the href and click it
+		  var a = document.createElement("a");
+		  a.style = "display: none";
+		  a.href = url;
+		  a.download = file.name;
+		  a.click();
+		  window.URL.revokeObjectURL(url);
 		}
 	};
 	
