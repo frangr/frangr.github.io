@@ -356,7 +356,7 @@
 		
 		current_page = hex_page_id.value;
 		
-		frvse_worker.postMessage(["HEX_REQ", sel_mem, current_page*512]);
+		frvse_worker.postMessage(["HEX_REQ", sel_mem, (current_page-1)*512]);
 		
 		//build_hex_table(arr, "hex_view")
 	}
@@ -376,7 +376,7 @@
 		
 		hex_page_id.value = current_page;
 		
-		frvse_worker.postMessage(["HEX_REQ", sel_mem, current_page*512]);
+		frvse_worker.postMessage(["HEX_REQ", sel_mem, (current_page-1)*512]);
 		
 		//build_hex_table(arr, "hex_view")
 	}
@@ -501,7 +501,7 @@
 		sel_mem = idx;
 		document.getElementById('memory_title').textContent = sel_mem_arr[idx];
 		console.log("SHOW MEMORY")
-		frvse_worker.postMessage(["HEX_REQ", sel_mem, current_page*512]);
+		frvse_worker.postMessage(["HEX_REQ", sel_mem, (current_page-1)*512]);
 	}
 	
 	function download_screen()
