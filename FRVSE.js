@@ -634,18 +634,20 @@ self.addEventListener('message', function(event) {
 				memarr = RAM_MEMORY.slice(pars, pars+512);
 				break;
 			case 2:
-				memarr = MM_MEMORY.slice(pars, pars+512);
+				if(MM_MEMORY)
+					memarr = MM_MEMORY.slice(pars, pars+512);
 				break;
 			case 3:
 				console.log("vramm: "+VRAM_MEMORY.buffer)
-				memarr = VRAM_MEMORY.buffer.slice(pars, pars+512);
+				memarr = new Uint8Array(VRAM_MEMORY.buffer.slice(pars, pars+512));
 				break;
 			case 4:
 				console.log("charm: "+CHARACTER_MEMORY.buffer)
-				memarr = CHARACTER_MEMORY.buffer.slice(pars, pars+512);
+				memarr = new Uint8Array(CHARACTER_MEMORY.buffer.slice(pars, pars+512));
 				break;
 		}
-		self.postMessage(["HEX_RET", memarr]);
+		if(memarr)
+			self.postMessage(["HEX_RET", memarr]);
 		return;
 	}
 	if (event.data[0] === "DWNB") //transfer ROM file
@@ -714,7 +716,7 @@ function init_frvse()
 	//console.log(ROM_MEMORY)
 	
 	RAM_MEMORY = new Uint8Array(RAM_SIZE)
-	MM_MEMORY = new Uint8Array(100)
+	//MM_MEMORY = new Uint8Array(100)
 	VRAM_MEMORY = new Uint32Array(W*H)
 	CHARACTER_MEMORY = new Uint32Array(TEXT_MODE_MEMORY_SIZE/4)
 	//ascii_char_memory = new Uint8Array(TEXT_MODE_MEMORY_SIZE/4)
