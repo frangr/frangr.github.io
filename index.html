@@ -248,7 +248,8 @@
 	let hex_page_id = document.getElementById("hex_page_id")
 	let hex_mpage_id = document.getElementById("hex_mpage_id")
 	
-	frvse_worker.onmessage = function(event) {
+	//frvse_worker.onmessage = function(event) {
+	frvse_worker.addEventListener('message', function(event) {
 		console.log("INDEX WEB WORKER CALLED");
 		if(event.data[0] == "REG")
 			update_reg(event.data[1], event.data[2]);
@@ -287,7 +288,7 @@
 		  a.click();
 		  window.URL.revokeObjectURL(url);
 		}
-	};
+	});
 	
 	function FRVSE_start()
 	{
