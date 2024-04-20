@@ -275,22 +275,14 @@
 		}
 		if(event.data[0] == "DWNBR") //EMULATOR MESSAGE
 		{
-			const fs = require('fs');
+			const data = event.data[1]
+			console.log(data)
+			const file = new Blob([Uint8Array.from(data, c => c.charCodeAt(0))])
 
-			// Convert the array into a Buffer
-			const buffer = Buffer.from(event.data[1]);
-
-			// Specify the file path
-			const filePath = event.data[2];
-
-			// Write the Buffer to a binary file
-			fs.writeFile(filePath, buffer, (err) => {
-			  if (err) {
-				console.error('Error writing file:', err);
-				return;
-			  }
-			  console.log('Array has been written to', filePath);
-			});
+			const a = document.createElement('a'); //document.getElementById("a")
+			const url = URL.createObjectURL(file)
+			a.href = url;
+			a.download = "test.txt";
 		}
 	};
 	
