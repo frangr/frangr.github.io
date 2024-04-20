@@ -300,13 +300,11 @@
 	fileInput.addEventListener('change', (event) => {
 		let file = event.target.files[0];
 
-		/*
-		if(file.size > ROM_MEMORY_SIZE)
+		if(file.size > 0x2DC6C0)
 		{
-			ERROR_MESSAGE = "ERROR: ROM file uploaded is too big. limit is "+ROM_MEMORY_SIZE+ " bytes, file uploaded is "+file.size+" bytes";
+			ERROR_MESSAGE = "ERROR: ROM file uploaded is too big. limit is "+0x2DC6C0+ " bytes, file uploaded is "+file.size+" bytes";
 			return;
 		}
-		*/
 
 		if (file) {
 			let reader = new FileReader();
@@ -333,13 +331,11 @@
 	fileInput1.addEventListener('change', (event) => {
 		let file = event.target.files[0];
 
-		/*
-		if(file.size > ROM_MEMORY_SIZE)
+		if(file.size > 0x7A1200)
 		{
-			ERROR_MESSAGE = "ERROR: ROM file uploaded is too big. limit is "+ROM_MEMORY_SIZE+ " bytes, file uploaded is "+file.size+" bytes";
+			ERROR_MESSAGE = "ERROR: Mass Memory file uploaded is too big. limit is "+0x7A1200+ " bytes, file uploaded is "+file.size+" bytes";
 			return;
 		}
-		*/
 
 		if (file) {
 			let reader = new FileReader();
