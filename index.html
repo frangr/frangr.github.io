@@ -526,6 +526,7 @@
 		var tblScrl = document.querySelector('.tbl_scrl');
 	}
 	
+	let prev_hex = -1;
 	function show_memory(idx)
 	{
 		//build_hex_table(mem, "hex_view")
@@ -533,9 +534,13 @@
 		document.getElementById('memory_title').textContent = sel_mem_arr[idx];
 		console.log("SHOW MEMORY")
 		
-		let pageclc = current_page-1;
-		current_page = 1;
-		frvse_worker.postMessage(["HEX_REQ", sel_mem, pageclc*512]);
+		if(prev_hex != idx)
+		{
+			current_page = 1;
+			prev_hex = idx;
+		}
+		
+		frvse_worker.postMessage(["HEX_REQ", sel_mem, (current_page-1)*512]);
 	}
 	
 	function download_screen()
