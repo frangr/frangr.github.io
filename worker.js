@@ -10,7 +10,7 @@ self.addEventListener('message', function(event) {
 	if(event.data === "start")
 	{
 		console.log("start")
-		while(true);
+		while(true)
 		{
 			console.log("START")
 		}
