@@ -612,7 +612,8 @@ function is_web_worker()
 let run_FRVSE = false;
 //main function that executes FRVSE emulator
 //self.onmessage = function(event) {
-while(1)
+while(true)
+{
 	self.addEventListener('message', function(event) {
 		console.log("EVENT: "+event)
 		//console.log("FRVSE WEB WORKER CALLED");
@@ -713,6 +714,7 @@ while(1)
 			*/
 		}
 	});
+}
 
 function FRVSE_main()
 {
