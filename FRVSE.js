@@ -723,7 +723,7 @@ function FRVSE_main()
 	{
 		riscv32I_core()
 		//console.log("REG--1")
-		self.postMessage(["REG", pc, reg]);
+		await self.postMessage(["REG", pc, reg]);
 		//console.log("REG--2")
 	}
 }

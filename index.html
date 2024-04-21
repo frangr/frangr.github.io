@@ -249,7 +249,7 @@
 	let hex_mpage_id = document.getElementById("hex_mpage_id")
 	
 	//frvse_worker.onmessage = function(event) {
-	frvse_worker.addEventListener('message', function(event) {
+	frvse_worker.addEventListener('message', async function(event) {
 		console.log("INDEX WEB WORKER CALLED");
 		if(event.data[0] == "REG")
 			update_reg(event.data[1], event.data[2]);
