@@ -713,8 +713,6 @@ self.addEventListener('message', function(event) {
     }
 });
 
-while(true);
-
 function FRVSE_main()
 {
 	if(!start_frvse())
@@ -723,6 +721,7 @@ function FRVSE_main()
 	while(run_FRVSE)
 	{
 		riscv32I_core()
+		console.log("SELF: ", self)
 		self.postMessage(["REG", pc, reg]);
 	}
 }
