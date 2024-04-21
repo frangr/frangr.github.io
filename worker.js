@@ -10,19 +10,6 @@ self.addEventListener('message', function(event) {
 	if(event.data === "start")
 	{
 		console.log("start")
-		setTimeout(function(){exec_while();},0);
+		while(true);
 	}
 });
-
-function exec_while()
-{
-	while(true)
-	{
-		self.addEventListener('message', function(event) {
-			if(event.data === "mex")
-			{
-				self.postMessage("MEX");
-			}
-		});
-	}
-}
