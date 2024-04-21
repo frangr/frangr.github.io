@@ -35,8 +35,9 @@
     worker.addEventListener('message', (event) => {
       if(event.data === "MEX")
 	  {
-		console.log("SAB: "+sab[0])
-		sab[0]++;
+		const sharedArray = new Uint8Array(sab);
+		console.log("SAB: "+sharedArray[0])
+		sharedArray[0]++;
 	  }
     });
   </script>

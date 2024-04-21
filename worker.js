@@ -12,8 +12,9 @@ self.addEventListener('message', function(event) {
 	}
 	if(event.data === "inc")
 	{
-		console.log("INC: "+sharedb[0])
-		sharedb[0]++;
+		const sharedArray = new Uint8Array(sharedb);
+		console.log("INC: "+sharedArray[0])
+		sharedArray[0]++;
 		self.postMessage("MEX");
 	}
 	if(event.data === "start")
