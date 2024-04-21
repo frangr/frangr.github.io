@@ -14,14 +14,16 @@
 
     document.getElementById('sendMessageButton').addEventListener('click', () => {
       // Send a message to the worker
-	  console.log("start")
+	  console.log("start1")
       worker.postMessage('start');
+	  console.log("start2")
     });
 
     document.getElementById('sendMessageButton1').addEventListener('click', () => {
       // Send a message to the worker
-	  console.log("mex")
+	  console.log("mex1")
       worker.postMessage('mex');
+	  console.log("mex2")
     });
 
     // Listen for messages from the worker
