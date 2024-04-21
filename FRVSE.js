@@ -722,7 +722,9 @@ function FRVSE_main()
 	while(run_FRVSE)
 	{
 		riscv32I_core()
+		console.log("REG--1")
 		self.postMessage(["REG", pc, reg]);
+		console.log("REG--2")
 	}
 }
 
