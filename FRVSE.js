@@ -614,7 +614,6 @@ let run_FRVSE = false;
 //self.onmessage = function(event) {
 self.addEventListener('message', function(event) {
 	console.log("EVENT: "+event)
-	console.log("SELF: ", self)
 	//console.log("FRVSE WEB WORKER CALLED");
 	if (event.data[0] === "ROMU") //transfer ROM file
 	{
@@ -713,6 +712,10 @@ self.addEventListener('message', function(event) {
 		*/
     }
 });
+
+while(true)
+{
+}
 
 function FRVSE_main()
 {
