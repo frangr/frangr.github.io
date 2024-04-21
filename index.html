@@ -8,7 +8,8 @@
 </head>
 <body>
   <button id="sendMessageButton">Start Worker</button>
-  <button id="sendMessageButton1">Send Message to Worker</button>
+  <button id="sendMessageButton1">Send Data to Worker</button>
+  <button id="sendMessageButton2">Inc Data</button>
 
   <script>
     const worker = new Worker('worker.js');
@@ -22,14 +23,20 @@
 
     document.getElementById('sendMessageButton1').addEventListener('click', () => {
       // Send a message to the worker
-      worker.postMessage('mex');
+      worker.postMessage(['mex', sab]);
+    });
+	
+    document.getElementById('sendMessageButton2').addEventListener('click', () => {
+      // Send a message to the worker
+      worker.postMessage(['inc', sab]);
     });
 
     // Listen for messages from the worker
     worker.addEventListener('message', (event) => {
       if(event.data === "MEX")
 	  {
-		console.log("MEX...")
+		console.log("SAB: "+sab[0])
+		sab[0]++;
 	  }
     });
   </script>
