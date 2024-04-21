@@ -1,5 +1,5 @@
 // Listen for messages from the main page
-self.addEventListener('message', (event) => {
+self.addEventListener('message', function(event) {
 	
 	if(event.data[0] === "mex")
 	{
