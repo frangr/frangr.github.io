@@ -28,7 +28,7 @@
 	
     document.getElementById('sendMessageButton2').addEventListener('click', () => {
       // Send a message to the worker
-      worker.postMessage(['inc', sab]);
+      worker.postMessage('inc');
     });
 
     // Listen for messages from the worker
