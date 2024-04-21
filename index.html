@@ -14,11 +14,13 @@
 
     document.getElementById('sendMessageButton').addEventListener('click', () => {
       // Send a message to the worker
+	  console.log("start")
       worker.postMessage('start');
     });
 
     document.getElementById('sendMessageButton1').addEventListener('click', () => {
       // Send a message to the worker
+	  console.log("mex")
       worker.postMessage('mex');
     });
 
