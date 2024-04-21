@@ -18,6 +18,11 @@ function exec_while()
 {
 	while(true)
 	{
-		console.log("START");
+		self.addEventListener('message', function(event) {
+			if(event.data === "mex")
+			{
+				self.postMessage("MEX");
+			}
+		});
 	}
 }
