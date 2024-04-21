@@ -24,7 +24,7 @@
 
     // Listen for messages from the worker
     worker.addEventListener('message', (event) => {
-      if(event.data[0] === "MEX")
+      if(event.data === "MEX")
 	  {
 		console.log("MEX...")
 	  }
