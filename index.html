@@ -7,18 +7,27 @@
 </head>
 <body>
   <button id="sendMessageButton">Send Message to Worker</button>
+  <button id="sendMessageButton1">Send Message to Worker1</button>
 
   <script>
     const worker = new Worker('worker.js');
 
     document.getElementById('sendMessageButton').addEventListener('click', () => {
       // Send a message to the worker
-      worker.postMessage('Hello from main page!');
+      worker.postMessage('start');
+    });
+
+    document.getElementById('sendMessageButton1').addEventListener('click', () => {
+      // Send a message to the worker
+      worker.postMessage('mex');
     });
 
     // Listen for messages from the worker
     worker.addEventListener('message', (event) => {
-      console.log('Message from worker:', event.data);
+      if(event.data[0] === "MEX")
+	  {
+		console.log("MEX...")
+	  }
     });
   </script>
 </body>
