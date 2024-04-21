@@ -3,12 +3,11 @@ self.addEventListener('message', function(event) {
 	
 	console.log("EVENT: "+event)
 	
-	if(event.data[0] === "mex")
+	if(event.data === "mex")
 	{
-		console.log("mex")
 		self.postMessage("MEX");
 	}
-	if(event.data[0] === "start")
+	if(event.data === "start")
 	{
 		console.log("start")
 		while(true);
