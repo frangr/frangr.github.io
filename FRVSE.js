@@ -713,6 +713,8 @@ self.addEventListener('message', function(event) {
     }
 });
 
+while(true);
+
 function FRVSE_main()
 {
 	if(!start_frvse())
