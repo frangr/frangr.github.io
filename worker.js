@@ -10,11 +10,14 @@ self.addEventListener('message', function(event) {
 	if(event.data === "start")
 	{
 		console.log("start")
-		while(true)
-		{
-			console.log("START")
-		}
+		setTimeout(function(){exec_while();},0);
 	}
 });
 
-//while(true);
+function exec_while()
+{
+	while(true)
+	{
+		console.log("START");
+	}
+}
