@@ -613,12 +613,7 @@ let run_FRVSE = false;
 //main function that executes FRVSE emulator
 //self.onmessage = function(event) {
 	
-self.addEventListener('click', function(event) {
-	
-	console.log("CLICK")
-	
-});
-	
+console.log("ADD EVENT")
 self.addEventListener('message', function(event) {
 	console.log("EVENT: "+event)
 	//console.log("FRVSE WEB WORKER CALLED");
@@ -719,6 +714,10 @@ self.addEventListener('message', function(event) {
 		*/
 	}
 });
+
+while(true)
+{
+}
 
 function FRVSE_main()
 {
