@@ -612,109 +612,113 @@ function is_web_worker()
 let run_FRVSE = false;
 //main function that executes FRVSE emulator
 //self.onmessage = function(event) {
-while(true)
-{
-	self.addEventListener('message', function(event) {
-		console.log("EVENT: "+event)
-		//console.log("FRVSE WEB WORKER CALLED");
-		if (event.data[0] === "ROMU") //transfer ROM file
+	
+self.addEventListener('click', function(event) {
+	
+	console.log("CLICK")
+	
+});
+	
+self.addEventListener('message', function(event) {
+	console.log("EVENT: "+event)
+	//console.log("FRVSE WEB WORKER CALLED");
+	if (event.data[0] === "ROMU") //transfer ROM file
+	{
+		ROM_MEMORY = event.data[1]
+		//console.log("ROM_MEMORY:: "+ROM_MEMORY)
+		return;
+	}
+	if (event.data[0] === "MMU") //transfer ROM file
+	{
+		MM_MEMORY = event.data[1]
+		//console.log("ROM_MEMORY:: "+ROM_MEMORY)
+		return;
+	}
+	if (event.data[0] === "HEX_REQ") //transfer ROM file
+	{
+		let pars = parseInt(event.data[2])
+		let memarr = null;
+		let lenarr = 0
+		switch( parseInt(event.data[1]) )
 		{
-			ROM_MEMORY = event.data[1]
-			//console.log("ROM_MEMORY:: "+ROM_MEMORY)
-			return;
+			case 0:
+				memarr = ROM_MEMORY.slice(pars, pars+512);
+				lenarr = ROM_MEMORY.length
+				break;
+			case 1:
+				memarr = RAM_MEMORY.slice(pars, pars+512);
+				lenarr = RAM_MEMORY.length
+				break;
+			case 2:
+				if(MM_MEMORY)
+				{
+					memarr = MM_MEMORY.slice(pars, pars+512);
+					lenarr = MM_MEMORY.length
+				}
+				else
+				{
+					memarr = []
+					lenarr = 0
+				}
+				break;
+			case 3:
+				console.log("vramm: "+VRAM_MEMORY.buffer)
+				memarr = new Uint8Array(VRAM_MEMORY.buffer.slice(pars, pars+512));
+				lenarr = (VRAM_MEMORY.length)*4
+				break;
+			case 4:
+				console.log("charm: "+CHARACTER_MEMORY.buffer)
+				memarr = new Uint8Array(CHARACTER_MEMORY.buffer.slice(pars, pars+512));
+				lenarr = (CHARACTER_MEMORY.length)*4
+				break;
 		}
-		if (event.data[0] === "MMU") //transfer ROM file
+		if(memarr)
+			self.postMessage(["HEX_RET", memarr, lenarr]);
+		return;
+	}
+	if (event.data[0] === "DWNB") //transfer ROM file
+	{
+		//self.postMessage(["DWNBR", mem_arr[parseInt(event.data[1])]]);
+		let memarr = null;
+		let mename = null;
+		if( parseInt(event.data[1]) == 0 )
 		{
-			MM_MEMORY = event.data[1]
-			//console.log("ROM_MEMORY:: "+ROM_MEMORY)
-			return;
+			memarr = ROM_MEMORY;
+			mename = "rom_dump";
 		}
-		if (event.data[0] === "HEX_REQ") //transfer ROM file
+		else
 		{
-			let pars = parseInt(event.data[2])
-			let memarr = null;
-			let lenarr = 0
-			switch( parseInt(event.data[1]) )
-			{
-				case 0:
-					memarr = ROM_MEMORY.slice(pars, pars+512);
-					lenarr = ROM_MEMORY.length
-					break;
-				case 1:
-					memarr = RAM_MEMORY.slice(pars, pars+512);
-					lenarr = RAM_MEMORY.length
-					break;
-				case 2:
-					if(MM_MEMORY)
-					{
-						memarr = MM_MEMORY.slice(pars, pars+512);
-						lenarr = MM_MEMORY.length
-					}
-					else
-					{
-						memarr = []
-						lenarr = 0
-					}
-					break;
-				case 3:
-					console.log("vramm: "+VRAM_MEMORY.buffer)
-					memarr = new Uint8Array(VRAM_MEMORY.buffer.slice(pars, pars+512));
-					lenarr = (VRAM_MEMORY.length)*4
-					break;
-				case 4:
-					console.log("charm: "+CHARACTER_MEMORY.buffer)
-					memarr = new Uint8Array(CHARACTER_MEMORY.buffer.slice(pars, pars+512));
-					lenarr = (CHARACTER_MEMORY.length)*4
-					break;
-			}
-			if(memarr)
-				self.postMessage(["HEX_RET", memarr, lenarr]);
-			return;
+			memarr = MM_MEMORY;
+			mename = "mass_memory_dump";
 		}
-		if (event.data[0] === "DWNB") //transfer ROM file
+		
+		if(memarr != null)
+			self.postMessage(["DWNBR", memarr, mename]);
+		return;
+	}
+	if (event.data === 'start') {
+		
+		FRVSE_main()
+		return;
+		
+		/*
+		//console.log("run_FRVSE = "+run_FRVSE)
+		
+		if(!start_frvse())
 		{
-			//self.postMessage(["DWNBR", mem_arr[parseInt(event.data[1])]]);
-			let memarr = null;
-			let mename = null;
-			if( parseInt(event.data[1]) == 0 )
-			{
-				memarr = ROM_MEMORY;
-				mename = "rom_dump";
-			}
-			else
-			{
-				memarr = MM_MEMORY;
-				mename = "mass_memory_dump";
-			}
-			
-			if(memarr != null)
-				self.postMessage(["DWNBR", memarr, mename]);
+			//console.log("A7")
 			return;
 		}
-		if (event.data === 'start') {
-			
-			FRVSE_main()
-			return;
-			
-			/*
-			//console.log("run_FRVSE = "+run_FRVSE)
-			
-			if(!start_frvse())
-			{
-				//console.log("A7")
-				return;
-			}
-			
-			//console.log("while : "+run_FRVSE)
-			while(run_FRVSE)
-			{
-				//console.log("RUN FRVSE")
-				riscv32I_core()
-			}
-			*/
+		
+		//console.log("while : "+run_FRVSE)
+		while(run_FRVSE)
+		{
+			//console.log("RUN FRVSE")
+			riscv32I_core()
 		}
-	});
-}
+		*/
+	}
+});
 
 function FRVSE_main()
 {
