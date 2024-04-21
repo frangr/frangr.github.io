@@ -1,7 +1,7 @@
 // Listen for messages from the main page
 self.addEventListener('message', (event) => {
 	
-	if event.data[0] == "mex")
+	if(event.data[0] == "mex")
 	{
 		console.log("mex")
 		self.postMessage("MEX");
