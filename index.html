@@ -639,6 +639,15 @@
 	}
 	
 	init_reg();
+	
+	function gui_repaint()
+	{
+		console.log("gui_repaint");
+		requestAnimationFrame(gui_repaint);
+	}
+
+	gui_repaint()
+	
 	</script>
 </body>
 </html>
