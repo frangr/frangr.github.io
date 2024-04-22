@@ -752,7 +752,7 @@ function init_frvse()
 	sh_RAM_MEMORY = new SharedArrayBuffer(RAM_SIZE); 
 	sh_VRAM_MEMORY = new SharedArrayBuffer((W*H)*4); 
 	sh_CHARACTER_MEMORY = new SharedArrayBuffer(TEXT_MODE_MEMORY_SIZE); 
-	sh_pc = new SharedArrayBuffer(1); 
+	sh_pc = new SharedArrayBuffer(4); 
 	sh_reg = new SharedArrayBuffer(128); 
 	
 	RAM_MEMORY = new Uint8Array(sh_RAM_MEMORY);
