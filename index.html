@@ -663,14 +663,13 @@
 	
 	function gui_repaint()
 	{
-		console.log("gui_repaint");
-		html_pc_id.textContent = 0;
-		for (i in html_reg_id) 
-			html_reg_id[i].textContent = 0;
+		if(pc != null)
+			html_pc_id.textContent = pc[0];
+	
 		requestAnimationFrame(gui_repaint);
 	}
 
-	//gui_repaint()
+	gui_repaint()
 	
 	</script>
 </body>
