@@ -252,7 +252,10 @@
 	frvse_worker.addEventListener('message', function(event) {
 		console.log("INDEX WEB WORKER CALLED");
 		if(event.data[0] == "REG")
+		{
+			console.log("REGUPDT")
 			update_reg(event.data[1], event.data[2]);
+		}
 		if(event.data == "HEX")
 			console.log("hex!");
 		if(event.data == "CPXM") //CREATE PIXEL Map
