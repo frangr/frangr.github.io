@@ -935,7 +935,6 @@ function auipc() //#
 }
 function jal() //#
 {
-	console.log("JAL")
     let bf = 0;
 
     if(RD())
