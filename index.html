@@ -242,7 +242,16 @@
 	let sh_MM_MEMORY = null;
 	let sh_VRAM_MEMORY = null;
 	let sh_CHARACTER_MEMORY = null;
+	let sh_pc = null;
 	let sh_reg = null; //pc included with gp registers
+	
+	let ROM_MEMORY = null;
+	let RAM_MEMORY = null;
+	let MM_MEMORY = null;
+	let VRAM_MEMORY = null;
+	let CHARACTER_MEMORY = null;
+	let pc = null;
+	let reg = null; //pc included with gp registers
 	
 	let sel_mem_arr = ["ROM Memory", "RAM Memory", "Mass Memory", "VRAM Memory", "Character Memory"];
 	
@@ -259,6 +268,22 @@
 	
 	//frvse_worker.onmessage = function(event) {
 	frvse_worker.addEventListener('message', function(event) {
+		if(event.data[0] == "CMRQ")
+		{
+			sh_RAM_MEMORY = new SharedArrayBuffer(parseInt(event.data[1])); 
+			sh_VRAM_MEMORY = new SharedArrayBuffer(parseInt(event.data[2])); 
+			sh_CHARACTER_MEMORY = new SharedArrayBuffer(parseInt(event.data[3])); 
+			sh_pc = new SharedArrayBuffer(1); 
+			sh_reg = new SharedArrayBuffer(128); 
+			
+			RAM_MEMORY = new Uint8Array(sh_RAM_MEMORY);
+			VRAM_MEMORY = new Uint32Array(sh_VRAM_MEMORY);
+			CHARACTER_MEMORY = new Uint32Array(CHARACTER_MEMORY);
+			pc = new Uint8Array(sh_pc);
+			reg = new Uint32Array(sh_reg);
+			
+			frvse_worker.postMessage(['CMRT', sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_reg, pc]);
+		}
 		if(event.data[0] == "REG")
 		{
 			update_reg(event.data[1], event.data[2]);

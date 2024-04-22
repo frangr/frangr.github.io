@@ -549,7 +549,7 @@ let i64 = new BigInt64Array(5)
 //RISC-V VARIABLES
 //let pc = new Uint8Array(4)
 let pc = null;
-let reg = new Uint32Array(32) //SYSTEM REGISTERS
+let reg = null; //SYSTEM REGISTERS
 let inst_arr = new Uint8Array(4) //INSTRUCTION REGISTER
 let reset_pin = 1
 const frvse_state_void = "void"
@@ -558,13 +558,6 @@ const frvse_state_run = "run"
 const frvse_state_step = "step"
 let FRVSE_current_state = frvse_state_void
 let ERROR_MESSAGE = ""
-
-let sh_ROM_MEMORY = null;
-let sh_RAM_MEMORY = null;
-let sh_MM_MEMORY = null;
-let sh_VRAM_MEMORY = null;
-let sh_CHARACTER_MEMORY = null;
-let sh_reg = null; //pc included with gp registers
 
 function FRVSE_set_state(state){
 	FRVSE_current_state = state;
@@ -633,6 +626,15 @@ self.addEventListener('message', function(event) {
 	{
 		MM_MEMORY = event.data[1]
 		//console.log("ROM_MEMORY:: "+ROM_MEMORY)
+		return;
+	}
+	if (event.data[0] === "CMRT") //transfer ROM file
+	{
+		RAM_MEMORY = new Uint8Array(event.data[1]);
+		VRAM_MEMORY = new Uint32Array(event.data[2]);
+		CHARACTER_MEMORY = new Uint32Array(event.data[3]);
+		pc = new Uint8Array(event.data[4]);
+		reg = new Uint32Array(event.data[5]);
 		return;
 	}
 	if (event.data[0] === "HEX_REQ") //transfer ROM file
@@ -745,9 +747,11 @@ function init_frvse()
 		return 1;
 	}
 	
-	RAM_MEMORY = new Uint8Array(RAM_SIZE)
-	VRAM_MEMORY = new Uint32Array(W*H)
-	CHARACTER_MEMORY = new Uint32Array(TEXT_MODE_MEMORY_SIZE/4)
+	//RAM_MEMORY = new Uint8Array(RAM_SIZE)
+	//VRAM_MEMORY = new Uint32Array(W*H)
+	//CHARACTER_MEMORY = new Uint32Array(TEXT_MODE_MEMORY_SIZE/4)
+	
+	self.postMessage(["CMRQ", RAM_SIZE, (W*H)*4, TEXT_MODE_MEMORY_SIZE/4]);
 	
 	/**CREATE PIXELMAP**/
 	self.postMessage("CPXM");
