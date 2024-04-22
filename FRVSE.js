@@ -634,7 +634,7 @@ self.addEventListener('message', function(event) {
 	if (event.data[0] === "MMU") //transfer ROM file
 	{
 		MM_MEMORY = new Uint8Array(event.data[1])
-		console.log("ROM_MEMORY:: "+ROM_MEMORY)
+		console.log("MM_MEMORY:: "+MM_MEMORY)
 		return;
 	}
 	if (event.data[0] === "CMRT") //transfer ROM file
