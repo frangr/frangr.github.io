@@ -46,9 +46,10 @@
 	function req_func()
 	{
 		console.log("req_func")
+		requestAnimationFrame(req_func);
 	}
 	
-	requestAnimationFrame(req_func);
+	req_func()
 	
   </script>
 </body>
