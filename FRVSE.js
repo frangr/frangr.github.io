@@ -628,22 +628,11 @@ self.addEventListener('message', function(event) {
 	if (event.data[0] === "ROMU") //transfer ROM file
 	{
 		ROM_MEMORY = new Uint8Array(event.data[1])
-		console.log("ROM_MEMORY:: "+ROM_MEMORY)
 		return;
 	}
 	if (event.data[0] === "MMU") //transfer ROM file
 	{
 		MM_MEMORY = new Uint8Array(event.data[1])
-		console.log("MM_MEMORY:: "+MM_MEMORY)
-		return;
-	}
-	if (event.data[0] === "CMRT") //transfer ROM file
-	{
-		RAM_MEMORY = new Uint8Array(event.data[1]);
-		VRAM_MEMORY = new Uint32Array(event.data[2]);
-		CHARACTER_MEMORY = new Uint32Array(event.data[3]);
-		pc = new Uint8Array(event.data[4]);
-		reg = new Uint32Array(event.data[5]);
 		return;
 	}
 	if (event.data[0] === "HEX_REQ") //transfer ROM file
