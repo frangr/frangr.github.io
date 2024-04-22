@@ -642,9 +642,9 @@
 	function gui_repaint()
 	{
 		console.log("gui_repaint");
-		html_pc_id.textContent = hex_dec == false? toHex32(pc) : pc;
+		html_pc_id.textContent = 0;
 		for (i in html_reg_id) 
-			html_reg_id[i].textContent = hex_dec == false? toHex32(reg[i]) : reg[i];
+			html_reg_id[i].textContent = 0;
 		requestAnimationFrame(gui_repaint);
 	}
 
