@@ -1890,6 +1890,7 @@ function riscv32I_core()
 function gui_repaint()
 {
 	console.log("gui_repaint");
+	requestAnimationFrame(gui_repaint);
 }
 
-requestAnimationFrame(gui_repaint);
+gui_repaint()
