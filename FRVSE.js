@@ -627,14 +627,14 @@ self.addEventListener('message', function(event) {
 	//console.log("FRVSE WEB WORKER CALLED");
 	if (event.data[0] === "ROMU") //transfer ROM file
 	{
-		ROM_MEMORY = event.data[1]
-		//console.log("ROM_MEMORY:: "+ROM_MEMORY)
+		ROM_MEMORY = new Uint8Array(event.data[1])
+		console.log("ROM_MEMORY:: "+ROM_MEMORY)
 		return;
 	}
 	if (event.data[0] === "MMU") //transfer ROM file
 	{
-		MM_MEMORY = event.data[1]
-		//console.log("ROM_MEMORY:: "+ROM_MEMORY)
+		MM_MEMORY = new Uint8Array(event.data[1])
+		console.log("ROM_MEMORY:: "+ROM_MEMORY)
 		return;
 	}
 	if (event.data[0] === "CMRT") //transfer ROM file

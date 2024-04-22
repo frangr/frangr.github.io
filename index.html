@@ -240,6 +240,7 @@
 	let sh_ROM_MEMORY = null;
 	let RAM_MEMORY = null;
 	let MM_MEMORY = null;
+	let sh_MM_MEMORY = null;
 	let VRAM_MEMORY = null;
 	let CHARACTER_MEMORY = null;
 	let pc = null;
@@ -346,11 +347,7 @@
 				ROM_MEMORY = new Uint8Array(sh_ROM_MEMORY);
 				var originalArray = new Uint8Array(arrayBuffer);
 				ROM_MEMORY.set(originalArray);
-				
-				let arr__ = new Uint8Array(sh_ROM_MEMORY);
-				console.log("ROMM: "+arr__)
-				
-				//frvse_worker.postMessage(["ROMU", sh_ROM_MEMORY]);
+				frvse_worker.postMessage(["ROMU", sh_ROM_MEMORY]);
 				
 				/*
 				sh_ROM_MEMORY = new SharedArrayBuffer(event.target.result.byteLength);
@@ -381,9 +378,11 @@
 			let reader = new FileReader();
 
 			reader.onload = function(event) {
-				//let arrayBuffer = event.target.result;
-				//let uint8Array = new Uint8Array(arrayBuffer);
-				sh_MM_MEMORY = new SharedArrayBuffer(event.target.result);
+				var arrayBuffer = event.target.result;
+				sh_MM_MEMORY = new SharedArrayBuffer(arrayBuffer.byteLength);
+				MM_MEMORY = new Uint8Array(sh_MM_MEMORY);
+				var originalArray = new Uint8Array(arrayBuffer);
+				MM_MEMORY.set(originalArray);
 				frvse_worker.postMessage(["MMU", sh_MM_MEMORY]);
 			};
 
