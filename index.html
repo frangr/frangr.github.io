@@ -236,6 +236,13 @@
 	</div>
 
     <script>
+	//SHARED MEMORIES
+	let sh_ROM_MEMORY = null;
+	let sh_RAM_MEMORY = null;
+	let sh_MM_MEMORY = null;
+	let sh_VRAM_MEMORY = null;
+	let sh_CHARACTER_MEMORY = null;
+	let sh_reg = null; //pc included with gp registers
 	
 	let sel_mem_arr = ["ROM Memory", "RAM Memory", "Mass Memory", "VRAM Memory", "Character Memory"];
 	
@@ -293,9 +300,19 @@
 		}
 	});
 	
+	const RAM_SIZE = 0x4C4B40;
+	const W = 320;
+	const H = 200;
+	const TEXT_MODE_MEMORY_SIZE = 4000;
+	
 	function FRVSE_start()
 	{
-		frvse_worker.postMessage('start');
+		sh_RAM_MEMORY = new SharedArrayBuffer(RAM_SIZE); 
+		sh_VRAM_MEMORY = new SharedArrayBuffer((W*H)*4); 
+		sh_CHARACTER_MEMORY = new SharedArrayBuffer(TEXT_MODE_MEMORY_SIZE); 
+		sh_reg = new SharedArrayBuffer(132); 
+		
+		frvse_worker.postMessage(['start', sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_reg]);
 	}
 	
 	function emum(mex, color)
@@ -319,13 +336,10 @@
 			let reader = new FileReader();
 
 			reader.onload = function(event) {
-				let arrayBuffer = event.target.result;
-				let uint8Array = new Uint8Array(arrayBuffer);
-				//ROM_MEMORY = uint8Array;
-				
-				/*SEND UPLOADED FILE TO WORKER*/
-				frvse_worker.postMessage(["ROMU", uint8Array]);
-				//frvse_worker.postMessage(["ROMU", uint8Array.buffer]);
+				//let arrayBuffer = event.target.result;
+				//let uint8Array = new Uint8Array(arrayBuffer);
+				sh_ROM_MEMORY = new SharedArrayBuffer(event.target.result);
+				frvse_worker.postMessage(["ROMU", sh_ROM_MEMORY]);
 			};
 
 			reader.onerror = function() {
@@ -350,13 +364,10 @@
 			let reader = new FileReader();
 
 			reader.onload = function(event) {
-				let arrayBuffer = event.target.result;
-				let uint8Array = new Uint8Array(arrayBuffer);
-				//ROM_MEMORY = uint8Array;
-				
-				/*SEND UPLOADED FILE TO WORKER*/
-				frvse_worker.postMessage(["MMU", uint8Array]);
-				//frvse_worker.postMessage(["ROMU", uint8Array.buffer]);
+				//let arrayBuffer = event.target.result;
+				//let uint8Array = new Uint8Array(arrayBuffer);
+				sh_MM_MEMORY = new SharedArrayBuffer(event.target.result);
+				frvse_worker.postMessage(["MMU", sh_MM_MEMORY]);
 			};
 
 			reader.onerror = function() {

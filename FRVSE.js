@@ -559,6 +559,13 @@ const frvse_state_step = "step"
 let FRVSE_current_state = frvse_state_void
 let ERROR_MESSAGE = ""
 
+let sh_ROM_MEMORY = null;
+let sh_RAM_MEMORY = null;
+let sh_MM_MEMORY = null;
+let sh_VRAM_MEMORY = null;
+let sh_CHARACTER_MEMORY = null;
+let sh_reg = null; //pc included with gp registers
+
 function FRVSE_set_state(state){
 	FRVSE_current_state = state;
 	FRVSE_message("FRVSE state: "+state, "black")
@@ -729,46 +736,24 @@ function FRVSE_main()
 let init_lock = false
 function init_frvse()
 {	
-	//console.log("A4")
 	if (init_lock)
 		return;
-	
-	//console.log("A5")
+
 	if (ROM_MEMORY == null)
 	{
 		FRVSE_error("ERROR: ROM MEMORY FILE NOT ADDED.")
-		//console.log("ROM ERROR: "+ROM_MEMORY)
 		return 1;
 	}
-	//console.log("A6")
-	
-	//console.log(ROM_MEMORY)
 	
 	RAM_MEMORY = new Uint8Array(RAM_SIZE)
-	//MM_MEMORY = new Uint8Array(100)
 	VRAM_MEMORY = new Uint32Array(W*H)
 	CHARACTER_MEMORY = new Uint32Array(TEXT_MODE_MEMORY_SIZE/4)
-	//ascii_char_memory = new Uint8Array(TEXT_MODE_MEMORY_SIZE/4)
 	
 	/**CREATE PIXELMAP**/
 	self.postMessage("CPXM");
-	//createPixelMap();
-	/**CREATE PIXELMAP**/
 	
 	/** CREATE REG DATA **/
 	self.postMessage("CREG");
-	
-	/*
-	html_pc_id = document.getElementById("pcid");
-	//console.log("html1: "+html_pc_id);
-	
-	html_reg_id = []
-	
-	for(let i = 0; i < 32; i++)
-		html_reg_id.push(document.getElementById("x"+i+"id"));
-	*/
-	
-	/** CREATE REG DATA **/
 	
 	init_lock = true;
 }
