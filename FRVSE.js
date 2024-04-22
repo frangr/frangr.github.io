@@ -910,7 +910,7 @@ let reset_bool = false
 function reset_routine()
 {
 	//console.log("resetpin2")
-	pc = RESET_VECTOR;
+	pc[0] = RESET_VECTOR;
 
     if(reset_bool == false)
     {
@@ -931,28 +931,28 @@ function lui() //#
 function auipc() //#
 {
     if(RD())
-        reg[RD()] = (inst & 0xFFFFF000) + pc; //pc
+        reg[RD()] = (inst & 0xFFFFF000) + pc[0]; //pc
 }
 function jal() //#
 {
     let bf = 0;
 
     if(RD())
-        reg[RD()] = pc + 4;
+        reg[RD()] = pc[0] + 4;
 
     bf = (((inst & 0x7FE00000) >> 20) | ((inst & 0x100000) >> 9) | (inst & 0xFF000) );
     if(inst >> 31)
         bf |= 0xFFF00000;
 
 	//add_to_array(pc, bf);
-    pc += bf;
+    pc[0] += bf;
 }
 function jalr() //#
 {
     let bf = 0;
 
     if(RD())
-        reg[RD()] = pc + 4;
+        reg[RD()] = pc[0] + 4;
 
     bf = inst >> 20;
 
@@ -965,7 +965,7 @@ function jalr() //#
     bf &= 0xFFFFFFFE;
 
 	//add_to_array(pc, bf);
-    pc = bf;
+    pc[0] = bf;
 }
 function beq() //#
 {
@@ -981,7 +981,7 @@ function beq() //#
             bf &= 0xFFE;
 
 		//add_to_array(pc, bf);
-        pc += bf;
+        pc[0] += bf;
         return 1;
     }
     return 0;
@@ -1000,7 +1000,7 @@ function bne() //#
             bf &= 0xFFE;
 
 		//add_to_array(pc, bf);
-        pc += bf;
+        pc[0] += bf;
         return 1;
     }
     return 0;
@@ -1020,7 +1020,7 @@ function blt() //#
             i32[2] &= 0xFFE;
 
 		//add_to_array(pc, bf);
-        pc += i32[2];
+        pc[0] += i32[2];
         return 1;
     }
     return 0;
@@ -1040,7 +1040,7 @@ function bge() //#
             i32[2] &= 0xFFE;
 
 		//add_to_array(pc, bf);
-        pc += i32[2];
+        pc[0] += i32[2];
         return 1;
     }
     return 0;
@@ -1074,7 +1074,7 @@ function bgeu() //#
             i32[0] &= 0xFFE;
 
 		//add_to_array(pc, i32[0]);
-        pc += i32[0];
+        pc[0] += i32[0];
         return 1;
     }
     return 0;
@@ -1612,7 +1612,7 @@ function riscv32I_core()
 		reset_routine();
 	}
 
-    send_to_chipset(pc, inst_arr, READ, FOUR_BYTE);
+    send_to_chipset(pc[0], inst_arr, READ, FOUR_BYTE);
 
 	inst = compose_array(inst_arr);
 
@@ -1880,5 +1880,5 @@ function riscv32I_core()
 	//update_reg()
 
 	//add_to_array(pc, 4)
-    pc += 4;
+    pc[0] += 4;
 }

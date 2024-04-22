@@ -269,7 +269,6 @@
 			CHARACTER_MEMORY = new Uint32Array(event.data[3]);
 			pc = new Uint32Array(event.data[4]);
 			reg = new Uint32Array(event.data[5]);
-			console.log("CMR: "+RAM_MEMORY)
 			return;
 		}
 		if(event.data[0] == "REG")
