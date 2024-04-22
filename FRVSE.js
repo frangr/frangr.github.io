@@ -1505,7 +1505,7 @@ function draw_character(addr, color)
         }
         addr += 320;
     }
-	update_pixel(char_arr)
+	//update_pixel(char_arr)
 }
 
 function text_mode_controller(addr, charac, rw)
@@ -1527,7 +1527,7 @@ function video_memory_controller(addr, color, rw)
     {
         VRAM_MEMORY[addr/4] = color;
 		
-		update_pixel([[addr, color]])
+		//update_pixel([[addr, color]])
     }
     else if(!rw)
     {
