@@ -559,6 +559,15 @@ const frvse_state_step = "step"
 let FRVSE_current_state = frvse_state_void
 let ERROR_MESSAGE = ""
 
+//SHARED MEMORIES
+let sh_ROM_MEMORY = null;
+let sh_RAM_MEMORY = null;
+let sh_MM_MEMORY = null;
+let sh_VRAM_MEMORY = null;
+let sh_CHARACTER_MEMORY = null;
+let sh_pc = null;
+let sh_reg = null; //pc included with gp registers
+
 function FRVSE_set_state(state){
 	FRVSE_current_state = state;
 	FRVSE_message("FRVSE state: "+state, "black")
@@ -751,7 +760,20 @@ function init_frvse()
 	//VRAM_MEMORY = new Uint32Array(W*H)
 	//CHARACTER_MEMORY = new Uint32Array(TEXT_MODE_MEMORY_SIZE/4)
 	
-	self.postMessage(["CMRQ", RAM_SIZE, (W*H)*4, TEXT_MODE_MEMORY_SIZE/4]);
+	sh_RAM_MEMORY = new SharedArrayBuffer(RAM_SIZE); 
+	sh_VRAM_MEMORY = new SharedArrayBuffer((W*H)*4); 
+	sh_CHARACTER_MEMORY = new SharedArrayBuffer(TEXT_MODE_MEMORY_SIZE); 
+	sh_pc = new SharedArrayBuffer(1); 
+	sh_reg = new SharedArrayBuffer(128); 
+	
+	RAM_MEMORY = new Uint8Array(sh_RAM_MEMORY);
+	VRAM_MEMORY = new Uint32Array(sh_VRAM_MEMORY);
+	CHARACTER_MEMORY = new Uint32Array(CHARACTER_MEMORY);
+	pc = new Uint32Array(sh_pc);
+	reg = new Uint32Array(sh_reg);
+	
+	console.log("INIT FRVSE")
+	self.postMessage(["CMR", sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_pc, sh_reg]);
 	
 	/**CREATE PIXELMAP**/
 	self.postMessage("CPXM");

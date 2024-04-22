@@ -235,17 +235,9 @@
 		</div>
 	</div>
 
-    <script>
-	//SHARED MEMORIES
-	let sh_ROM_MEMORY = null;
-	let sh_RAM_MEMORY = null;
-	let sh_MM_MEMORY = null;
-	let sh_VRAM_MEMORY = null;
-	let sh_CHARACTER_MEMORY = null;
-	let sh_pc = null;
-	let sh_reg = null; //pc included with gp registers
-	
+    <script>	
 	let ROM_MEMORY = null;
+	let sh_ROM_MEMORY = null;
 	let RAM_MEMORY = null;
 	let MM_MEMORY = null;
 	let VRAM_MEMORY = null;
@@ -268,21 +260,14 @@
 	
 	//frvse_worker.onmessage = function(event) {
 	frvse_worker.addEventListener('message', function(event) {
-		if(event.data[0] == "CMRQ")
+		if(event.data[0] == "CMR")
 		{
-			sh_RAM_MEMORY = new SharedArrayBuffer(parseInt(event.data[1])); 
-			sh_VRAM_MEMORY = new SharedArrayBuffer(parseInt(event.data[2])); 
-			sh_CHARACTER_MEMORY = new SharedArrayBuffer(parseInt(event.data[3])); 
-			sh_pc = new SharedArrayBuffer(1); 
-			sh_reg = new SharedArrayBuffer(128); 
-			
-			RAM_MEMORY = new Uint8Array(sh_RAM_MEMORY);
-			VRAM_MEMORY = new Uint32Array(sh_VRAM_MEMORY);
-			CHARACTER_MEMORY = new Uint32Array(CHARACTER_MEMORY);
-			pc = new Uint8Array(sh_pc);
-			reg = new Uint32Array(sh_reg);
-			
-			frvse_worker.postMessage(['CMRT', sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_reg, pc]);
+			RAM_MEMORY = new Uint8Array(event.data[1]);
+			VRAM_MEMORY = new Uint32Array(event.data[2]);
+			CHARACTER_MEMORY = new Uint32Array(event.data[3]);
+			pc = new Uint32Array(event.data[4]);
+			reg = new Uint32Array(event.data[5]);
+			return;
 		}
 		if(event.data[0] == "REG")
 		{
@@ -332,12 +317,7 @@
 	
 	function FRVSE_start()
 	{
-		sh_RAM_MEMORY = new SharedArrayBuffer(RAM_SIZE); 
-		sh_VRAM_MEMORY = new SharedArrayBuffer((W*H)*4); 
-		sh_CHARACTER_MEMORY = new SharedArrayBuffer(TEXT_MODE_MEMORY_SIZE); 
-		sh_reg = new SharedArrayBuffer(132); 
-		
-		frvse_worker.postMessage(['start', sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_reg]);
+		frvse_worker.postMessage('start');
 	}
 	
 	function emum(mex, color)
@@ -361,10 +341,20 @@
 			let reader = new FileReader();
 
 			reader.onload = function(event) {
-				//let arrayBuffer = event.target.result;
-				//let uint8Array = new Uint8Array(arrayBuffer);
+				var arrayBuffer = event.target.result;
+				sh_ROM_MEMORY = new SharedArrayBuffer(arrayBuffer.byteLength);
+				ROM_MEMORY = new Uint8Array(sh_ROM_MEMORY);
+				var originalArray = new Uint8Array(arrayBuffer);
+				ROM_MEMORY.set(originalArray);
+				console.log("ROMM: "+ROM_MEMORY)
+				
+				//frvse_worker.postMessage(["ROMU", sh_ROM_MEMORY]);
+				
+				/*
+				sh_ROM_MEMORY = new SharedArrayBuffer(event.target.result.byteLength);
+				var sharedArray = new Uint8Array(sh_ROM_MEMORY);
 				sh_ROM_MEMORY = new SharedArrayBuffer(event.target.result);
-				frvse_worker.postMessage(["ROMU", sh_ROM_MEMORY]);
+				*/
 			};
 
 			reader.onerror = function() {
