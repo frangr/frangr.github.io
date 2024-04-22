@@ -10,6 +10,8 @@
   <button id="sendMessageButton">Start Worker</button>
   <button id="sendMessageButton1">Send Data to Worker</button>
   <button id="sendMessageButton2">Inc Data</button>
+  
+  <p id="pbtn">Inc Data</p>
 
   <script>
     const worker = new Worker('worker.js');
@@ -40,6 +42,14 @@
 		sharedArray[0]++;
 	  }
     });
+	
+	function req_func()
+	{
+		console.log("req_func")
+	}
+	
+	requestAnimationFrame(req_func);
+	
   </script>
 </body>
 </html>
