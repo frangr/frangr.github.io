@@ -346,7 +346,9 @@
 				ROM_MEMORY = new Uint8Array(sh_ROM_MEMORY);
 				var originalArray = new Uint8Array(arrayBuffer);
 				ROM_MEMORY.set(originalArray);
-				console.log("ROMM: "+ROM_MEMORY)
+				
+				let arr__ = new Uint8Array(sh_ROM_MEMORY);
+				console.log("ROMM: "+arr__)
 				
 				//frvse_worker.postMessage(["ROMU", sh_ROM_MEMORY]);
 				
