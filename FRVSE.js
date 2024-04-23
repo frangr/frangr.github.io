@@ -540,6 +540,7 @@ let pixel_addr = null;
 let pixel_data = null;
 let pixel_bitmask = null;
 let upd_pixel_cnt = null;
+let ctrl_word = null;
 let mem_arr = [ROM_MEMORY, RAM_MEMORY, MM_MEMORY, VRAM_MEMORY, CHARACTER_MEMORY]
 //let ascii_char_memory = null
 let inst = 0
@@ -575,6 +576,7 @@ let sh_pixel_addr = null;
 let sh_pixel_data = null;
 let sh_pixel_bitmask = null;
 let sh_upd_pixel_cnt = null;
+let sh_ctrl_word = null;
 
 function FRVSE_set_state(state){
 	FRVSE_current_state = state;
@@ -707,25 +709,14 @@ self.addEventListener('message', function(event) {
 	}
 	if (event.data === 'start') {
 		
+		ctrl_word[0] = 1;
 		FRVSE_main()
 		return;
+	}
+	if (event.data === 'step') {
 		
-		/*
-		//console.log("run_FRVSE = "+run_FRVSE)
-		
-		if(!start_frvse())
-		{
-			//console.log("A7")
-			return;
-		}
-		
-		//console.log("while : "+run_FRVSE)
-		while(run_FRVSE)
-		{
-			//console.log("RUN FRVSE")
-			riscv32I_core()
-		}
-		*/
+		step_frvse()
+		return;
 	}
 });
 
@@ -734,11 +725,9 @@ function FRVSE_main()
 	if(!start_frvse())
 		return;
 	
-	while(run_FRVSE)
-	{
+	//while(run_FRVSE)
+	while(ctrl_word[0] == 1)
 		riscv32I_core()
-		//self.postMessage(["REG", pc, reg]);
-	}
 }
 
 let init_lock = false
@@ -769,6 +758,7 @@ function init_frvse()
 	sh_pixel_bitmask = new SharedArrayBuffer(W*H); 
 	
 	sh_upd_pixel_cnt = new SharedArrayBuffer(2);
+	sh_ctrl_word = new SharedArrayBuffer(2);
 	
 	RAM_MEMORY = new Uint8Array(sh_RAM_MEMORY);
 	VRAM_MEMORY = new Uint32Array(sh_VRAM_MEMORY);
@@ -779,6 +769,7 @@ function init_frvse()
 	pixel_data = new Uint32Array(sh_pixel_data);
 	pixel_bitmask = new Uint8Array(sh_pixel_bitmask);
 	upd_pixel_cnt = new Uint16Array(sh_upd_pixel_cnt);
+	ctrl_word = new Uint8Array(sh_ctrl_word);
 	
 	/**CREATE PIXELMAP**/
 	//self.postMessage("CPXM");
@@ -786,7 +777,7 @@ function init_frvse()
 	//self.postMessage("CREG");
 	
 	console.log("INIT FRVSE")
-	self.postMessage(["CMR", sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_pc, sh_reg, sh_pixel_addr, sh_pixel_data, sh_pixel_bitmask, sh_upd_pixel_cnt]);
+	self.postMessage(["CMR", sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_pc, sh_reg, sh_pixel_addr, sh_pixel_data, sh_pixel_bitmask, sh_upd_pixel_cnt, sh_ctrl_word]);
 	
 	init_lock = true;
 }

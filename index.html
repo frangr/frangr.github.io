@@ -249,6 +249,7 @@
 	let pixel_pixel = null;
 	let pixel_bitmask = null;
 	let upd_pixel_cnt = null;
+	let ctrl_word = null;
 	
 	let sel_mem_arr = ["ROM Memory", "RAM Memory", "Mass Memory", "VRAM Memory", "Character Memory"];
 	
@@ -277,6 +278,7 @@
 			pixel_pixel = new Uint32Array(event.data[7]);
 			pixel_bitmask = new Uint8Array(event.data[8]);
 			upd_pixel_cnt = new Uint16Array(event.data[9]);
+			ctrl_word = new Uint8Array(event.data[10]);
 			
 			createPixelMap();
 			
@@ -333,6 +335,16 @@
 	function FRVSE_start()
 	{
 		frvse_worker.postMessage('start');
+	}
+	
+	function step_frvse()
+	{
+		frvse_worker.postMessage('step');
+	}
+	
+	function stop_frvse()
+	{
+		ctrl_word[0] = 0;
 	}
 	
 	function emum(mex, color)
