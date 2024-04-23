@@ -691,8 +691,9 @@
 			let green = (pixel_rgb >> 16) & 0xFF;
 			let blue = (pixel_rgb >> 8) & 0xFF;
 			
-			console.log("PAINT: "+pixel_rgb)
+			console.log("PAINT: "+VRAM_MEMORY[i])
 			pixel_data[i].style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
+			console.log("STYLE: "+pixel_data[i].style.backgroundColor)
 			pixel_bitmask[i] = 0;
 		}
 	}
