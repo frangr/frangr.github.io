@@ -931,7 +931,11 @@ function reset_routine()
         reset_bool = true;
     }
 
-	reg = new Uint32Array(32) //RESET GP REGISTERS
+	reg.forEach((rege) => {
+		rege = 0;
+	});
+
+	//reg = new Uint32Array(32) //RESET GP REGISTERS
 	//console.log("REGTEST: "+reg)
 }
 
