@@ -248,6 +248,7 @@
 	let pixel_addr = null;
 	let pixel_pixel = null;
 	let pixel_bitmask = null;
+	let upd_pixel_cnt = null;
 	
 	let sel_mem_arr = ["ROM Memory", "RAM Memory", "Mass Memory", "VRAM Memory", "Character Memory"];
 	
@@ -275,6 +276,7 @@
 			pixel_addr = new Uint16Array(event.data[6]);
 			pixel_pixel = new Uint32Array(event.data[7]);
 			pixel_bitmask = new Uint8Array(event.data[8]);
+			upd_pixel_cnt = new Uint16Array(event.data[9]);
 			
 			createPixelMap();
 			
@@ -682,7 +684,7 @@
 	}
 	
 	//pixel_bitmask
-	//update_pixel_cnt 
+	//upd_pixel_cnt 
 	
 	let pixelmap_doc = null;
 	function paint_screen()
@@ -691,6 +693,9 @@
 		
 			if(!pixel_bitmask[i])
 				continue;
+				
+			if(!upd_pixel_cnt[0])
+				break;
 		
 			let pixel_rgb = VRAM_MEMORY[i];
 			
@@ -700,6 +705,8 @@
 			
 			pixel_data[i].style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
 			pixel_bitmask[i] = 0;
+			
+			upd_pixel_cnt[0]--;
 		}
 	}
 	

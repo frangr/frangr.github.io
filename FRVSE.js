@@ -539,6 +539,7 @@ let CHARACTER_MEMORY = null
 let pixel_addr = null;
 let pixel_data = null;
 let pixel_bitmask = null;
+let upd_pixel_cnt = null;
 let mem_arr = [ROM_MEMORY, RAM_MEMORY, MM_MEMORY, VRAM_MEMORY, CHARACTER_MEMORY]
 //let ascii_char_memory = null
 let inst = 0
@@ -573,6 +574,7 @@ let sh_reg = null; //pc included with gp registers
 let sh_pixel_addr = null;
 let sh_pixel_data = null;
 let sh_pixel_bitmask = null;
+let sh_upd_pixel_cnt = null;
 
 function FRVSE_set_state(state){
 	FRVSE_current_state = state;
@@ -766,6 +768,8 @@ function init_frvse()
 	sh_pixel_data = new SharedArrayBuffer(4);
 	sh_pixel_bitmask = new SharedArrayBuffer(W*H); 
 	
+	sh_upd_pixel_cnt = new SharedArrayBuffer(2);
+	
 	RAM_MEMORY = new Uint8Array(sh_RAM_MEMORY);
 	VRAM_MEMORY = new Uint32Array(sh_VRAM_MEMORY);
 	CHARACTER_MEMORY = new Uint32Array(sh_CHARACTER_MEMORY);
@@ -774,6 +778,7 @@ function init_frvse()
 	pixel_addr = new Uint16Array(sh_pixel_addr);
 	pixel_data = new Uint32Array(sh_pixel_data);
 	pixel_bitmask = new Uint8Array(sh_pixel_bitmask);
+	upd_pixel_cnt = new Uint16Array(sh_upd_pixel_cnt);
 	
 	/**CREATE PIXELMAP**/
 	//self.postMessage("CPXM");
@@ -781,7 +786,7 @@ function init_frvse()
 	//self.postMessage("CREG");
 	
 	console.log("INIT FRVSE")
-	self.postMessage(["CMR", sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_pc, sh_reg, sh_pixel_addr, sh_pixel_data, sh_pixel_bitmask]);
+	self.postMessage(["CMR", sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_pc, sh_reg, sh_pixel_addr, sh_pixel_data, sh_pixel_bitmask, sh_upd_pixel_cnt]);
 	
 	init_lock = true;
 }
@@ -1520,6 +1525,7 @@ function draw_character(addr, color)
             VRAM_MEMORY[screen_pos] = vga_color;
 			//console.log("DRAW_CHAR: "+VRAM_MEMORY[screen_pos])
 			pixel_bitmask[screen_pos] = 1;
+			upd_pixel_cnt[0]++;
         }
         addr += 320;
     }
@@ -1545,6 +1551,7 @@ function video_memory_controller(addr, color, rw)
     {
         VRAM_MEMORY[addr/4] = color;
 		pixel_bitmask[addr] = 1;
+		upd_pixel_cnt[0]++;
 		
 		//update_pixel([[addr, color]])
     }
