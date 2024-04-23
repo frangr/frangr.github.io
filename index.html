@@ -275,6 +275,9 @@
 			pixel_addr = new Uint16Array(event.data[6]);
 			pixel_pixel = new Uint32Array(event.data[7]);
 			pixel_bitmask = new Uint8Array(event.data[8]);
+			
+			start_FRVSE_paint()
+			
 			return;
 		}
 		if(event.data[0] == "REG")
@@ -696,7 +699,7 @@
 		}
 	}
 	
-	init_reg();
+	//init_reg();
 	
 	function gui_repaint()
 	{
@@ -718,7 +721,13 @@
 		requestAnimationFrame(gui_repaint);
 	}
 
-	gui_repaint()
+	//gui_repaint()
+	
+	function start_FRVSE_paint()
+	{
+		init_reg();
+		gui_repaint()
+	}
 	
 	</script>
 </body>
