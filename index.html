@@ -274,7 +274,7 @@
 			reg = new Uint32Array(event.data[5]);
 			pixel_addr = new Uint16Array(event.data[6]);
 			pixel_pixel = new Uint32Array(event.data[7]);
-			pixel_bitmask = Uint8Array(event.data[8]);
+			pixel_bitmask = new Uint8Array(event.data[8]);
 			return;
 		}
 		if(event.data[0] == "REG")
