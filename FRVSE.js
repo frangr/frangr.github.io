@@ -1532,7 +1532,8 @@ function text_mode_controller(addr, charac, rw)
     {
         CHARACTER_MEMORY[addr] = charac;
 		//console.log("DRAW_CHAR--")
-		console.log("addr: "+addr)
+		console.log("CHARMEM: "+CHARACTER_MEMORY[addr])
+		console.log("CHARAC: "+charac)
         draw_character(addr, CHARACTER_MEMORY[addr]);
     }
     else if(rw == READ)
