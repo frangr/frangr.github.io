@@ -741,12 +741,12 @@ let init_lock = false
 function init_frvse()
 {	
 	if (init_lock)
-		return;
+		return 1;
 
 	if (ROM_MEMORY == null)
 	{
 		FRVSE_error("ERROR: ROM MEMORY FILE NOT ADDED.")
-		return 1;
+		return 0;
 	}
 	
 	//RAM_MEMORY = new Uint8Array(RAM_SIZE)
