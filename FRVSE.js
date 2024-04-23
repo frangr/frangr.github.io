@@ -1516,6 +1516,8 @@ function draw_character(addr, color)
             if( clr == MODE_ALPHA_COLOR )
                 continue;
 
+			console.log("clr "+clr)
+			console.log("vga "+VGA_RGB_table[clr])
 			let vga_color = (VGA_RGB_table[clr] << 8) | 0xFF;
             VRAM_MEMORY[screen_pos] = vga_color;
 			//console.log("DRAW_CHAR: "+VRAM_MEMORY[screen_pos])
