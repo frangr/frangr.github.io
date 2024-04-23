@@ -671,6 +671,16 @@
 		});
 	}
 	
+	function toHex32(number) {
+		let hexString = Number(number).toString(16).toUpperCase();
+		
+		while (hexString.length < 8) {
+			hexString = '0' + hexString;
+		}
+
+		return hexString;
+	}
+	
 	//pixel_bitmask
 	//update_pixel_cnt 
 	
