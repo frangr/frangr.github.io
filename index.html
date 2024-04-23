@@ -681,6 +681,8 @@
 		
 			let pixel_rgb = VRAM_MEMORY[i];
 			
+			console.log("PIXEL: "+pixel_rgb)
+			
 			let red = (pixel_rgb >> 24) & 0xFF;
 			let green = (pixel_rgb >> 16) & 0xFF;
 			let blue = (pixel_rgb >> 8) & 0xFF;
