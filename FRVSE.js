@@ -1514,6 +1514,7 @@ function draw_character(addr, color)
 
 			let vga_color = (VGA_RGB_table[clr] << 8) | 0xFF;
             VRAM_MEMORY[screen_pos] = vga_color;
+			console.log("DRAW_CHAR: ": VRAM_MEMORY[screen_pos])
 			pixel_bitmask[screen_pos] = 1;
         }
         addr += 320;
