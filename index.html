@@ -245,6 +245,9 @@
 	let CHARACTER_MEMORY = null;
 	let pc = null;
 	let reg = null; //pc included with gp registers
+	let pixel_addr = null;
+	let pixel_pixel = null;
+	let pixel_bitmask = null;
 	
 	let sel_mem_arr = ["ROM Memory", "RAM Memory", "Mass Memory", "VRAM Memory", "Character Memory"];
 	
@@ -269,6 +272,9 @@
 			CHARACTER_MEMORY = new Uint32Array(event.data[3]);
 			pc = new Uint32Array(event.data[4]);
 			reg = new Uint32Array(event.data[5]);
+			pixel_addr = new Uint16Array(event.data[6]);
+			pixel_pixel = new Uint32Array(event.data[7]);
+			pixel_bitmask = Uint8Array(event.data[8]);
 			return;
 		}
 		if(event.data[0] == "REG")
@@ -659,6 +665,31 @@
 		});
 	}
 	
+	//pixel_bitmask
+	//update_pixel_cnt 
+	
+	let pixelmap_doc = null;
+	function paint_screen()
+	{
+		if(pixelmap_doc == null)
+			pixelmap_doc = document.getElementById("pixelMap").querySelectorAll('*')
+			
+		for (var i = 0; i < 320 * 200; i++) {
+		
+			if(!pixel_bitmask[i])
+				continue;
+		
+			let pixel_rgb = VRAM_MEMORY[i];
+			
+			let red = (pixel_rgb >> 24) & 0xFF;
+			let green = (pixel_rgb >> 16) & 0xFF;
+			let blue = (pixel_rgb >> 8) & 0xFF;
+			
+			pixelmap_doc[i].style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
+			pixel_bitmask[i] = 0;
+		}
+	}
+	
 	init_reg();
 	
 	function gui_repaint()
@@ -669,6 +700,8 @@
 		if(html_reg_id != null)
 			for (i in html_reg_id) 
 				html_reg_id[i].textContent = hex_dec == false? toHex32(reg[i]) : reg[i];
+		
+		paint_screen()
 		
 		requestAnimationFrame(gui_repaint);
 	}

@@ -536,6 +536,9 @@ let RAM_MEMORY = null
 let MM_MEMORY = null
 let VRAM_MEMORY = null
 let CHARACTER_MEMORY = null
+let pixel_addr = null;
+let pixel_data = null;
+let pixel_bitmask = null;
 let mem_arr = [ROM_MEMORY, RAM_MEMORY, MM_MEMORY, VRAM_MEMORY, CHARACTER_MEMORY]
 //let ascii_char_memory = null
 let inst = 0
@@ -567,6 +570,9 @@ let sh_VRAM_MEMORY = null;
 let sh_CHARACTER_MEMORY = null;
 let sh_pc = null;
 let sh_reg = null; //pc included with gp registers
+let sh_pixel_addr = null;
+let sh_pixel_data = null;
+let sh_pixel_bitmask = null;
 
 function FRVSE_set_state(state){
 	FRVSE_current_state = state;
@@ -755,14 +761,22 @@ function init_frvse()
 	sh_pc = new SharedArrayBuffer(4); 
 	sh_reg = new SharedArrayBuffer(128); 
 	
+	//VIDEO
+	sh_pixel_addr = new SharedArrayBuffer(2);
+	sh_pixel_data = new SharedArrayBuffer(4);
+	sh_pixel_bitmask = new SharedArrayBuffer(W*H); 
+	
 	RAM_MEMORY = new Uint8Array(sh_RAM_MEMORY);
 	VRAM_MEMORY = new Uint32Array(sh_VRAM_MEMORY);
 	CHARACTER_MEMORY = new Uint32Array(CHARACTER_MEMORY);
 	pc = new Uint32Array(sh_pc);
 	reg = new Uint32Array(sh_reg);
+	pixel_addr = new Uint16Array(sh_pixel_addr);
+	pixel_data = new Uint32Array(sh_pixel_data);
+	pixel_bitmask = new Uint8Array(sh_pixel_bitmask);
 	
 	console.log("INIT FRVSE")
-	self.postMessage(["CMR", sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_pc, sh_reg]);
+	self.postMessage(["CMR", sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_pc, sh_reg, sh_pixel_addr, sh_pixel_data, sh_pixel_bitmask]);
 	
 	/**CREATE PIXELMAP**/
 	self.postMessage("CPXM");
@@ -1482,7 +1496,7 @@ function draw_character(addr, color)
 
     addr += ((addr/8)/40)* (320*7); //0xA00;
 
-	let char_arr = []
+	//let char_arr = []
     for(let i = 0; i < 8; i++)
     {
         for(let id = 0; id < 8; id++)
@@ -1501,7 +1515,7 @@ function draw_character(addr, color)
 
 			let vga_color = (VGA_RGB_table[clr] << 8) | 0xFF;
             VRAM_MEMORY[screen_pos] = vga_color;
-			char_arr.push([screen_pos, vga_color])
+			pixel_bitmask[screen_pos] = 1;
         }
         addr += 320;
     }
@@ -1526,6 +1540,7 @@ function video_memory_controller(addr, color, rw)
     if(rw)
     {
         VRAM_MEMORY[addr/4] = color;
+		pixel_bitmask[addr] = 1;
 		
 		//update_pixel([[addr, color]])
     }
