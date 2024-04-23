@@ -726,6 +726,8 @@ function FRVSE_main()
 	
 	ctrl_word[0] = 1;
 	
+	console.log("START!")
+	
 	//while(run_FRVSE)
 	while(ctrl_word[0] == 1)
 	{
