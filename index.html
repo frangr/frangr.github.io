@@ -636,6 +636,7 @@
 	let pixel_data = []
 	function createPixelMap() 
 	{
+		console.log("createPixelMap()")
 		var pixelMap = document.getElementById("pixelMap");
 		for (var i = 0; i < 320 * 200; i++) {
 			var pixel = document.createElement("div");
@@ -707,7 +708,6 @@
 			for (i in html_reg_id) 
 				html_reg_id[i].textContent = hex_dec == false? toHex32(reg[i]) : reg[i];
 		
-		console.log("PIX1")
 		paint_screen()
 		
 		requestAnimationFrame(gui_repaint);
