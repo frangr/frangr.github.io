@@ -709,7 +709,6 @@ self.addEventListener('message', function(event) {
 	}
 	if (event.data === 'start') {
 		
-		ctrl_word[0] = 1;
 		FRVSE_main()
 		return;
 	}
@@ -725,9 +724,14 @@ function FRVSE_main()
 	if(!start_frvse())
 		return;
 	
+	ctrl_word[0] = 1;
+	
 	//while(run_FRVSE)
 	while(ctrl_word[0] == 1)
+	{
+		console.log("RUN")
 		riscv32I_core()
+	}
 }
 
 let init_lock = false
