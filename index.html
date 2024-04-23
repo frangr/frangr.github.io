@@ -677,7 +677,10 @@
 	function paint_screen()
 	{
 		if(pixelmap_doc == null)
-			pixelmap_doc = document.getElementById("pixelMap").querySelectorAll('*')
+		{
+			let pixret = document.getElementById("pixelMap")
+			pixelmap_doc = pixret.querySelectorAll('*')
+		}
 			
 		console.log("PIX3")
 			
