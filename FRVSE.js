@@ -796,7 +796,7 @@ function start_frvse()
 		return false;
 	
 	//console.log("A2")
-	if(init_frvse() == 1)
+	if(init_frvse() == 0)
 		return false;
 	//console.log("A3")
 	
