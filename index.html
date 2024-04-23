@@ -631,6 +631,7 @@
 			html_reg_id[i].textContent = hex_dec == false? toHex32(reg[i]) : reg[i];
 	}
 	
+	let pixel_data = []
 	function createPixelMap() 
 	{
 		var pixelMap = document.getElementById("pixelMap");
@@ -639,6 +640,7 @@
 			pixel.className = "pixel";
 			pixel.id = "px"+i;
 			pixelMap.appendChild(pixel);
+			pixel_data.push(pixel);
 		}
 
 		var pixels = document.querySelectorAll(".pixel");
@@ -676,14 +678,6 @@
 	let pixelmap_doc = null;
 	function paint_screen()
 	{
-		if(pixelmap_doc == null)
-		{
-			let pixret = document.getElementById("pixelMap")
-			pixelmap_doc = pixret.querySelectorAll('*')
-		}
-			
-		console.log("PIX3")
-			
 		for (var i = 0; i < 320 * 200; i++) {
 		
 			if(!pixel_bitmask[i])
@@ -697,10 +691,11 @@
 			let green = (pixel_rgb >> 16) & 0xFF;
 			let blue = (pixel_rgb >> 8) & 0xFF;
 			
-			console.log("PIXELMAP DOC: "+pixelmap_doc.length)
-			console.log("PIXELMAP DOC[I]: "+pixelmap_doc[i])
+			console.log("PIXELMAP DOC: "+pixel_data)
+			console.log("PIXELMAP DOCL: "+pixel_data.length)
+			console.log("PIXELMAP DOC[I]: "+pixel_data[i])
 			
-			pixelmap_doc[i].style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
+			pixel_data[i].style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
 			pixel_bitmask[i] = 0;
 		}
 	}
