@@ -729,9 +729,10 @@ function FRVSE_main()
 	//while(run_FRVSE)
 	while(ctrl_word[0] == 1)
 	{
-		console.log("RUN")
 		riscv32I_core()
 	}
+	
+	console.log("STOP!")
 }
 
 let init_lock = false
