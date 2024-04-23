@@ -791,9 +791,8 @@ function init_frvse()
 
 function start_frvse()
 {
-	//console.log("A1")
-	if (FRVSE_current_state == frvse_state_run)
-		return false;
+	//if (FRVSE_current_state == frvse_state_run)
+		//return false;
 	
 	//console.log("A2")
 	if(init_frvse() == 0)
