@@ -701,7 +701,8 @@
 			for (i in html_reg_id) 
 				html_reg_id[i].textContent = hex_dec == false? toHex32(reg[i]) : reg[i];
 		
-		paint_screen()
+		if(pixelmap_doc != null)
+			paint_screen()
 		
 		requestAnimationFrame(gui_repaint);
 	}
