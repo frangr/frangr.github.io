@@ -1518,7 +1518,7 @@ function draw_character(addr, color)
 
 			let vga_color = (VGA_RGB_table[clr] << 8) | 0xFF;
             VRAM_MEMORY[screen_pos] = vga_color;
-			console.log("DRAW_CHAR: "+VRAM_MEMORY[screen_pos])
+			//console.log("DRAW_CHAR: "+VRAM_MEMORY[screen_pos])
 			pixel_bitmask[screen_pos] = 1;
         }
         addr += 320;
@@ -1531,7 +1531,7 @@ function text_mode_controller(addr, charac, rw)
     if(rw == WRITE)
     {
         CHARACTER_MEMORY[addr] = charac;
-		console.log("DRAW_CHAR--")
+		//console.log("DRAW_CHAR--")
         draw_character(addr, CHARACTER_MEMORY[addr]);
     }
     else if(rw == READ)
