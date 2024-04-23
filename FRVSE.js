@@ -768,7 +768,7 @@ function init_frvse()
 	
 	RAM_MEMORY = new Uint8Array(sh_RAM_MEMORY);
 	VRAM_MEMORY = new Uint32Array(sh_VRAM_MEMORY);
-	CHARACTER_MEMORY = new Uint32Array(CHARACTER_MEMORY);
+	CHARACTER_MEMORY = new Uint32Array(sh_CHARACTER_MEMORY);
 	pc = new Uint32Array(sh_pc);
 	reg = new Uint32Array(sh_reg);
 	pixel_addr = new Uint16Array(sh_pixel_addr);
