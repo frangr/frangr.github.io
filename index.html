@@ -276,6 +276,8 @@
 			pixel_pixel = new Uint32Array(event.data[7]);
 			pixel_bitmask = new Uint8Array(event.data[8]);
 			
+			createPixelMap();
+			
 			start_FRVSE_paint()
 			
 			return;

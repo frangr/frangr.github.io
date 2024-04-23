@@ -775,14 +775,13 @@ function init_frvse()
 	pixel_data = new Uint32Array(sh_pixel_data);
 	pixel_bitmask = new Uint8Array(sh_pixel_bitmask);
 	
+	/**CREATE PIXELMAP**/
+	//self.postMessage("CPXM");
+	/** CREATE REG DATA **/
+	//self.postMessage("CREG");
+	
 	console.log("INIT FRVSE")
 	self.postMessage(["CMR", sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_pc, sh_reg, sh_pixel_addr, sh_pixel_data, sh_pixel_bitmask]);
-	
-	/**CREATE PIXELMAP**/
-	self.postMessage("CPXM");
-	
-	/** CREATE REG DATA **/
-	self.postMessage("CREG");
 	
 	init_lock = true;
 }
