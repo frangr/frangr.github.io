@@ -617,6 +617,8 @@
 		
 		for(let i = 0; i < 32; i++)
 			html_reg_id.push(document.getElementById("x"+i+"id"));
+			
+		console.log("HTML_REG: "+html_reg_id)
 	}
 	
 	function update_reg(pc, reg)
@@ -674,6 +676,8 @@
 		if(pixelmap_doc == null)
 			pixelmap_doc = document.getElementById("pixelMap").querySelectorAll('*')
 			
+		console.log("PIX3")
+			
 		for (var i = 0; i < 320 * 200; i++) {
 		
 			if(!pixel_bitmask[i])
@@ -704,7 +708,12 @@
 				html_reg_id[i].textContent = hex_dec == false? toHex32(reg[i]) : reg[i];
 		
 		if(pixelmap_doc != null)
+		{
+			console.log("PIX1")
 			paint_screen()
+		}
+		else
+			console.log("PIX2")
 		
 		requestAnimationFrame(gui_repaint);
 	}
