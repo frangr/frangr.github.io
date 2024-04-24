@@ -825,6 +825,8 @@ function step_frvse()
 	if(init_frvse() == 1)
 		return;
 	
+	ctrl_word[0] = 0;
+	
 	//FRVSE_set_state(frvse_state_step);
 	riscv32I_core()
 }
