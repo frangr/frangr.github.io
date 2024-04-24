@@ -944,7 +944,7 @@ function reset_routine()
 	
 	VRAM_MEMORY.fill(0);
 	upd_pixel_cnt[0] = W*H;
-	pixel_bitmask.fill(0);
+	pixel_bitmask.fill(1);
 	
 	CHARACTER_MEMORY.fill(0);
 	ctrl_word[1] = 0;
