@@ -438,9 +438,9 @@
 		
 		current_page = hex_page_id.value;
 		
-		frvse_worker.postMessage(["HEX_REQ", sel_mem, (current_page-1)*512]);
+		//frvse_worker.postMessage(["HEX_REQ", sel_mem, (current_page-1)*512]);
 		
-		//build_hex_table(arr, "hex_view")
+		build_hex_table(sel_mem, "hex_view", 0)
 	}
 	
 	function hex_page(param)
@@ -458,7 +458,9 @@
 		
 		hex_page_id.value = current_page;
 		
-		frvse_worker.postMessage(["HEX_REQ", sel_mem, (current_page-1)*512]);
+		hex_mem_get()
+		
+		//frvse_worker.postMessage(["HEX_REQ", sel_mem, (current_page-1)*512]);
 		
 		//build_hex_table(arr, "hex_view")
 	}
@@ -577,20 +579,8 @@
 		var tblScrl = document.querySelector('.tbl_scrl');
 	}
 	
-	let prev_hex = -1;
-	function show_memory(idx)
+	function hex_mem_get()
 	{
-		sel_mem = idx;
-		document.getElementById('memory_title').textContent = sel_mem_arr[idx];
-		
-		if(prev_hex != idx)
-		{
-			current_page = 1;
-			prev_hex = idx;
-		}
-		
-		hex_page_id.value = current_page;
-		
 		let pars = (current_page-1)*512
 		let memarr = null;
 		let lenarr = null;
@@ -626,8 +616,23 @@
 				break;
 		}
 		build_hex_table(memarr, "hex_view", lenarr)
+	}
+	
+	let prev_hex = -1;
+	function show_memory(idx)
+	{
+		sel_mem = idx;
+		document.getElementById('memory_title').textContent = sel_mem_arr[idx];
 		
-		//frvse_worker.postMessage(["HEX_REQ", sel_mem, (current_page-1)*512]);
+		if(prev_hex != idx)
+		{
+			current_page = 1;
+			prev_hex = idx;
+		}
+		
+		hex_page_id.value = current_page;
+		
+		hex_mem_get()
 	}
 	
 	function download_screen()
