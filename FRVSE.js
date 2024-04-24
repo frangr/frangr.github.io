@@ -777,6 +777,7 @@ function init_frvse()
 	pixel_bitmask = new Uint8Array(sh_pixel_bitmask);
 	upd_pixel_cnt = new Uint16Array(sh_upd_pixel_cnt);
 	ctrl_word = new Uint8Array(sh_ctrl_word);
+	ctrl_word[1] = 1;
 	
 	/**CREATE PIXELMAP**/
 	//self.postMessage("CPXM");
