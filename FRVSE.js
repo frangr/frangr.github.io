@@ -724,7 +724,7 @@ function FRVSE_main()
 	if(!start_frvse())
 		return;
 	
-	ctrl_word[0] = 1;
+	//ctrl_word[0] = 1;
 	
 	console.log("START!")
 	
@@ -799,10 +799,10 @@ function start_frvse()
 		return false;
 	//console.log("A3")
 	
-	FRVSE_set_state(frvse_state_run);
+	//FRVSE_set_state(frvse_state_run);
 	
 	//start emulator
-	run_FRVSE = true;
+	//run_FRVSE = true;
 	//console.log("start_frvse()")
 	//FRVSE_main();
 	return true;
@@ -810,22 +810,22 @@ function start_frvse()
 
 function stop_frvse()
 {
-	if (FRVSE_current_state != frvse_state_run)
-		return;
+	//if (FRVSE_current_state != frvse_state_run)
+		//return;
 	
-	FRVSE_set_state(frvse_state_stop);
+	//FRVSE_set_state(frvse_state_stop);
 	run_FRVSE = false;
 }
 
 function step_frvse()
 {
-	if (FRVSE_current_state == frvse_state_run)
-		return;
+	//if (FRVSE_current_state == frvse_state_run)
+		//return;
 	
 	if(init_frvse() == 1)
 		return;
 	
-	FRVSE_set_state(frvse_state_step);
+	//FRVSE_set_state(frvse_state_step);
 	riscv32I_core()
 }
 
@@ -929,7 +929,7 @@ function reset_routine()
 
     if(reset_bool == false)
     {
-        reset_pin = 0;
+        ctrl_word[1] = 0;
         reset_bool = true;
     }
 
@@ -1629,7 +1629,8 @@ function send_to_chipset(addr, data, rw, sz)
 function riscv32I_core()
 {
 	//console.log("reset_pin: ... "+reset_pin)
-    if(reset_pin)
+    //if(reset_pin)
+	if(ctrl_word[1] == 1)
 	{
 		//console.log("resetpin1")
 		reset_routine();

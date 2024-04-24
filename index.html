@@ -334,17 +334,24 @@
 	
 	function FRVSE_start()
 	{
+		ctrl_word[0] = 1;
 		frvse_worker.postMessage('start');
 	}
 	
 	function step_frvse()
 	{
+		ctrl_word[0] = 0;
 		frvse_worker.postMessage('step');
 	}
 
 	function stop_frvse()
 	{
 		ctrl_word[0] = 0;
+	}
+	
+	function reset_frvse()
+	{
+		ctrl_word[1] = 1;
 	}
 	
 	function emum(mex, color)
@@ -467,7 +474,6 @@
 	
 	function build_hex_table(array, tableid, totlen)
 	{
-		console.log("HEX TABLE")
 		let table = document.getElementById(tableid);
 		let thead = table.querySelector('thead');
 		let tbody = table.querySelector('tbody');
