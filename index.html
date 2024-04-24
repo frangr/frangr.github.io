@@ -591,7 +591,43 @@
 		
 		hex_page_id.value = current_page;
 		
-		frvse_worker.postMessage(["HEX_REQ", sel_mem, (current_page-1)*512]);
+		let pars = (current_page-1)*512
+		let memarr = null;
+		let lenarr = null;
+		switch( sel_mem )
+		{
+			case 0:
+				memarr = ROM_MEMORY.slice(pars, pars+512);
+				lenarr = ROM_MEMORY.length
+				break;
+			case 1:
+				memarr = RAM_MEMORY.slice(pars, pars+512);
+				lenarr = RAM_MEMORY.length
+				break;
+			case 2:
+				if(MM_MEMORY)
+				{
+					memarr = MM_MEMORY.slice(pars, pars+512);
+					lenarr = MM_MEMORY.length
+				}
+				else
+				{
+					memarr = []
+					lenarr = 0
+				}
+				break;
+			case 3:
+				memarr = new Uint8Array(VRAM_MEMORY.buffer.slice(pars, pars+512));
+				lenarr = (VRAM_MEMORY.length)*4
+				break;
+			case 4:
+				memarr = new Uint8Array(CHARACTER_MEMORY.buffer.slice(pars, pars+512));
+				lenarr = (CHARACTER_MEMORY.length)*4
+				break;
+		}
+		build_hex_table(memarr, "hex_view", lenarr)
+		
+		//frvse_worker.postMessage(["HEX_REQ", sel_mem, (current_page-1)*512]);
 	}
 	
 	function download_screen()
