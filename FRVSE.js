@@ -822,13 +822,14 @@ function step_frvse()
 	//if (FRVSE_current_state == frvse_state_run)
 		//return;
 	
-	if(init_frvse() == 1)
-		return;
+	if(init_frvse() == 0)
+		return false;
 	
 	ctrl_word[0] = 0;
 	
 	//FRVSE_set_state(frvse_state_step);
 	riscv32I_core()
+	return true;
 }
 
 function compose_array(arr)
