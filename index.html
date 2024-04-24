@@ -334,18 +334,33 @@
 	
 	function FRVSE_start()
 	{
+		if(ROM_MEMORY == null)
+		{
+			emum("ERROR: ROM MEMORY FILE NOT ADDED", "red")
+			return
+		}
+		emum("FRVSE state: running", "black")
 		frvse_worker.postMessage('start');
 	}
 	
 	function step_frvse()
 	{
+		if(ROM_MEMORY == null)
+		{
+			emum("ERROR: ROM MEMORY FILE NOT ADDED", "red")
+			return
+		}
+		emum("FRVSE state: stepping", "black")
 		frvse_worker.postMessage('step');
 	}
 
 	function stop_frvse()
 	{
 		if(ctrl_word != null)
+		{
+			emum("FRVSE state: stopped", "black")
 			ctrl_word[0] = 0;
+		}
 	}
 	
 	function reset_frvse()

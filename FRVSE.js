@@ -743,11 +743,11 @@ function init_frvse()
 	if (init_lock)
 		return 1;
 
-	if (ROM_MEMORY == null)
-	{
-		FRVSE_error("ERROR: ROM MEMORY FILE NOT ADDED.")
-		return 0;
-	}
+	//if (ROM_MEMORY == null)
+	//{
+		//FRVSE_error("ERROR: ROM MEMORY FILE NOT ADDED.")
+		//return 0;
+	//}
 	
 	//RAM_MEMORY = new Uint8Array(RAM_SIZE)
 	//VRAM_MEMORY = new Uint32Array(W*H)
