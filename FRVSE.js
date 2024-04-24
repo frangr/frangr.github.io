@@ -941,9 +941,12 @@ function reset_routine()
 
 	reg.fill(0);
 	RAM_MEMORY.fill(0);
+	
 	VRAM_MEMORY.fill(0);
+	upd_pixel_cnt[0] = W*H;
+	pixel_bitmask.fill(0);
+	
 	CHARACTER_MEMORY.fill(0);
-
 	ctrl_word[1] = 0;
 
 	//reg = new Uint32Array(32) //RESET GP REGISTERS
