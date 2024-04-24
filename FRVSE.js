@@ -931,13 +931,20 @@ function reset_routine()
 	//console.log("resetpin2")
 	pc[0] = RESET_VECTOR;
 
+	/*
     if(reset_bool == false)
     {
         ctrl_word[1] = 0;
         reset_bool = true;
     }
+	*/
 
 	reg.fill(0);
+	RAM_MEMORY.fill(0);
+	VRAM_MEMORY.fill(0);
+	CHARACTER_MEMORY.fill(0);
+
+	ctrl_word[1] = 0;
 
 	//reg = new Uint32Array(32) //RESET GP REGISTERS
 	//console.log("REGTEST: "+reg)
