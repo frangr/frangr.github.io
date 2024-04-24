@@ -724,7 +724,7 @@ function FRVSE_main()
 	if(!start_frvse())
 		return;
 	
-	//ctrl_word[0] = 1;
+	ctrl_word[0] = 1;
 	
 	console.log("START!")
 	
