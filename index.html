@@ -587,10 +587,14 @@
 		switch( sel_mem )
 		{
 			case 0:
+				if(ROM_MEMORY == null)
+					return;
 				memarr = ROM_MEMORY.slice(pars, pars+512);
 				lenarr = ROM_MEMORY.length
 				break;
 			case 1:
+				if(RAM_MEMORY == null)
+					return;
 				memarr = RAM_MEMORY.slice(pars, pars+512);
 				lenarr = RAM_MEMORY.length
 				break;
@@ -607,10 +611,14 @@
 				}
 				break;
 			case 3:
+				if(VRAM_MEMORY == null)
+					return;
 				memarr = new Uint8Array(VRAM_MEMORY.buffer.slice(pars, pars+512));
 				lenarr = (VRAM_MEMORY.length)*4
 				break;
 			case 4:
+				if(CHARACTER_MEMORY == null)
+					return;
 				memarr = new Uint8Array(CHARACTER_MEMORY.buffer.slice(pars, pars+512));
 				lenarr = (CHARACTER_MEMORY.length)*4
 				break;
