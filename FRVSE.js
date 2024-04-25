@@ -940,19 +940,35 @@ function mem_device_controller(device, addr, data, rw, sz)
     }
 }
 
-const CHAR_BASIC = 0
-const CHAR_BLOCK = 1
-const CHAR_BOX = 2
+const cset_font8x8_basic = 0
+const cset_font8x8_block = 1
+const cset_font8x8_box = 2
+const cset_font8x8_ext_latin = 3
+const cset_font8x8_greek = 4
+const cset_font8x8_hiragana = 5
+const cset_font_cp437 = 6
+const cset_pmlomb = 7
+
 function get_char_array(charch)
 {
 	switch(charch >> 8)
 	{
-		case CHAR_BASIC:
+		case cset_font8x8_basic:
 			return font8x8_basic[charch & 0xFF];
-		case CHAR_BLOCK:
+		case cset_font8x8_block:
 			return font8x8_block[charch & 0xFF];
-		case CHAR_BOX:
+		case cset_font8x8_box:
 			return font8x8_box[charch & 0xFF];
+		case cset_font8x8_ext_latin:
+			return font8x8_ext_latin[charch & 0xFF];
+		case cset_font8x8_greek:
+			return font8x8_greek[charch & 0xFF];
+		case cset_font8x8_hiragana:
+			return font8x8_hiragana[charch & 0xFF];
+		case cset_font_cp437:
+			return font_cp437[charch & 0xFF];
+		case cset_pmlomb:
+			return pmlomb[charch & 0xFF];
 	}
 	
 	return null;
