@@ -262,7 +262,7 @@
 			pixel_bitmask = new Uint8Array(event.data[8]);
 			upd_pixel_cnt = new Uint16Array(event.data[9]);
 			ctrl_word = new Uint8Array(event.data[10]);
-			inst_arr = new Uint8Array(event.data[11]);
+			inst_arr = new Uint32Array(event.data[11]);
 			
 			createPixelMap();
 			
