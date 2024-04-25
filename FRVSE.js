@@ -19,16 +19,6 @@ const TEXT_MODE_MEMORY_SIZE = 0xFA0; //4000 bytes (1000 4-byte word for each cha
 
 const STOP_REGISTER_ADDRESS = TEXT_MODE_MEMORY_START_ADDRESS + TEXT_MODE_MEMORY_SIZE //F81BA0
 
-// HDD_COMMANDS
-/*
-const WRITE_ONE_BYTE = 0;
-const WRITE_TWO_BYTE = 1;
-const WRITE_FOUR_BYTE = 2;
-const READ_ONE_BYTE = 3;
-const READ_TWO_BYTE = 4;
-const READ_FOUR_BYTE = 5;
-*/
-
 // READ WRITE
 const READ = 0;
 const WRITE = 1;
@@ -113,36 +103,6 @@ const R_TYPE = 0x33;
 const W = 320;
 const H = 200;
 
-/*
-const MTVEC_INITIAL_VALUE = 0x000000bc; //0x0
-const MCAUSE_INITIAL_VALUE = 0x0;
-const MTVAL_INITIAL_VALUE = 0x0;
-const MEPC_INITIAL_VALUE = 0x0;
-const MSTATUS_INITIAL_VALUE = 0x0;
-const MIE_INITIAL_VALUE = 0x0;
-const MISA_INITIAL_VALUE = 0x40001100;
-const MHARTID_INITIAL_VALUE = 0x0;
-*/
-
-/** MCAUSE CODE **/
-/*
-const MCAUSE_EXCEPTION_CODE_Machine_external_interrupt = 0x8000000B; //11 with highest bit set
-const MCAUSE_EXCEPTION_CODE_Machine_timer_interrupt = 0x80000007; //11 with highest bit set
-const MCAUSE_EXCEPTION_CODE_Nmi = 0;
-
-// MCAUSE VALUE
-const MCAUSE_ECALL = 11;
-const MCAUSE_EBREAK = 3;
-const MCAUSE_ILLEGAL_OP = 2;
-
-// CSR ADDRESS
-const MTVEC_ADDR = 0x305;
-const MCAUSE_ADDR = 0x342;
-const MTVAL_ADDR = 0x343;
-const MEPC_ADDR = 0x341;
-const MISA_ADDR = 0x301;
-*/
-
 //EMULATOR VARIABLES/CONST
 let ROM_MEMORY = null
 let RAM_MEMORY = null
@@ -154,7 +114,6 @@ let pixel_data = null;
 let pixel_bitmask = null;
 let upd_pixel_cnt = null;
 let ctrl_word = null;
-let mem_arr = [ROM_MEMORY, RAM_MEMORY, MM_MEMORY, VRAM_MEMORY, CHARACTER_MEMORY]
 let inst = 0
 let hex_dec = false
 let u16 = new Uint16Array(5)
@@ -190,6 +149,7 @@ let sh_pixel_bitmask = null;
 let sh_upd_pixel_cnt = null;
 let sh_ctrl_word = null;
 
+/*
 function FRVSE_set_state(state){
 	FRVSE_current_state = state;
 	FRVSE_message("FRVSE state: "+state, "black")
@@ -211,6 +171,7 @@ function FRVSE_error(err)
 	state_message.style.color = "red";
 }
 
+
 function FRVSE_message(mex, color)
 {
 	self.postMessage(["EMUM", mex, color]);
@@ -220,6 +181,7 @@ function update_pixel(pixel_data)
 {
 	self.postMessage(["UPXD", pixel_data]);
 }
+*/
 
 let pixel_cnt = 0;
 
@@ -381,6 +343,7 @@ function compose_array(arr)
 	return ret_arr;
 }
 
+/*
 function value_in_array(arr, val)
 {
 	arr[0] = val & 0xFF;
@@ -389,12 +352,14 @@ function value_in_array(arr, val)
 	arr[3] = (val >> 24) & 0xFF;
 }
 
+
 function add_to_array(arr, val)
 {
 	let valres = compose_array(arr)
 	valres += val
 	value_in_array(arr, valres)
 }
+
 
 function toHex32(number) {
     let hexString = Number(number).toString(16).toUpperCase();
@@ -405,6 +370,7 @@ function toHex32(number) {
 
     return hexString;
 }
+
 
 function update_reg()
 {
@@ -422,6 +388,7 @@ function reg_mode(mode)
 	hex_dec = mode;
 	update_reg()
 }
+*/
 
 function FUNCT3(){return (inst >> 12) & 0x7;}
 
