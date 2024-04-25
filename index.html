@@ -747,7 +747,7 @@
 	function gui_repaint()
 	{
 		if(pc != null)
-			html_pc_id.textContent = hex_dec == false? toHex32(pc[0]) : pc[0];
+			html_pc_id.textContent = hex_dec == false? toHex32(pc[0]-4) : pc[0]-4;
 		
 		if(inst_arr != null)
 		{
