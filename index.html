@@ -440,7 +440,7 @@
 	function download_buffer(nu)
 	{
 		let name = nu == 0? "ROM_MEMORY_DUMP" : "MM_MEMORY_DUMP";
-		let selmem = nu == 0? ROM_MEMORY : MM_MEMORY;
+		let selmem = nu == 0? ROM_MEMORY.slice() : MM_MEMORY.slice();
 		
 		//create a file and put the content, name and type
 		var file = new File([selmem], name+".hex", {type: "text/plain"});
