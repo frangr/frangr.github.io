@@ -149,42 +149,6 @@ let sh_pixel_bitmask = null;
 let sh_upd_pixel_cnt = null;
 let sh_ctrl_word = null;
 
-/*
-function FRVSE_set_state(state){
-	FRVSE_current_state = state;
-	FRVSE_message("FRVSE state: "+state, "black")
-	return
-	FRVSE_current_state = state;
-	var state_message = document.getElementById("state_message");
-	state_message.textContent = "FRVSE state: "+state;
-	state_message.style.color = "black";
-}
-
-function FRVSE_error(err)
-{
-	ERROR_MESSAGE = err;
-	FRVSE_message(err, "red")
-	return
-	var state_message = document.getElementById("state_message");
-	state_message.textContent = err;
-	ERROR_MESSAGE = err;
-	state_message.style.color = "red";
-}
-
-
-function FRVSE_message(mex, color)
-{
-	self.postMessage(["EMUM", mex, color]);
-}
-
-function update_pixel(pixel_data)
-{
-	self.postMessage(["UPXD", pixel_data]);
-}
-*/
-
-//let pixel_cnt = 0;
-
 let run_FRVSE = false;
 self.addEventListener('message', function(event) {
 	if (event.data[0] === "ROMU") //transfer ROM file
@@ -232,16 +196,6 @@ function init_frvse()
 {	
 	if (init_lock)
 		return 1;
-
-	//if (ROM_MEMORY == null)
-	//{
-		//FRVSE_error("ERROR: ROM MEMORY FILE NOT ADDED.")
-		//return 0;
-	//}
-	
-	//RAM_MEMORY = new Uint8Array(RAM_SIZE)
-	//VRAM_MEMORY = new Uint32Array(W*H)
-	//CHARACTER_MEMORY = new Uint32Array(TEXT_MODE_MEMORY_SIZE/4)
 	
 	sh_RAM_MEMORY = new SharedArrayBuffer(RAM_SIZE); 
 	sh_VRAM_MEMORY = new SharedArrayBuffer((W*H)*4); 
@@ -269,11 +223,6 @@ function init_frvse()
 	ctrl_word = new Uint8Array(sh_ctrl_word);
 	ctrl_word[1] = 1;
 	
-	/**CREATE PIXELMAP**/
-	//self.postMessage("CPXM");
-	/** CREATE REG DATA **/
-	//self.postMessage("CREG");
-	
 	console.log("INIT FRVSE")
 	self.postMessage(["CMR", sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_pc, sh_reg, sh_pixel_addr, sh_pixel_data, sh_pixel_bitmask, sh_upd_pixel_cnt, sh_ctrl_word]);
 	
@@ -297,15 +246,6 @@ function start_frvse()
 	//console.log("start_frvse()")
 	//FRVSE_main();
 	return true;
-}
-
-function stop_frvse()
-{
-	//if (FRVSE_current_state != frvse_state_run)
-		//return;
-	
-	//FRVSE_set_state(frvse_state_stop);
-	run_FRVSE = false;
 }
 
 function step_frvse()
@@ -339,53 +279,6 @@ function compose_array(arr)
 	
 	return ret_arr;
 }
-
-/*
-function value_in_array(arr, val)
-{
-	arr[0] = val & 0xFF;
-	arr[1] = (val >> 8) & 0xFF;
-	arr[2] = (val >> 16) & 0xFF;
-	arr[3] = (val >> 24) & 0xFF;
-}
-
-
-function add_to_array(arr, val)
-{
-	let valres = compose_array(arr)
-	valres += val
-	value_in_array(arr, valres)
-}
-
-
-function toHex32(number) {
-    let hexString = Number(number).toString(16).toUpperCase();
-    
-    while (hexString.length < 8) {
-        hexString = '0' + hexString;
-    }
-
-    return hexString;
-}
-
-
-function update_reg()
-{
-	//console.log("REG LOG");
-	self.postMessage(["REG", pc, reg]);
-	return;
-	
-	html_pc_id.textContent = hex_dec == false? toHex32(pc) : pc;
-	for (i in html_reg_id) 
-		html_reg_id[i].textContent = hex_dec == false? toHex32(reg[i]) : reg[i];
-}
-
-function reg_mode(mode)
-{
-	hex_dec = mode;
-	update_reg()
-}
-*/
 
 function FUNCT3(){return (inst >> 12) & 0x7;}
 
@@ -1120,7 +1013,7 @@ function send_to_chipset(addr, data, rw, sz)
 	{
         if(sz != ONE_BYTE)
             return;
-		stop_frvse();
+		ctrl_word[0] = 0;
 		return;
 	}
 }
