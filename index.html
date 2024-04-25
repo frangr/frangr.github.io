@@ -465,6 +465,7 @@
 		return hex.toUpperCase();
 	}
 	
+	//SET CURRENT_PAGE INTO NUMBER BOX
 	function set_hex_page()
 	{
 		if(hex_page_id.value < 1)
@@ -479,6 +480,7 @@
 		//build_hex_table(sel_mem, "hex_view", 0)
 	}
 	
+	//SET CURRENT PAGE WITH DIRECTIONAL BUTTONS
 	function hex_page(param)
 	{
 		if(param)
@@ -494,7 +496,7 @@
 		
 		hex_page_id.value = current_page;
 		
-		hex_mem_get()
+		//hex_mem_get()
 		
 		//frvse_worker.postMessage(["HEX_REQ", sel_mem, (current_page-1)*512]);
 		
