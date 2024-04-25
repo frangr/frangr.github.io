@@ -696,15 +696,6 @@
 			html_reg_id.push(document.getElementById("x"+i+"id"));
 	}
 	
-	/*
-	function update_reg(pc, reg)
-	{
-		html_pc_id.textContent = hex_dec == false? toHex32(pc) : pc;
-		for (i in html_reg_id) 
-			html_reg_id[i].textContent = hex_dec == false? toHex32(reg[i]) : reg[i];
-	}
-	*/
-	
 	let pixel_data = []
 	function createPixelMap() 
 	{
@@ -729,25 +720,6 @@
 		});
 	}
 	
-	/*
-	function update_pixel(pixel_data)
-	{
-		let cnt = 0;
-		pixel_data.forEach(function() {
-			let pixel_idx = pixel_data[cnt][0];
-			let pixel_rgb = pixel_data[cnt++][1];
-			
-			let red = (pixel_rgb >> 24) & 0xFF;
-			let green = (pixel_rgb >> 16) & 0xFF;
-			let blue = (pixel_rgb >> 8) & 0xFF;
-			
-			
-			let pixel = document.getElementById("px"+pixel_idx);
-			pixel.style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
-		});
-	}
-	*/
-	
 	function toHex32(number) {
 		let hexString = Number(number).toString(16).toUpperCase();
 		
@@ -757,9 +729,6 @@
 
 		return hexString;
 	}
-	
-	//pixel_bitmask
-	//upd_pixel_cnt 
 	
 	let pixelmap_doc = null;
 	function paint_screen()
