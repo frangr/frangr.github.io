@@ -264,7 +264,6 @@
 	let hex_page_id = document.getElementById("hex_page_id")
 	let hex_mpage_id = document.getElementById("hex_mpage_id")
 	
-	//frvse_worker.onmessage = function(event) {
 	frvse_worker.addEventListener('message', function(event) {
 		if(event.data[0] == "CMR")
 		{
@@ -286,6 +285,7 @@
 			
 			return;
 		}
+		/*
 		if(event.data[0] == "REG")
 		{
 			update_reg(event.data[1], event.data[2]);
@@ -325,6 +325,7 @@
 		  a.click();
 		  window.URL.revokeObjectURL(url);
 		}
+		*/
 	});
 	
 	const RAM_SIZE = 0x4C4B40;
@@ -438,7 +439,22 @@
 	
 	function download_buffer(nu)
 	{
-		frvse_worker.postMessage(["DWNB", nu]);
+		let name = nu == 0? "ROM_MEMORY_DUMP" : "MM_MEMORY_DUMP";
+		let selmem = nu == 0? ROM_MEMORY : MM_MEMORY;
+		
+		//create a file and put the content, name and type
+		var file = new File([selmem], name+".hex", {type: "text/plain"});
+
+		//create a ObjectURL in order to download the created file
+		url = window.URL.createObjectURL(file);
+
+		//create a hidden link and set the href and click it
+		var a = document.createElement("a");
+		a.style = "display: none";
+		a.href = url;
+		a.download = file.name;
+		a.click();
+		window.URL.revokeObjectURL(url);
 	}
 	
 	function byteToHex(byte) {
