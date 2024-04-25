@@ -729,17 +729,12 @@
 	{
 		let state = ""
 		
-		if(ctrl_word[1] == 0)
-		{
-			if(ctrl_word[0] == 0)
-				state = "stopped"
-			if(ctrl_word[0] == 1)
-				state = "running"
-			if(ctrl_word[0] == 2)
-				state = "stepping"
-		}
-		else
-			state = "resetting"
+		if(ctrl_word[0] == 0)
+			state = "stopped"
+		if(ctrl_word[0] == 1)
+			state = "running"
+		if(ctrl_word[0] == 2)
+			state = "stepping"
 			
 		emum("FRVSE state: "+state, "black")
 	}
