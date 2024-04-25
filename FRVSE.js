@@ -7,6 +7,10 @@ import { font8x8_box } from './VIDEO_DATA.js';
 import { VGA_RGB_table } from './VIDEO_DATA.js';
 */
 
+self.importScripts('VIDEO_DATA.js')
+
+console.log("VRT2: "+VGA_RGB_table2[1])
+
 const font8x8_basic = [
     [ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00],   // U+0000 (nul)
     [ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00],   // U+0001
