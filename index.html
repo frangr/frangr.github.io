@@ -70,8 +70,12 @@
 					<td colspan="2" style="background-color: rgb(99, 122, 144)"><button type="button" onclick="hex_dec = false;" style="width: 130px;">HEX</button></th>
 				</tr>
 				<tr>
-					<td colspan="2" style="background-color: rgb(61, 87, 124);color:white">PC</td>
+					<td colspan="2" style="background-color: rgb(61, 87, 124);color:white">Current Instruction</td>
 					<td id="pcid" colspan="2" style="background-color: rgb(61, 87, 124);color:white">-</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="background-color: rgb(61, 87, 124);color:white">Program Counter</td>
+					<td id="instid" colspan="2" style="background-color: rgb(61, 87, 124);color:white">-</td>
 				</tr>
 				<tr>
 					<th style="background-color: rgb(32,54,79);color:white">Name</th>
@@ -221,6 +225,7 @@
 	let VRAM_MEMORY = null;
 	let CHARACTER_MEMORY = null;
 	let pc = null;
+	let inst_arr = null;
 	let reg = null; //pc included with gp registers
 	let pixel_addr = null;
 	let pixel_pixel = null;
@@ -257,6 +262,7 @@
 			pixel_bitmask = new Uint8Array(event.data[8]);
 			upd_pixel_cnt = new Uint16Array(event.data[9]);
 			ctrl_word = new Uint8Array(event.data[10]);
+			inst_arr = new Uint8Array(event.data[11]);
 			
 			createPixelMap();
 			
@@ -330,7 +336,7 @@
 			emum("ERROR: ROM MEMORY FILE NOT ADDED", "red")
 			return
 		}
-		ctrl_word[0] = 2;
+		//ctrl_word[0] = 2;
 		frvse_worker.postMessage('step');
 	}
 

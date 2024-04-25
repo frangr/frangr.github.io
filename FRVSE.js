@@ -126,7 +126,7 @@ let i64 = new BigInt64Array(5)
 //RISC-V VARIABLES
 let pc = null;
 let reg = null; //SYSTEM REGISTERS
-let inst_arr = new Uint8Array(4) //INSTRUCTION REGISTER
+let inst_arr = null; //= new Uint8Array(4) //INSTRUCTION REGISTER
 let reset_pin = 1
 
 //SHARED MEMORIES
@@ -137,6 +137,7 @@ let sh_VRAM_MEMORY = null;
 let sh_CHARACTER_MEMORY = null;
 let sh_pc = null;
 let sh_reg = null; //pc included with gp registers
+let sh_inst_arr = null;
 let sh_pixel_addr = null;
 let sh_pixel_data = null;
 let sh_pixel_bitmask = null;
@@ -184,6 +185,7 @@ function init_frvse()
 	sh_VRAM_MEMORY = new SharedArrayBuffer((W*H)*4); 
 	sh_CHARACTER_MEMORY = new SharedArrayBuffer(TEXT_MODE_MEMORY_SIZE); 
 	sh_pc = new SharedArrayBuffer(4); 
+	sh_inst_arr = new SharedArrayBuffer(4); 
 	sh_reg = new SharedArrayBuffer(128); 
 	
 	//VIDEO
@@ -198,6 +200,7 @@ function init_frvse()
 	VRAM_MEMORY = new Uint32Array(sh_VRAM_MEMORY);
 	CHARACTER_MEMORY = new Uint32Array(sh_CHARACTER_MEMORY);
 	pc = new Uint32Array(sh_pc);
+	inst_arr = new Uint8Array(sh_inst_arr);
 	reg = new Uint32Array(sh_reg);
 	pixel_addr = new Uint16Array(sh_pixel_addr);
 	pixel_data = new Uint32Array(sh_pixel_data);
@@ -207,7 +210,7 @@ function init_frvse()
 	ctrl_word[1] = 1;
 	
 	console.log("INIT FRVSE")
-	self.postMessage(["CMR", sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_pc, sh_reg, sh_pixel_addr, sh_pixel_data, sh_pixel_bitmask, sh_upd_pixel_cnt, sh_ctrl_word]);
+	self.postMessage(["CMR", sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_pc, sh_reg, sh_pixel_addr, sh_pixel_data, sh_pixel_bitmask, sh_upd_pixel_cnt, sh_ctrl_word, sh_inst_arr]);
 	
 	init_lock = true;
 }
