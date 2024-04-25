@@ -183,12 +183,9 @@ function update_pixel(pixel_data)
 }
 */
 
-let pixel_cnt = 0;
+//let pixel_cnt = 0;
 
 let run_FRVSE = false;
-//main function that executes FRVSE emulator
-//self.onmessage = function(event) {
-
 self.addEventListener('message', function(event) {
 	if (event.data[0] === "ROMU") //transfer ROM file
 	{
@@ -423,19 +420,9 @@ function SW_ADDRESS(){
 	return ((inst >> 20) & 0xFE0) | ((inst >> 7) & 0x1F);
 }
 
-let reset_bool = false
 function reset_routine()
 {
-	//console.log("resetpin2")
 	pc[0] = RESET_VECTOR;
-
-	/*
-    if(reset_bool == false)
-    {
-        ctrl_word[1] = 0;
-        reset_bool = true;
-    }
-	*/
 
 	reg.fill(0);
 	RAM_MEMORY.fill(0);
@@ -446,9 +433,6 @@ function reset_routine()
 	
 	CHARACTER_MEMORY.fill(0);
 	ctrl_word[1] = 0;
-
-	//reg = new Uint32Array(32) //RESET GP REGISTERS
-	//console.log("REGTEST: "+reg)
 }
 
 //INSTRUCTION FUNCTIONS
@@ -1030,13 +1014,11 @@ function draw_character(addr, color)
 
 			let vga_color = (VGA_RGB_table[clr] << 8) | 0xFF;
             VRAM_MEMORY[screen_pos] = vga_color;
-			//console.log("DRAW_CHAR: "+VRAM_MEMORY[screen_pos])
 			pixel_bitmask[screen_pos] = 1;
 			upd_pixel_cnt[0]++;
         }
         addr += 320;
     }
-	//update_pixel(char_arr)
 }
 
 function text_mode_controller(addr, charac, rw)
@@ -1077,11 +1059,7 @@ function send_to_chipset(addr, data, rw, sz)
 	
     if(addr >= ROM_MEMORY_START_ADDRESS && addr <= (ROM_MEMORY_START_ADDRESS + ROM_MEMORY_SIZE)-1)
 	{
-		//console.log("ROM MEM")
 		addr_offset = addr - ROM_MEMORY_START_ADDRESS;
-		
-		//if(addr_offset > ROM_MEMORY_SIZE)
-			//return;
 		
 		memory_dev = ROM_MEMORY
 	}
@@ -1097,15 +1075,11 @@ function send_to_chipset(addr, data, rw, sz)
 		
 		addr_offset = addr - MM_START_ADDRESS;
 		
-		//if(addr_offset > MM_SIZE)
-			//return;
-		
 		memory_dev = MM_MEMORY;
 	}
 	
 	if (memory_dev != null)
 	{
-		//console.log("MEM DEV1")
 		mem_device_controller(memory_dev, addr_offset, data, rw, sz)
 		memory_dev = null
 		return
@@ -1138,19 +1112,12 @@ function send_to_chipset(addr, data, rw, sz)
 //EMULATOR FUNCTION
 function riscv32I_core()
 {
-	//console.log("reset_pin: ... "+reset_pin)
-    //if(reset_pin)
 	if(ctrl_word[1] == 1)
-	{
-		//console.log("resetpin1")
 		reset_routine();
-	}
 
     send_to_chipset(pc[0], inst_arr, READ, FOUR_BYTE);
 
 	inst = compose_array(inst_arr);
-
-	//console.log("REG LOG1: "+pc+" -- "+inst);
 
     switch(inst & 0x7F)
     {
@@ -1411,8 +1378,5 @@ function riscv32I_core()
             return;
     }
 
-	//update_reg()
-
-	//add_to_array(pc, 4)
     pc[0] += 4;
 }
