@@ -317,7 +317,6 @@
 			emum("ERROR: ROM MEMORY FILE NOT ADDED", "red")
 			return
 		}
-		emum("FRVSE state: running", "black")
 		frvse_worker.postMessage('start');
 	}
 	
@@ -328,17 +327,14 @@
 			emum("ERROR: ROM MEMORY FILE NOT ADDED", "red")
 			return
 		}
-		emum("FRVSE state: stepping", "black")
+		ctrl_word[0] = 2;
 		frvse_worker.postMessage('step');
 	}
 
 	function stop_frvse()
 	{
 		if(ctrl_word != null)
-		{
-			emum("FRVSE state: stopped", "black")
 			ctrl_word[0] = 0;
-		}
 	}
 	
 	function reset_frvse()
@@ -789,7 +785,24 @@
 		}
 	}
 	
-	//init_reg();
+	function state_updt()
+	{
+		let state = ""
+		
+		if(ctrl_word[1])
+		{
+			if(ctrl_word[0] == 0)
+				state = "stopped"
+			if(ctrl_word[0] == 1)
+				state = "running"
+			if(ctrl_word[0] == 2)
+				state = "stepping"
+		}
+		else
+			state = "resetting"
+			
+		emum("FRVSE state: "+state, "black")
+	}
 	
 	function gui_repaint()
 	{
