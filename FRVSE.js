@@ -274,6 +274,7 @@ function SW_ADDRESS(){
 
 function reset_routine()
 {
+	console.log("reset_routine()")
 	pc[0] = RESET_VECTOR;
 
 	reg.fill(0);
