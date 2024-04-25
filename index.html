@@ -70,11 +70,11 @@
 					<td colspan="2" style="background-color: rgb(99, 122, 144)"><button type="button" onclick="hex_dec = false;" style="width: 130px;">HEX</button></th>
 				</tr>
 				<tr>
-					<td colspan="2" style="background-color: rgb(61, 87, 124);color:white">Current Instruction</td>
+					<td colspan="2" style="background-color: rgb(61, 87, 124);color:white">Program Counter</td>
 					<td id="pcid" colspan="2" style="background-color: rgb(61, 87, 124);color:white">-</td>
 				</tr>
 				<tr>
-					<td colspan="2" style="background-color: rgb(61, 87, 124);color:white">Program Counter</td>
+					<td colspan="2" style="background-color: rgb(61, 87, 124);color:white">Current Instruction</td>
 					<td id="instid" colspan="2" style="background-color: rgb(61, 87, 124);color:white">-</td>
 				</tr>
 				<tr>
@@ -750,7 +750,10 @@
 			html_pc_id.textContent = hex_dec == false? toHex32(pc[0]) : pc[0];
 		
 		if(inst_arr != null)
-			html_inst_id.textContent = hex_dec == false? toHex32(inst_arr[0]) : inst_arr[0];
+		{
+			let instnum = ((inst_arr[0] & 0xFF) << 24) | ((inst_arr[0] & 0xFF00) << 8) | ((inst_arr[0] >> 8) & 0xFF00) | ((inst_arr[0] >> 24) & 0xFF);
+			html_inst_id.textContent = hex_dec == false? toHex32(instnum) : instnum;
+		}
 		
 		if(html_reg_id != null)
 			for (i in html_reg_id) 
