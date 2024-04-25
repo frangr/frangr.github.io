@@ -232,6 +232,8 @@
 	
 	let hex_dec = true
 	
+	let allow_state = false
+	
 	const frvse_worker = new Worker('FRVSE.js');
 	let html_pc_id
 	let html_reg_id
@@ -317,6 +319,7 @@
 			emum("ERROR: ROM MEMORY FILE NOT ADDED", "red")
 			return
 		}
+		allow_state = true
 		frvse_worker.postMessage('start');
 	}
 	
@@ -783,6 +786,9 @@
 				html_reg_id[i].textContent = hex_dec == false? toHex32(reg[i]) : reg[i];
 		
 		paint_screen()
+		
+		if(allow_state)
+			state_updt()
 		
 		if(sel_mem != null)
 			hex_mem_get()
