@@ -1,41 +1,6 @@
-// *******FRVSE - Franto RISC-V Simple Emulator - by Grieco Francesco*******
-
-/*
-import { font8x8_basic } from './VIDEO_DATA.js';
-import { font8x8_block } from './VIDEO_DATA.js';
-import { font8x8_box } from './VIDEO_DATA.js';
-import { VGA_RGB_table } from './VIDEO_DATA.js';
-*/
+// *******FRVSE - Franto RISC-V Simple Emulator - by Francesco Grieco*******
 
 self.importScripts('VIDEO_DATA.js')
-
-//let html_pc_id
-//let html_reg_id
-
-//"MACRO"
-const MAX_INTERRUPT_NUMBER = 8;
-const MAX_NMI_NUMBER = 4;
-
-/*
-const ROM_MEMORY_START_ADDRESS = 0x0;
-const ROM_MEMORY_SIZE = 0x4C4B40;
-
-const RAM_START_ADDRESS = 0x503342;
-const RAM_SIZE = 0x2DC6C0;
-
-const MASS_MEMORY_ADDRESS_PORT_ADDRESS = 0x7DFA0A;
-const MASS_MEMORY_DATA_PORT_ADDRESS = 0x7DFA0F;
-const MASS_MEMORY_CONTROL_REGISTER_ADDRESS = 0x7DFA14;
-
-const VIDEO_MEMORY_START_ADDRESS = 0x4C4B41;
-const VIDEO_MEMORY_SIZE = 0x3E800;
-const VIDEO_MEMORY_CONTROL_REGISTER = 0x7DFA03;
-
-const TEXT_MODE_MEMORY_START_ADDRESS = 0x7DFA3D;
-const TEXT_MODE_MEMORY_SIZE = 0xFA0;
-
-const CHARACTER_MEMORY_SIZE = 1000; //16000
-*/
 
 const ROM_MEMORY_START_ADDRESS = 0x0;
 const ROM_MEMORY_SIZE = 0x2DC6C0; //3MB
@@ -54,51 +19,25 @@ const TEXT_MODE_MEMORY_SIZE = 0xFA0; //4000 bytes (1000 4-byte word for each cha
 
 const STOP_REGISTER_ADDRESS = TEXT_MODE_MEMORY_START_ADDRESS + TEXT_MODE_MEMORY_SIZE //F81BA0
 
-/**----------------------------------------**/
-/*
-const ROM_MEMORY_START_ADDRESS = 0x0;
-const ROM_MEMORY_SIZE = 0x4C4B40;
-
-const RAM_START_ADDRESS = 0x4C4B40;
-const RAM_SIZE = 0x7A1200;
-
-const MM_START_ADDRESS = 0x7A1200;
-const MM_SIZE = 0x7A1200;
-
-const VIDEO_MEMORY_START_ADDRESS = 0x7A120C;
-const VIDEO_MEMORY_SIZE = 0x3E800;
-
-const TEXT_MODE_MEMORY_START_ADDRESS = 0x7DFA0C;
-const TEXT_MODE_MEMORY_SIZE = 0xFA0;
-
-const CHARACTER_MEMORY_SIZE = 1000;
-*/
-/**----------------------------------------**/
-
 // HDD_COMMANDS
+/*
 const WRITE_ONE_BYTE = 0;
 const WRITE_TWO_BYTE = 1;
 const WRITE_FOUR_BYTE = 2;
 const READ_ONE_BYTE = 3;
 const READ_TWO_BYTE = 4;
 const READ_FOUR_BYTE = 5;
+*/
 
 // READ WRITE
 const READ = 0;
 const WRITE = 1;
-
-// BOOLEAN VALUES
-const FALSE = 0;
-const TRUE = 1;
-
 // STRING LENGTH
 const ONE_BYTE = 0;
 const TWO_BYTE = 1;
 const FOUR_BYTE = 2;
-
 // RESET VECTOR
 const RESET_VECTOR = ROM_MEMORY_START_ADDRESS;
-
 // INSTRUCTION FINAL DECODE
 const LUI = 0x37;
 const AUIPC = 0x17;
@@ -168,28 +107,13 @@ const B_TYPE = 0x63;
 const LOAD_TYPE = 3;
 const STORE_TYPE = 0x23;
 const I_TYPE = 0x13;
-//#define SHIFT_TYPE
 const R_TYPE = 0x33;
 
-// CHIPSET INFO
-const ROM_OFFSET = 0x4;
-const ROM_SIZE = 20000; //320*200 screen with 4 byte pixel data
-
-const RAM_OFFSET = 20100;
-//#define RAM_SIZE 20000000
-
-const VIDEO_MEMORY_OFFSET = 20020200;
-//#define VIDEO_MEMORY_SIZE 256000
-
-const HDD_OFFSET = 20276300;
-const HDD_SIZE = 20000000;
-
+//SCREEN SIZE
 const W = 320;
 const H = 200;
 
-const PIXEL_MODE = 0;
-const TEXT_MODE = 1;
-
+/*
 const MTVEC_INITIAL_VALUE = 0x000000bc; //0x0
 const MCAUSE_INITIAL_VALUE = 0x0;
 const MTVAL_INITIAL_VALUE = 0x0;
@@ -198,8 +122,10 @@ const MSTATUS_INITIAL_VALUE = 0x0;
 const MIE_INITIAL_VALUE = 0x0;
 const MISA_INITIAL_VALUE = 0x40001100;
 const MHARTID_INITIAL_VALUE = 0x0;
+*/
 
 /** MCAUSE CODE **/
+/*
 const MCAUSE_EXCEPTION_CODE_Machine_external_interrupt = 0x8000000B; //11 with highest bit set
 const MCAUSE_EXCEPTION_CODE_Machine_timer_interrupt = 0x80000007; //11 with highest bit set
 const MCAUSE_EXCEPTION_CODE_Nmi = 0;
@@ -215,6 +141,7 @@ const MCAUSE_ADDR = 0x342;
 const MTVAL_ADDR = 0x343;
 const MEPC_ADDR = 0x341;
 const MISA_ADDR = 0x301;
+*/
 
 //EMULATOR VARIABLES/CONST
 let ROM_MEMORY = null
@@ -228,7 +155,6 @@ let pixel_bitmask = null;
 let upd_pixel_cnt = null;
 let ctrl_word = null;
 let mem_arr = [ROM_MEMORY, RAM_MEMORY, MM_MEMORY, VRAM_MEMORY, CHARACTER_MEMORY]
-//let ascii_char_memory = null
 let inst = 0
 let hex_dec = false
 let u16 = new Uint16Array(5)
@@ -237,8 +163,8 @@ let u32 = new Uint32Array(5)
 let i32 = new Int32Array(5)
 let u64 = new BigUint64Array(5)
 let i64 = new BigInt64Array(5)
+
 //RISC-V VARIABLES
-//let pc = new Uint8Array(4)
 let pc = null;
 let reg = null; //SYSTEM REGISTERS
 let inst_arr = new Uint8Array(4) //INSTRUCTION REGISTER
