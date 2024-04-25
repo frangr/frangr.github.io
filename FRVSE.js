@@ -128,12 +128,6 @@ let pc = null;
 let reg = null; //SYSTEM REGISTERS
 let inst_arr = new Uint8Array(4) //INSTRUCTION REGISTER
 let reset_pin = 1
-const frvse_state_void = "void"
-const frvse_state_stop = "stop"
-const frvse_state_run = "run"
-const frvse_state_step = "step"
-let FRVSE_current_state = frvse_state_void
-let ERROR_MESSAGE = ""
 
 //SHARED MEMORIES
 let sh_ROM_MEMORY = null;
@@ -149,7 +143,6 @@ let sh_pixel_bitmask = null;
 let sh_upd_pixel_cnt = null;
 let sh_ctrl_word = null;
 
-let run_FRVSE = false;
 self.addEventListener('message', function(event) {
 	if (event.data[0] === "ROMU") //transfer ROM file
 	{
@@ -175,27 +168,17 @@ self.addEventListener('message', function(event) {
 
 function FRVSE_main()
 {
-	if(!start_frvse())
-		return;
-	
+	init_frvse()
 	ctrl_word[0] = 1;
-	
-	console.log("START!")
-	
-	//while(run_FRVSE)
 	while(ctrl_word[0] == 1)
-	{
 		riscv32I_core()
-	}
-	
-	console.log("STOP!")
 }
 
 let init_lock = false
 function init_frvse()
 {	
 	if (init_lock)
-		return 1;
+		return;
 	
 	sh_RAM_MEMORY = new SharedArrayBuffer(RAM_SIZE); 
 	sh_VRAM_MEMORY = new SharedArrayBuffer((W*H)*4); 
@@ -229,38 +212,11 @@ function init_frvse()
 	init_lock = true;
 }
 
-function start_frvse()
-{
-	//if (FRVSE_current_state == frvse_state_run)
-		//return false;
-	
-	//console.log("A2")
-	if(init_frvse() == 0)
-		return false;
-	//console.log("A3")
-	
-	//FRVSE_set_state(frvse_state_run);
-	
-	//start emulator
-	//run_FRVSE = true;
-	//console.log("start_frvse()")
-	//FRVSE_main();
-	return true;
-}
-
 function step_frvse()
 {
-	//if (FRVSE_current_state == frvse_state_run)
-		//return;
-	
-	if(init_frvse() == 0)
-		return false;
-	
+	init_frvse()
 	ctrl_word[0] = 0;
-	
-	//FRVSE_set_state(frvse_state_step);
 	riscv32I_core()
-	return true;
 }
 
 function compose_array(arr)
