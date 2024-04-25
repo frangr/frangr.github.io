@@ -241,6 +241,7 @@
 	
 	const frvse_worker = new Worker('FRVSE.js');
 	let html_pc_id
+	let html_inst_id
 	let html_reg_id
 	let sel_mem = null;
 	let pages = 0;
@@ -270,47 +271,6 @@
 			
 			return;
 		}
-		/*
-		if(event.data[0] == "REG")
-		{
-			update_reg(event.data[1], event.data[2]);
-		}
-		if(event.data == "HEX")
-			console.log("hex!");
-		if(event.data == "CPXM") //CREATE PIXEL Map
-		{
-			createPixelMap();
-		}
-		if(event.data[0] == "UPXD") //CALL UPDATE PIXEL DATA
-		{
-			update_pixel(event.data[1])
-		}
-		if(event.data[0] == "EMUM") //EMULATOR MESSAGE
-		{
-			emum(event.data[1], event.data[2]);
-		}
-		if(event.data[0] == "HEX_RET") //EMULATOR MESSAGE
-		{
-			console.log("HEX RET: "+event.data[1])
-			build_hex_table(event.data[1], "hex_view", parseInt(event.data[2]))
-		}
-		if(event.data[0] == "DWNBR") //EMULATOR MESSAGE
-		{
-		  //create a file and put the content, name and type
-		  var file = new File([event.data[1]], event.data[2]+".hex", {type: "text/plain"});
-
-		  //create a ObjectURL in order to download the created file
-		  url = window.URL.createObjectURL(file);
-
-		  //create a hidden link and set the href and click it
-		  var a = document.createElement("a");
-		  a.style = "display: none";
-		  a.href = url;
-		  a.download = file.name;
-		  a.click();
-		  window.URL.revokeObjectURL(url);
-		}
-		*/
 	});
 	
 	const RAM_SIZE = 0x4C4B40;
@@ -699,6 +659,8 @@
 	{
 		html_pc_id = document.getElementById("pcid");
 		
+		html_inst_id = document.getElementById("instid");
+		
 		html_reg_id = []
 		
 		for(let i = 0; i < 32; i++)
@@ -786,6 +748,9 @@
 	{
 		if(pc != null)
 			html_pc_id.textContent = hex_dec == false? toHex32(pc[0]) : pc[0];
+		
+		if(inst_arr != null)
+			html_inst_id.textContent = hex_dec == false? toHex32(inst_arr[0]) : inst_arr[0];
 		
 		if(html_reg_id != null)
 			for (i in html_reg_id) 
