@@ -114,6 +114,7 @@ let pixel_data = null;
 let pixel_bitmask = null;
 let upd_pixel_cnt = null;
 let ctrl_word = null;
+let keycode = null;
 let inst = 0
 let hex_dec = false
 let u16 = new Uint16Array(5)
@@ -143,6 +144,7 @@ let sh_pixel_data = null;
 let sh_pixel_bitmask = null;
 let sh_upd_pixel_cnt = null;
 let sh_ctrl_word = null;
+let sh_keycode = null;
 
 self.addEventListener('message', function(event) {
 	if (event.data[0] === "ROMU") //transfer ROM file
@@ -195,6 +197,7 @@ function init_frvse()
 	
 	sh_upd_pixel_cnt = new SharedArrayBuffer(2);
 	sh_ctrl_word = new SharedArrayBuffer(2);
+	sh_keycode = new SharedArrayBuffer(1);
 	
 	RAM_MEMORY = new Uint8Array(sh_RAM_MEMORY);
 	VRAM_MEMORY = new Uint32Array(sh_VRAM_MEMORY);
@@ -207,10 +210,10 @@ function init_frvse()
 	pixel_bitmask = new Uint8Array(sh_pixel_bitmask);
 	upd_pixel_cnt = new Uint16Array(sh_upd_pixel_cnt);
 	ctrl_word = new Uint8Array(sh_ctrl_word);
-	ctrl_word[1] = 1;
+	keycode = new Uint8Array(sh_keycode);
 	
-	console.log("INIT FRVSE")
-	self.postMessage(["CMR", sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_pc, sh_reg, sh_pixel_addr, sh_pixel_data, sh_pixel_bitmask, sh_upd_pixel_cnt, sh_ctrl_word, sh_inst_arr]);
+	ctrl_word[1] = 1;
+	self.postMessage(["CMR", sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_pc, sh_reg, sh_pixel_addr, sh_pixel_data, sh_pixel_bitmask, sh_upd_pixel_cnt, sh_ctrl_word, sh_inst_arr, sh_keycode]);
 	
 	init_lock = true;
 }

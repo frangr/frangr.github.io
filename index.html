@@ -232,6 +232,7 @@
 	let pixel_bitmask = null;
 	let upd_pixel_cnt = null;
 	let ctrl_word = null;
+	let keycode = null;
 	
 	let sel_mem_arr = ["ROM Memory", "RAM Memory", "Mass Memory", "VRAM Memory", "Character Memory"];
 	
@@ -264,6 +265,7 @@
 			upd_pixel_cnt = new Uint16Array(event.data[9]);
 			ctrl_word = new Uint8Array(event.data[10]);
 			inst_arr = new Uint32Array(event.data[11]);
+			keycode = new Uint8Array(event.data[12]);
 			
 			createPixelMap();
 			
@@ -768,11 +770,7 @@
 
 	//gui_repaint()
 	
-	document.addEventListener("keydown", (event) => {
-	
-		console.log("KEY: ", event.keyCode)
-	
-	});
+	document.addEventListener("keydown", (event) => {keycode[0] = event.keyCode; console.log("KEYCODE: "+keycode[0])});
 	
 	function start_FRVSE_paint()
 	{
