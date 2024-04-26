@@ -768,8 +768,10 @@
 
 	//gui_repaint()
 	
-	document.addEventListener("keypress", function onEvent(event) {
-		console.log("EVENT: "+event)
+	document.addEventListener("keydown", (event) => {
+	
+		console.log("KEY: ", event.keyCode)
+	
 	});
 	
 	function start_FRVSE_paint()
