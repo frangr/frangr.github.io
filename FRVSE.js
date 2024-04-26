@@ -821,6 +821,8 @@ function get_char_array(charch)
 			return font_cp437[charch & 0xFF];
 		case cset_pmlomb:
 			return pmlomb[charch & 0xFF];
+		default:
+			return font8x8_basic[charch & 0xFF];
 	}
 	
 	return null;
