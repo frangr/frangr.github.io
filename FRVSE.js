@@ -19,6 +19,8 @@ const TEXT_MODE_MEMORY_SIZE = 0xFA0; //4000 bytes (1000 4-byte word for each cha
 
 const STOP_REGISTER_ADDRESS = TEXT_MODE_MEMORY_START_ADDRESS + TEXT_MODE_MEMORY_SIZE //F81BA0
 
+const KEYCODE_REGISTER_ADDRESS = STOP_REGISTER_ADDRESS+1 //F81BA1
+
 // READ WRITE
 const READ = 0;
 const WRITE = 1;
@@ -975,9 +977,17 @@ function send_to_chipset(addr, data, rw, sz)
 	
 	if(addr == STOP_REGISTER_ADDRESS)
 	{
-        if(sz != ONE_BYTE)
+        if(sz != ONE_BYTE || rw != WRITE)
             return;
 		ctrl_word[0] = 0;
+		return;
+	}
+	
+	if(addr == KEYCODE_REGISTER_ADDRESS)
+	{
+        if(sz != ONE_BYTE || rw != READ)
+            return;
+		data = keycode[0];
 		return;
 	}
 }
