@@ -63,18 +63,17 @@ The 4 byte to represent a character are structured this way:
 | ------------- | ------------- | ------------- | ------------- |
 | character font  | ascii character  | character color  | background color  |
 
-- character font:
-
+**character font:**
 select the font to print. See Text Memory Fonts
-- ascii character:
 
+**ASCII character:**
 the character you want to draw
-- character color:
 
-The color of the character, using the VGA Palette.
-- background color:
+**character color:**
+The color of the character, using the [VGA Palette](#vga-palette).
 
-the color of the character background, using the VGA Palette.
+**background color:**
+the color of the character background, using the [VGA Palette](#vga-palette).
 
 writing these 4 byte in the Text Memory will draw a character on the screen.
 See Text Memory Example
@@ -101,19 +100,17 @@ See Keycode Register Example
 | 0xF81BA0  | STOP REGISTER  | W  | 1 byte  | 1 byte |
 | 0xF81BA1  | KEYCODE REGISTER  | R  | 1 byte  | 1 byte |
 
-- [FRVSE Architecture](#my-section)
-- [Memory mapped address map](#my-section)
-- [Peripherals](#my-section)
-- [How to make FRVSE execute my code?](#my-section)
-- [Using the GUI](#my-section)
-- [The Video peripheral](#my-section)
-- [The Text Mode peripheral](#my-section)
+## VGA Palette
+![](https://www.fountainware.com/EXPL/vgapalette.png)
 
-
-
-
-
-
-
-
-## My Section
+## Text Mode Fonts
+| Value  | Name | Description | Author | Show |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+| 0  | font8x8_basic | 8x8 font map for unicode points U+0000 - U+007F (basic latin) | dhepper | [show](https://github.com/dhepper/font8x8/blob/master/font8x8_basic.h) |
+| 1  | font8x8_block | 8x8 font map for unicode points U+2580 - U+259F (block elements) | dhepper | [show](https://github.com/dhepper/font8x8/blob/master/font8x8_block.h) |
+| 2  | font8x8_box | 8x8 font map for unicode points U+2500 - U+257F (box drawing) | dhepper | [show](https://github.com/dhepper/font8x8/blob/master/font8x8_box.h) |
+| 3  | font8x8_ext_latin | 8x8 font map for unicode points U+00A0 - U+00FF (extended latin) | dhepper | [show](https://github.com/dhepper/font8x8/blob/master/font8x8_ext_latin.h) |
+| 4  | font8x8_greek | 8x8 font map for unicode points U+0390 - U+03C9 (greek characters) | dhepper | [show](https://github.com/dhepper/font8x8/blob/master/font8x8_greek.h) |
+| 5  | font8x8_hiragana | 8x8 font map for unicode points U+3040 - U+309F (Hiragana) | dhepper | [show](https://github.com/dhepper/font8x8/blob/master/font8x8_hiragana.h) |
+| 6  | Code page 437 | Character set of the original IBM PC | - | [show](https://en.wikipedia.org/wiki/Code_page_437#/media/File:Codepage-437.png) |
+| 7  | Paul Lombard 8x8 1 bit pixel set | Simple set of a bunch of useful things for a game | [Paul Lombard](https://github.com/Pomb) | [show](https://opengameart.org/content/8x8-1-bit-pixel-set) |
