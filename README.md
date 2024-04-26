@@ -6,7 +6,15 @@ This project is the web version of the original FRVSE, a C .DLL with a freeGLUT 
 
 FRVSE is intended for educational purposes and is pretty straightforward to use.
 
+FRVSE have 6 memory-mapped memories:
 
+- ROM MEMORY
+  aaa
+- RAM MEMORY
+- MASS MEMORY
+- VIDEO MEMORY
+- TEXT MODE MEMORY
+- STOP REGISTER
 
 - [FRVSE Architecture](#my-section)
 - [Memory mapped address map](#my-section)
