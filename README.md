@@ -64,7 +64,7 @@ The 4 byte to represent a character are structured this way:
 | character font  | ascii character  | character color  | background color  |
 
 **character font:**
-select the font to print. See Text Memory Fonts
+select the font to print. See [Text Memory Font values](#text-mode-fonts)
 
 **ASCII character:**
 the character you want to draw
