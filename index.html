@@ -383,6 +383,11 @@
 	
 	function download_buffer(nu)
 	{
+		if(nu == 0 && ROM_MEMORY == null)
+			return;
+		if(nu == 1 && MM_MEMORY == null)
+			return;
+			
 		let name = nu == 0? "ROM_MEMORY_DUMP" : "MM_MEMORY_DUMP";
 		let selmem = nu == 0? ROM_MEMORY.slice() : MM_MEMORY.slice();
 		
@@ -768,9 +773,21 @@
 		requestAnimationFrame(gui_repaint);
 	}
 
-	//gui_repaint()
+	document.addEventListener("keydown", (event) => {
+		if(keycode != null)
+		{
+			keycode[0] = event.keyCode;
+			console.log("keyup: "+keycode[0])
+		}
+	});
 	
-	document.addEventListener("keydown", (event) => {keycode[0] = event.keyCode; console.log("KEYCODE: "+keycode[0])});
+	document.addEventListener("keyup", (event) => {
+		if(keycode != null)
+		{
+			keycode[0] = event.keyCode;
+			console.log("keyup: "+keycode[0])
+		}
+	});
 	
 	function start_FRVSE_paint()
 	{
