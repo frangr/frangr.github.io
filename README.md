@@ -79,19 +79,15 @@ See Keycode Register Example
 
 
 ## Memory Map
-start adr|  device name     |r/w|size
-0x0      | ROM MEMORY       |rw | 0x2DC6C0, 3MB
-0x2DC6C0 | RAM MEMORY       |rw | 0x4C4B40, 5MB
-0x7A1200 | MASS MEMORY      |rw | 0x7A1200, 8MB
-0xF42400 | VIDEO MEMORY     |rw | 0x3E800, 256KB
-0xF80C00 | TEXT MODE MEMORY |rw | 0xFA0, 4KB
-0xF81BA0 | STOP REGISTER    |w  | 1 byte
-0xF81BA1 | KEYCODE REGISTER |r  | 1 byte
-
-| Start Address  | Device Name | R/W | Size |
-| ------------- | ------------- | ------------- | ------------- |
-| Content Cell  | Content Cell  | Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  | Content Cell  | Content Cell  |
+| Start Address  | Device Name | R/W | Size | Word Size |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+| 0x0  | ROM MEMORY  | RW  | 0x2DC6C0, 3MB  | 1 byte |
+| 0x2DC6C0  | RAM MEMORY  | RW  | 0x4C4B40, 5MB  | 1 byte |
+| 0x7A1200  | MASS MEMORY  | RW  | 0x7A1200, 8MB  | 1 byte |
+| 0xF42400  | VIDEO MEMORY  | RW  | 0x3E800, 256KB  | 4 byte |
+| 0xF80C00  | TEXT MODE MEMORY  | RW  | 0xFA0, 4KB  | 4 byte |
+| 0xF81BA0  | STOP REGISTER  | W  | 1 byte  | 1 byte |
+| 0xF81BA1  | KEYCODE REGISTER  | R  | 1 byte  | 1 byte |
 
 - [FRVSE Architecture](#my-section)
 - [Memory mapped address map](#my-section)
