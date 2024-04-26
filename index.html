@@ -773,20 +773,25 @@
 		requestAnimationFrame(gui_repaint);
 	}
 
-/*
+	let keypress = false;
+	document.addEventListener("keydown", (event) => {
 		if(keycode != null)
 		{
-			keycode[0] = event.keyCode;
-			console.log("keyup: "+keycode[0])
+			if(!keypress)
+			{
+				keycode[0] = event.keyCode;
+				keypress = true;
+				console.log("kd "+keycode[0])
+			}
 		}
-*/
-
-	document.addEventListener("keydown", (event) => {
-		console.log("kd "+event)
 	});
-	
 	document.addEventListener("keyup", (event) => {
-		console.log("ku "+event)
+		if(keycode != null)
+		{
+			keycode[0] = 0;
+			keypress = false;
+			console.log("ku "+keycode[0])
+		}
 	});
 	
 	function start_FRVSE_paint()
