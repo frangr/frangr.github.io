@@ -773,20 +773,20 @@
 		requestAnimationFrame(gui_repaint);
 	}
 
-	document.addEventListener("keydown", (event) => {
+/*
 		if(keycode != null)
 		{
 			keycode[0] = event.keyCode;
 			console.log("keyup: "+keycode[0])
 		}
+*/
+
+	document.addEventListener("keydown", (event) => {
+		console.log("kd "+event)
 	});
 	
 	document.addEventListener("keyup", (event) => {
-		if(keycode != null)
-		{
-			keycode[0] = event.keyCode;
-			console.log("keyup: "+keycode[0])
-		}
+		console.log("ku "+event)
 	});
 	
 	function start_FRVSE_paint()
