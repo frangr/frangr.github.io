@@ -6,7 +6,7 @@ This project is the web version of the original FRVSE, a C .DLL with a freeGLUT 
 
 FRVSE is intended for educational purposes and is pretty straightforward to use.
 
-FRVSE is just like a small computer. There is a CPU, a ROM, a RAM and an handful of peripherals such as Mass Memory, a screen or registers [(See Full List)](# FRVSE COMPONENTS)
+FRVSE is just like a small computer. There is a CPU, a ROM, a RAM and an handful of peripherals such as Mass Memory, a screen or registers [(See Full List)](#frvse-components)
 you can watch the state of the system registers(PC, reg[0]-reg[31]) and the content of the peripherals using the GUI.
 
 To make FRVSE run code, you need to upload a .bin file, containing bare metal binaries, in the ROM path, and press the Start FRVSE button (or the Step FRVSE, if you want to step).
@@ -24,6 +24,9 @@ just write code that writes or read from the addresses reserved (See Memory Map)
 
 
 ## FRVSE COMPONENTS
+
+**Check [Memory Map](#memory-map) for components address table**
+
 - ROM MEMORY:
 
 A read/write memory emulating a Flash memory. It's where FRVSE start executing the code. Currently it have a maximum size of 3MB. 
@@ -56,13 +59,22 @@ A read/write memory that allows you to easily print characters on the screen. FR
 disposed in 40 rows and 25 columns. In the Text Memory, each character is represented by 4 bytes. There are 1000 character, so the memory is 4000 bytes long.
 The 4 byte to represent a character are structured this way:
 
-32                                                                0
- |character font|ascii character|character color|background color|
+| 31-24  | 23-16 | 15-8 | 7-0 |
+| ------------- | ------------- | ------------- | ------------- |
+| character font  | ascii character  | character color  | background color  |
 
-character font: select the font to print. See Text Memory Fonts
-ascii character: the character you want to draw
-character color: The color of the character, using the VGA Palette.
-background color: the color of the character background, using the VGA Palette.
+- character font:
+
+select the font to print. See Text Memory Fonts
+- ascii character:
+
+the character you want to draw
+- character color:
+
+The color of the character, using the VGA Palette.
+- background color:
+
+the color of the character background, using the VGA Palette.
 
 writing these 4 byte in the Text Memory will draw a character on the screen.
 See Text Memory Example
