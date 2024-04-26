@@ -776,6 +776,10 @@
 
 	//gui_repaint()
 	
+	document.addEventListener("keypress", function onEvent(event) {
+		console.log("EVENT: "+event.key)
+	});
+	
 	function start_FRVSE_paint()
 	{
 		init_reg();
