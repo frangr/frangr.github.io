@@ -742,30 +742,26 @@
 	let instnum = new Uint32Array(1);
 	function gui_repaint()
 	{
-		if(ctrl_word != null)
-			if(ctrl_word[1] == 0)
-			{
-				if(pc != null)
-					html_pc_id.textContent = hex_dec == false? toHex32(pc[0]-4) : pc[0]-4;
-				
-				if(inst_arr != null)
-				{
-					instnum[0] = ((inst_arr[0] & 0xFF) << 24) | ((inst_arr[0] & 0xFF00) << 8) | ((inst_arr[0] >> 8) & 0xFF00) | ((inst_arr[0] >> 24) & 0xFF);
-					html_inst_id.textContent = hex_dec == false? toHex32(instnum) : instnum;
-				}
-				
-				if(html_reg_id != null)
-					for (i in html_reg_id) 
-						html_reg_id[i].textContent = hex_dec == false? toHex32(reg[i]) : reg[i];
-				
-				paint_screen()
-				
-				if(allow_state)
-					state_updt()
-				
-				if(sel_mem != null)
-					hex_mem_get()
-			}
+		if(pc != null)
+			html_pc_id.textContent = hex_dec == false? toHex32(pc[0]-4) : pc[0]-4;
+		
+		if(inst_arr != null)
+		{
+			instnum[0] = ((inst_arr[0] & 0xFF) << 24) | ((inst_arr[0] & 0xFF00) << 8) | ((inst_arr[0] >> 8) & 0xFF00) | ((inst_arr[0] >> 24) & 0xFF);
+			html_inst_id.textContent = hex_dec == false? toHex32(instnum) : instnum;
+		}
+		
+		if(html_reg_id != null)
+			for (i in html_reg_id) 
+				html_reg_id[i].textContent = hex_dec == false? toHex32(reg[i]) : reg[i];
+		
+		paint_screen()
+		
+		if(allow_state)
+			state_updt()
+		
+		if(sel_mem != null)
+			hex_mem_get()
 		
 		requestAnimationFrame(gui_repaint);
 	}
