@@ -754,6 +754,7 @@ function remu() //#
 
 function mem_device_controller(device, addr, data, rw, sz)
 {
+	let data8 = new Uint8Array(data.buffer)
 	console.log("MEM DEV2")
     if(rw == READ)
     {
@@ -761,17 +762,17 @@ function mem_device_controller(device, addr, data, rw, sz)
         switch(sz)
         {
         case ONE_BYTE:
-			data[0] = device[addr]
+			data8[0] = device[addr]
             break;
         case TWO_BYTE:
-			data[0] = device[addr]
-			data[1] = device[addr+1]
+			data8[0] = device[addr]
+			data8[1] = device[addr+1]
             break;
         case FOUR_BYTE:
-			data[0] = device[addr]
-			data[1] = device[addr+1]
-			data[2] = device[addr+2]
-			data[3] = device[addr+3]
+			data8[0] = device[addr]
+			data8[1] = device[addr+1]
+			data8[2] = device[addr+2]
+			data8[3] = device[addr+3]
             break;
         }
     }
@@ -781,17 +782,17 @@ function mem_device_controller(device, addr, data, rw, sz)
         switch(sz)
         {
         case ONE_BYTE:
-            device[addr] = 50; //data[0];
+            device[addr] = data8[0];
             break;
         case TWO_BYTE:
-            device[addr] = data[0];
-            device[addr+1] = data[1];
+            device[addr] = data8[0];
+            device[addr+1] = data8[1];
             break;
         case FOUR_BYTE:
-            device[addr] = data[0];
-            device[addr+1] = data[1];
-            device[addr+2] = data[2];
-            device[addr+3] = data[3];
+            device[addr] = data8[0];
+            device[addr+1] = data8[1];
+            device[addr+2] = data8[2];
+            device[addr+3] = data8[3];
             break;
         }
     }
@@ -927,7 +928,6 @@ function video_memory_controller(addr, color, rw)
 
 function send_to_chipset(addr, data, rw, sz)
 {
-	//console.log("CHIPSET")
 	let memory_dev = null
 	
 	let addr_offset = 0
@@ -962,19 +962,6 @@ function send_to_chipset(addr, data, rw, sz)
 	
 	if (memory_dev != null)
 	{	
-		switch(memory_dev)
-		{
-			case 0:
-				//mem_device_controller(ROM_MEMORY, addr_offset, data, rw, sz)
-				break;
-			case 1:
-				//mem_device_controller(RAM_MEMORY, addr_offset, data, rw, sz)
-				break;
-			case 2:
-				//mem_device_controller(MM_MEMORY, addr_offset, data, rw, sz)
-				break;
-		}
-		
 		mem_device_controller(memory_dev, addr_offset, data, rw, sz)
 		if(isram)
 		{
@@ -983,7 +970,6 @@ function send_to_chipset(addr, data, rw, sz)
 		console.log("RAM MEM: "+RAM_MEMORY)
 		}
 		memory_dev = null
-		//memory_dev = -1
 		return
 	}
 
