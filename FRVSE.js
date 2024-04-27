@@ -962,13 +962,13 @@ function send_to_chipset(addr, data, rw, sz)
 	
 	if (memory_dev != null)
 	{	
+		mem_device_controller(memory_dev, addr_offset, data, rw, sz)
 		if(isram)
 		{
 		console.log(addr_offset+" - "+data+" - "+rw+" - "+sz)
 		console.log("MEM DEV: "+memory_dev)
 		console.log("RAM MEM: "+RAM_MEMORY)
 		}
-		mem_device_controller(memory_dev, addr_offset, data, rw, sz)
 		memory_dev = null
 		return
 	}
