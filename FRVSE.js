@@ -1054,7 +1054,7 @@ function riscv32I_core()
     //send_to_chipset(pc[0], inst_arr, READ, FOUR_BYTE);
 	send_to_chipset(pc[0], inst, READ, FOUR_BYTE);
 
-	inst = compose_array(inst_arr);
+	//inst = compose_array(inst_arr);
 
     switch(inst & 0x7F)
     {
