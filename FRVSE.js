@@ -204,7 +204,7 @@ function init_frvse()
 	VRAM_MEMORY = new Uint32Array(sh_VRAM_MEMORY);
 	CHARACTER_MEMORY = new Uint32Array(sh_CHARACTER_MEMORY);
 	pc = new Uint32Array(sh_pc);
-	inst = new Uint32Array(sh_inst_arr);
+	inst = new Uint32Array(sh_inst);
 	reg = new Uint32Array(sh_reg);
 	pixel_addr = new Uint16Array(sh_pixel_addr);
 	pixel_data = new Uint32Array(sh_pixel_data);
@@ -214,7 +214,7 @@ function init_frvse()
 	keycode = new Uint8Array(sh_keycode);
 	
 	ctrl_word[1] = 1;
-	self.postMessage(["CMR", sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_pc, sh_reg, sh_pixel_addr, sh_pixel_data, sh_pixel_bitmask, sh_upd_pixel_cnt, sh_ctrl_word, sh_inst_arr, sh_keycode]);
+	self.postMessage(["CMR", sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_pc, sh_reg, sh_pixel_addr, sh_pixel_data, sh_pixel_bitmask, sh_upd_pixel_cnt, sh_ctrl_word, sh_inst, sh_keycode]);
 	
 	init_lock = true;
 }
