@@ -117,7 +117,7 @@ let pixel_bitmask = null;
 let upd_pixel_cnt = null;
 let ctrl_word = null;
 let keycode = null;
-let inst = 0
+let inst = new Uint32Array(1)
 let hex_dec = false
 let u16 = new Uint16Array(5)
 let i16 = new Int16Array(5)
@@ -244,37 +244,37 @@ function compose_array(arr)
 	return ret_arr;
 }
 
-function FUNCT3(){return (inst >> 12) & 0x7;}
+function FUNCT3(){return (inst[0] >> 12) & 0x7;}
 
-function FUNCT7(){return (inst >> 25);}
+function FUNCT7(){return (inst[0] >> 25);}
 
-function RS1(){return ((inst >> 15) & 0x1F);}
+function RS1(){return ((inst[0] >> 15) & 0x1F);}
 
-function RS2(){return (inst >> 20) & 0x1F;}
+function RS2(){return (inst[0] >> 20) & 0x1F;}
 
-function RD(){return (inst >> 7) & 0x1F;}
+function RD(){return (inst[0] >> 7) & 0x1F;}
 
 function I_TYPE_IMMEDIATE(){
-	i16[0] = (inst & 0x80000000 | ((inst >> 20) & 0x7ff));
+	i16[0] = (inst[0] & 0x80000000 | ((inst[0] >> 20) & 0x7ff));
 	return i16[0];
 }
 
 function I_TYPE_IMMEDIATE_U(){
-	u16[0] = (inst & 0x80000000 | ((inst >> 20) & 0x7ff));
+	u16[0] = (inst[0] & 0x80000000 | ((inst[0] >> 20) & 0x7ff));
 	return u16[0];
 }
 
 function JAL_IMMEDIATE(){
-	i32[0] = (((inst & 0x7FE00000) >> 20) | ((inst & 0x100000) >> 9) | (inst & 0xFF000) | (inst & 0x80000000));
+	i32[0] = (((inst[0] & 0x7FE00000) >> 20) | ((inst[0] & 0x100000) >> 9) | (inst[0] & 0xFF000) | (inst[0] & 0x80000000));
 	return i32[0];
 }
 
 function BRANCH_IMMEDIATE(){
-	return (((inst & 0xF00) >> 7) | ((inst & 0x7E000000) >> 20) | ((inst & 0x80) << 4)) & 0xFFFFFFFE;
+	return (((inst[0] & 0xF00) >> 7) | ((inst[0] & 0x7E000000) >> 20) | ((inst[0] & 0x80) << 4)) & 0xFFFFFFFE;
 }
 
 function SW_ADDRESS(){
-	return ((inst >> 20) & 0xFE0) | ((inst >> 7) & 0x1F);
+	return ((inst[0] >> 20) & 0xFE0) | ((inst[0] >> 7) & 0x1F);
 }
 
 function reset_routine()
@@ -296,12 +296,12 @@ function reset_routine()
 function lui() //#
 {
     if(RD())
-        reg[RD()] = inst & 0xFFFFF000;
+        reg[RD()] = inst[0] & 0xFFFFF000;
 }
 function auipc() //#
 {
     if(RD())
-        reg[RD()] = (inst & 0xFFFFF000) + pc[0]; //pc
+        reg[RD()] = (inst[0] & 0xFFFFF000) + pc[0]; //pc
 }
 function jal() //#
 {
@@ -310,8 +310,8 @@ function jal() //#
     if(RD())
         reg[RD()] = pc[0] + 4;
 
-    bf = (((inst & 0x7FE00000) >> 20) | ((inst & 0x100000) >> 9) | (inst & 0xFF000) );
-    if(inst >> 31)
+    bf = (((inst[0] & 0x7FE00000) >> 20) | ((inst[0] & 0x100000) >> 9) | (inst[0] & 0xFF000) );
+    if(inst[0] >> 31)
         bf |= 0xFFF00000;
 
 	//add_to_array(pc, bf);
@@ -324,9 +324,9 @@ function jalr() //#
     if(RD())
         reg[RD()] = pc[0] + 4;
 
-    bf = inst >> 20;
+    bf = inst[0] >> 20;
 
-    if(inst >> 31)
+    if(inst[0] >> 31)
         bf |= 0xFFFFF000;
 
 	i32[0] = reg[RS1()];
@@ -345,7 +345,7 @@ function beq() //#
     {
         bf = BRANCH_IMMEDIATE();
 
-        if(inst >> 31)
+        if(inst[0] >> 31)
             bf |= 0xFFFFF000;
         else
             bf &= 0xFFE;
@@ -364,7 +364,7 @@ function bne() //#
     {
         bf = BRANCH_IMMEDIATE();
 
-        if(inst >> 31)
+        if(inst[0] >> 31)
             bf |= 0xFFFFF000;
         else
             bf &= 0xFFE;
@@ -384,7 +384,7 @@ function blt() //#
     {
         i32[2] = BRANCH_IMMEDIATE();
 
-        if(inst >> 31)
+        if(inst[0] >> 31)
             i32[2] |= 0xFFFFF000;
         else
             i32[2] &= 0xFFE;
@@ -404,7 +404,7 @@ function bge() //#
     {
         i32[2] = BRANCH_IMMEDIATE();
 
-        if(inst >> 31)
+        if(inst[0] >> 31)
             i32[2] |= 0xFFFFF000;
         else
             i32[2] &= 0xFFE;
@@ -421,7 +421,7 @@ function bltu() //#
     {
 		i32[0] = BRANCH_IMMEDIATE();
 
-        if(inst >> 31)
+        if(inst[0] >> 31)
             i32[0] |= 0xFFFFF000;
         else
             i32[0] &= 0xFFE;
@@ -438,7 +438,7 @@ function bgeu() //#
     {
 		i32[0] = BRANCH_IMMEDIATE();
 
-        if(inst >> 31)
+        if(inst[0] >> 31)
             i32[0] |= 0xFFFFF000;
         else
             i32[0] &= 0xFFE;
@@ -451,7 +451,7 @@ function bgeu() //#
 }
 function lb() //#
 {
-	i16[0] = inst >> 20;
+	i16[0] = inst[0] >> 20;
 
     if(i16[0] >> 11)
         i16[0] |= 0xF000;
@@ -464,7 +464,7 @@ function lb() //#
 }
 function lh() //#
 {
-	i16[0] = inst >> 20;
+	i16[0] = inst[0] >> 20;
 
     if(i16[0] >> 11)
         i16[0] |= 0xF000;
@@ -477,7 +477,7 @@ function lh() //#
 }
 function lw() //#
 {
-	i16[0] = inst >> 20;
+	i16[0] = inst[0] >> 20;
 
     if(i16[0] >> 11)
         i16[0] |= 0xF000;
@@ -486,7 +486,7 @@ function lw() //#
 }
 function lbu() //#
 {
-	i16[0] = inst >> 20;
+	i16[0] = inst[0] >> 20;
 
     if(i16[0] >> 11)
         i16[0] |= 0xF000;
@@ -495,7 +495,7 @@ function lbu() //#
 }
 function lhu() //#
 {
-	i16[0] = inst >> 20;
+	i16[0] = inst[0] >> 20;
 
     if(i16[0] >> 11)
         i16[0] |= 0xF000;
@@ -532,9 +532,9 @@ function sw() //#
 }
 function addi() //#
 {
-    i32[0] = (inst & 0x7FF00000) >> 20;
+    i32[0] = (inst[0] & 0x7FF00000) >> 20;
 
-    if(inst >> 31)
+    if(inst[0] >> 31)
         i32[0] |= 0x1FFFFF800;
     else
         i32[0] &= 0x7FF;
@@ -547,7 +547,7 @@ function addi() //#
 }
 function slti() //#
 {
-    i16[0] = inst >> 20;
+    i16[0] = inst[0] >> 20;
 
     if(i16[0] & 0x800)
         i16[0] |= 0xF000;
@@ -557,7 +557,7 @@ function slti() //#
 }
 function sltiu() //#
 {
-    u16[0] = inst >> 20;
+    u16[0] = inst[0] >> 20;
 
     if(u16[0] & 0x800)
         u16[0] |= 0xF000;
@@ -566,7 +566,7 @@ function sltiu() //#
 }
 function xori() //#
 {
-    i16[0] = inst >> 20;
+    i16[0] = inst[0] >> 20;
 
     if(i16[0] & 0x800)
         i16[0] |= 0xF000;
@@ -575,7 +575,7 @@ function xori() //#
 }
 function ori() //#
 {
-    i16[0] = inst >> 20;
+    i16[0] = inst[0] >> 20;
 
     if(i16[0] & 0x800)
         i16[0] |= 0xF000;
@@ -584,7 +584,7 @@ function ori() //#
 }
 function andi() //#
 {
-    i16[0] = inst >> 20;
+    i16[0] = inst[0] >> 20;
 
     if(i16[0] & 0x800)
         i16[0] |= 0xF000;
@@ -1051,18 +1051,14 @@ function riscv32I_core()
 	if(ctrl_word[1] == 1)
 		reset_routine();
 
-	let inst1 = new Uint32Array(1)
-
     //send_to_chipset(pc[0], inst_arr, READ, FOUR_BYTE);
-	send_to_chipset(pc[0], inst1, 0, READ, FOUR_BYTE);
+	send_to_chipset(pc[0], inst, 0, READ, FOUR_BYTE);
 
 	//inst = compose_array(inst_arr);
 
-	console.log("INST2: "+inst1[0])
-
 	return
 
-    switch(inst & 0x7F)
+    switch(inst[0] & 0x7F)
     {
         case LUI:
             lui();
@@ -1270,7 +1266,7 @@ function riscv32I_core()
             }
             break;
         case FENCE: //NOT IMPLEMENTED
-            if(inst >> 12)
+            if(inst[0] >> 12)
             {
                 //eti_handler(MCAUSE_ILLEGAL_OP);
                 return;
@@ -1280,7 +1276,7 @@ function riscv32I_core()
             switch(FUNCT3())
             {
             case PRIV:
-                switch(inst >> 20)
+                switch(inst[0] >> 20)
                 {
                 case ECALL:
                     //eti_handler(MCAUSE_ECALL);
