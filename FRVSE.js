@@ -778,7 +778,6 @@ function mem_device_controller(device, addr, data, rw, sz)
     else if(rw == WRITE)
     {
 		console.log("MEM DEV4: "+data[0])
-		data[0] = 50;
         switch(sz)
         {
         case ONE_BYTE:
@@ -793,6 +792,51 @@ function mem_device_controller(device, addr, data, rw, sz)
             device[addr+1] = data[1];
             device[addr+2] = data[2];
             device[addr+3] = data[3];
+            break;
+        }
+    }
+}
+
+function RAM_controller(addr, data, rw, sz)
+{
+	console.log("RAM DEV2")
+    if(rw == READ)
+    {
+		console.log("RAM DEV3")
+        switch(sz)
+        {
+        case ONE_BYTE:
+			data[0] = RAM_MEMORY[addr]
+            break;
+        case TWO_BYTE:
+			data[0] = RAM_MEMORY[addr]
+			data[1] = RAM_MEMORY[addr+1]
+            break;
+        case FOUR_BYTE:
+			data[0] = RAM_MEMORY[addr]
+			data[1] = RAM_MEMORY[addr+1]
+			data[2] = RAM_MEMORY[addr+2]
+			data[3] = RAM_MEMORY[addr+3]
+            break;
+        }
+    }
+    else if(rw == WRITE)
+    {
+		console.log("RAM DEV4: "+data[0])
+        switch(sz)
+        {
+        case ONE_BYTE:
+            RAM_MEMORY[addr] = data[0];
+            break;
+        case TWO_BYTE:
+            RAM_MEMORY[addr] = data[0];
+            RAM_MEMORY[addr+1] = data[1];
+            break;
+        case FOUR_BYTE:
+            RAM_MEMORY[addr] = data[0];
+            RAM_MEMORY[addr+1] = data[1];
+            RAM_MEMORY[addr+2] = data[2];
+            RAM_MEMORY[addr+3] = data[3];
             break;
         }
     }
@@ -943,12 +987,13 @@ function send_to_chipset(addr, data, rw, sz)
 	}
     else if(addr >= RAM_START_ADDRESS && addr <= (RAM_START_ADDRESS+RAM_SIZE)-1)
 	{
-		memory_dev = 1; //RAM_MEMORY
+		memory_dev = null; //RAM_MEMORY
 		addr_offset = addr - RAM_START_ADDRESS;
 		console.log("ADDR: "+addr)
 		console.log("RAM_START_ADDRESS: "+RAM_START_ADDRESS)
 		console.log("ADDR OFFSET: "+addr_offset)
 		console.log("RAM "+addr_offset+" -- "+rw+" -- "+sz)
+		RAM_controller(addr_offset, data, rw, sz)
 		isram = true
 	}
     else if(addr >= MM_START_ADDRESS && addr <= (MM_START_ADDRESS+MM_SIZE)-1)
