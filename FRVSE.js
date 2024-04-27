@@ -807,13 +807,13 @@ function mem_device_controller(device, addr, data, rw, sz)
         switch(sz)
         {
         case ONE_BYTE:
-			data = device[addr]
+			data[0] = device[addr]
             break;
         case TWO_BYTE:
-			data = (device[addr+1] << 16) | device[addr];
+			data[0] = (device[addr+1] << 16) | device[addr];
             break;
         case FOUR_BYTE:
-			data = 12; //(device[addr+3] << 24) | (device[addr+2] << 16) | (device[addr+1] << 8) | device[addr];
+			data[0] = 12; // (device[addr+3] << 24) | (device[addr+2] << 16) | (device[addr+1] << 8) | device[addr];
             break;
         }
     }
@@ -1054,7 +1054,7 @@ function riscv32I_core()
 	let inst1 = new Uint32Array(1)
 
     //send_to_chipset(pc[0], inst_arr, READ, FOUR_BYTE);
-	send_to_chipset(pc[0], inst1[0], READ, FOUR_BYTE);
+	send_to_chipset(pc[0], inst1, READ, FOUR_BYTE);
 
 	//inst = compose_array(inst_arr);
 
