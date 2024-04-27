@@ -876,7 +876,6 @@ function get_char_array(charch)
 
 function draw_character(addr, color)
 {
-	console.log("DC: "+addr+" - "+color)
 	/*
 	CHARACTER STRING
 	
@@ -942,6 +941,7 @@ function text_mode_controller(addr, charac, rw)
 {
     if(rw == WRITE)
     {
+		console.log("TMC: "+addr+" - "+charac+" - "+CHARACTER_MEMORY[addr])
         CHARACTER_MEMORY[addr] = charac;
         draw_character(addr, CHARACTER_MEMORY[addr]);
     }
