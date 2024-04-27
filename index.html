@@ -468,6 +468,7 @@
 		
 		pages = Math.trunc(totlen/512); //Math.trunc(array.length/512);
 		pages = array.length%512? pages+1 : pages;
+		console.log("PAGES: "+pages)
 		hex_page_id.max = pages;
 		hex_mpage_id.value = pages;
 		
