@@ -1051,12 +1051,16 @@ function riscv32I_core()
 	if(ctrl_word[1] == 1)
 		reset_routine();
 
+	let inst1 = new Uint32Array(1)
+
     //send_to_chipset(pc[0], inst_arr, READ, FOUR_BYTE);
-	send_to_chipset(pc[0], inst, READ, FOUR_BYTE);
+	send_to_chipset(pc[0], inst1[0], READ, FOUR_BYTE);
 
 	//inst = compose_array(inst_arr);
 
-	console.log("INST: "+inst)
+	console.log("INST: "+inst1[0])
+
+	return
 
     switch(inst & 0x7F)
     {
