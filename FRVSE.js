@@ -1056,6 +1056,8 @@ function riscv32I_core()
 
 	//inst = compose_array(inst_arr);
 
+	console.log("INST: "+inst)
+
     switch(inst & 0x7F)
     {
         case LUI:
