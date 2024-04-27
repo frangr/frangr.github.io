@@ -939,6 +939,7 @@ function draw_character(addr, color)
 
 function text_mode_controller(addr, charac, rw)
 {
+	console.log("TMC: "+addr+" - "+charac+" - "+rw)
     if(rw == WRITE)
     {
         CHARACTER_MEMORY[addr] = charac;
