@@ -937,17 +937,17 @@ function draw_character(addr, color)
     }
 }
 
-function text_mode_controller(addr, charac, rw)
+function text_mode_controller(addr, charac, idx, rw)
 {
     if(rw == WRITE)
     {
-		console.log("TMC: "+addr+" - "+charac+" - "+CHARACTER_MEMORY[addr])
-        CHARACTER_MEMORY[addr] = charac;
+		console.log("TMC: "+addr+" - "+charac[idx]+" - "+CHARACTER_MEMORY[addr])
+        CHARACTER_MEMORY[addr] = charac[idx];
         draw_character(addr, CHARACTER_MEMORY[addr]);
     }
     else if(rw == READ)
     {
-        charac = CHARACTER_MEMORY[addr];
+        charac[idx] = CHARACTER_MEMORY[addr];
     }
 }
 
@@ -1011,7 +1011,7 @@ function send_to_chipset(addr, data, idx, rw, sz)
 
     if(addr >= TEXT_MODE_MEMORY_START_ADDRESS && addr <= (TEXT_MODE_MEMORY_START_ADDRESS + TEXT_MODE_MEMORY_SIZE)-1)
     {
-        text_mode_controller(addr-TEXT_MODE_MEMORY_START_ADDRESS, data, rw);
+        text_mode_controller(addr-TEXT_MODE_MEMORY_START_ADDRESS, data, idx, rw);
         return;
     }
 	
