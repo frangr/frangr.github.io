@@ -754,10 +754,10 @@ function remu() //#
 
 function mem_device_controller(device, addr, data, rw, sz)
 {
-	//console.log("MEM DEV2")
+	console.log("MEM DEV2")
     if(rw == READ)
     {
-		//console.log("MEM DEV3")
+		console.log("MEM DEV3")
         switch(sz)
         {
         case ONE_BYTE:
@@ -777,7 +777,7 @@ function mem_device_controller(device, addr, data, rw, sz)
     }
     else if(rw == WRITE)
     {
-		//console.log("MEM DEV4")
+		console.log("MEM DEV4")
         switch(sz)
         {
         case ONE_BYTE:
@@ -955,7 +955,8 @@ function send_to_chipset(addr, data, rw, sz)
 	}
 	
 	if (memory_dev != null)
-	{
+	{	
+		console.log(memory_dev+" - "+addr_offset+" - "+data+" - "+rw+" - "+sz)
 		mem_device_controller(memory_dev, addr_offset, data, rw, sz)
 		memory_dev = null
 		return
