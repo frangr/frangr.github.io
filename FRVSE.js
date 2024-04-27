@@ -456,7 +456,8 @@ function lb() //#
     if(i16[0] >> 11)
         i16[0] |= 0xF000;
 
-    send_to_chipset(reg[RS1()] + i16[0], reg[RD()], READ, ONE_BYTE);
+    //send_to_chipset(reg[RS1()] + i16[0], reg[RD()], READ, ONE_BYTE);
+	send_to_chipset(reg[RS1()] + i16[0], reg, RD(), READ, ONE_BYTE);
 
     //sign extension
     if(reg[RD()] >> 7)
@@ -469,7 +470,7 @@ function lh() //#
     if(i16[0] >> 11)
         i16[0] |= 0xF000;
 
-    send_to_chipset(reg[RS1()] + i16[0], reg[RD()], READ, TWO_BYTE);
+    send_to_chipset(reg[RS1()] + i16[0], reg, RD(), READ, TWO_BYTE);
 
     //sign extension
     if(reg[RD()] >> 15)
@@ -482,7 +483,7 @@ function lw() //#
     if(i16[0] >> 11)
         i16[0] |= 0xF000;
 
-    send_to_chipset(reg[RS1()] + i16[0], reg[RD()], READ, FOUR_BYTE);
+    send_to_chipset(reg[RS1()] + i16[0], reg, RD(), READ, FOUR_BYTE);
 }
 function lbu() //#
 {
@@ -491,7 +492,7 @@ function lbu() //#
     if(i16[0] >> 11)
         i16[0] |= 0xF000;
 
-    send_to_chipset(reg[RS1()] + i16[0], reg[RD()], READ, ONE_BYTE);
+    send_to_chipset(reg[RS1()] + i16[0], reg, RD(), READ, ONE_BYTE);
 }
 function lhu() //#
 {
@@ -500,7 +501,7 @@ function lhu() //#
     if(i16[0] >> 11)
         i16[0] |= 0xF000;
 
-    send_to_chipset(reg[RS1()] + i16[0], reg[RD()], READ, TWO_BYTE);
+    send_to_chipset(reg[RS1()] + i16[0], reg, RD(), READ, TWO_BYTE);
 }
 function sb() //#
 {
@@ -509,7 +510,7 @@ function sb() //#
     if(i16[0] >> 11)
         i16[0] |= 0xF000;
 
-    send_to_chipset(reg[RS1()] + i16[0], reg[RS2()], WRITE, ONE_BYTE);
+    send_to_chipset(reg[RS1()] + i16[0], reg, RS2(), WRITE, ONE_BYTE);
 }
 function sh() //#
 {
@@ -519,7 +520,7 @@ function sh() //#
     if(imm[0] >> 11)
         imm[0] |= 0xF000;
 
-    send_to_chipset(reg[RS1()] + imm[0], reg[RS2()], WRITE, TWO_BYTE); //(SW_ADDRESS)
+    send_to_chipset(reg[RS1()] + imm[0], reg, RS2(), WRITE, TWO_BYTE); //(SW_ADDRESS)
 }
 function sw() //#
 {
@@ -528,7 +529,7 @@ function sw() //#
     if(i16[0] >> 11)
         i16[0] |= 0xF000;
 
-    send_to_chipset(reg[RS1()] + i16[0], reg[RS2()], WRITE, FOUR_BYTE); //(SW_ADDRESS)
+    send_to_chipset(reg[RS1()] + i16[0], reg, RS2(), WRITE, FOUR_BYTE); //(SW_ADDRESS)
 }
 function addi() //#
 {
