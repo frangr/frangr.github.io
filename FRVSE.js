@@ -777,7 +777,7 @@ function mem_device_controller(device, addr, data, rw, sz)
     }
     else if(rw == WRITE)
     {
-		console.log("MEM DEV4")
+		console.log("MEM DEV4: "+data[0])
         switch(sz)
         {
         case ONE_BYTE:
