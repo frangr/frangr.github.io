@@ -569,6 +569,7 @@
 	function hex_mem_get()
 	{
 		let pars = (current_page-1)*512
+		console.log("pars: "+pars)
 		let memarr = null;
 		let lenarr = null;
 		switch( sel_mem )
@@ -576,10 +577,8 @@
 			case 0:
 				if(ROM_MEMORY == null)
 					return;
-				console.log("rom len "+ROM_MEMORY.length)
 				memarr = ROM_MEMORY.slice(pars, pars+512);
 				lenarr = ROM_MEMORY.length
-				console.log("rom len2 "+lenarr)
 				break;
 			case 1:
 				if(RAM_MEMORY == null)
