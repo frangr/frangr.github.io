@@ -445,8 +445,6 @@
 		
 		hex_page_id.value = current_page;
 		
-		console.log("PAG: "+current_page)
-		
 		//hex_mem_get()
 		
 		//frvse_worker.postMessage(["HEX_REQ", sel_mem, (current_page-1)*512]);
@@ -470,7 +468,6 @@
 		
 		pages = Math.trunc(totlen/512); //Math.trunc(array.length/512); totlen
 		pages = totlen%512? pages+1 : pages; //array.length%512? pages+1 : pages;
-		console.log("PAGES: "+pages)
 		hex_page_id.max = pages;
 		hex_mpage_id.value = pages;
 		
@@ -571,6 +568,7 @@
 	function hex_mem_get()
 	{
 		let pars = (current_page-1)*512
+		console.log("PAG: "+current_page)
 		let memarr = null;
 		let lenarr = null;
 		switch( sel_mem )
