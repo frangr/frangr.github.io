@@ -1027,7 +1027,7 @@ function send_to_chipset(addr, data, idx, rw, sz)
 	{
         if(sz != ONE_BYTE || rw != READ)
             return;
-		data = keycode[0];
+		data[idx] = keycode[0];
 		return;
 	}
 }
