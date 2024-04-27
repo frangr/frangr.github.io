@@ -813,7 +813,7 @@ function mem_device_controller(device, addr, data, rw, sz)
 			data = (device[addr+1] << 16) | device[addr];
             break;
         case FOUR_BYTE:
-			data = (device[addr+3] << 24) | (device[addr+2] << 16) | (device[addr+1] << 8) | device[addr];
+			data = 12; //(device[addr+3] << 24) | (device[addr+2] << 16) | (device[addr+1] << 8) | device[addr];
             break;
         }
     }
