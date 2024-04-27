@@ -466,8 +466,8 @@
 		thead.innerHTML = "";
 		tbody.innerHTML = "";
 		
-		pages = Math.trunc(array.length/512); //Math.trunc(array.length/512); totlen
-		pages = array.length%512? pages+1 : pages; //array.length%512? pages+1 : pages;
+		pages = Math.trunc(totlen/512); //Math.trunc(array.length/512); totlen
+		pages = totlen%512? pages+1 : pages; //array.length%512? pages+1 : pages;
 		console.log("PAGES: "+pages)
 		hex_page_id.max = pages;
 		hex_mpage_id.value = pages;
@@ -569,7 +569,6 @@
 	function hex_mem_get()
 	{
 		let pars = (current_page-1)*512
-		console.log("pars: "+pars)
 		let memarr = null;
 		let lenarr = null;
 		switch( sel_mem )
