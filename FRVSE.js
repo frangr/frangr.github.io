@@ -797,51 +797,6 @@ function mem_device_controller(device, addr, data, rw, sz)
     }
 }
 
-function RAM_controller(addr, data, rw, sz)
-{
-	console.log("RAM DEV2")
-    if(rw == READ)
-    {
-		console.log("RAM DEV3")
-        switch(sz)
-        {
-        case ONE_BYTE:
-			data[0] = RAM_MEMORY[addr]
-            break;
-        case TWO_BYTE:
-			data[0] = RAM_MEMORY[addr]
-			data[1] = RAM_MEMORY[addr+1]
-            break;
-        case FOUR_BYTE:
-			data[0] = RAM_MEMORY[addr]
-			data[1] = RAM_MEMORY[addr+1]
-			data[2] = RAM_MEMORY[addr+2]
-			data[3] = RAM_MEMORY[addr+3]
-            break;
-        }
-    }
-    else if(rw == WRITE)
-    {
-		console.log("RAM DEV4: "+data[0])
-        switch(sz)
-        {
-        case ONE_BYTE:
-            RAM_MEMORY[addr] = 50; //data[0];
-            break;
-        case TWO_BYTE:
-            RAM_MEMORY[addr] = data[0];
-            RAM_MEMORY[addr+1] = data[1];
-            break;
-        case FOUR_BYTE:
-            RAM_MEMORY[addr] = data[0];
-            RAM_MEMORY[addr+1] = data[1];
-            RAM_MEMORY[addr+2] = data[2];
-            RAM_MEMORY[addr+3] = data[3];
-            break;
-        }
-    }
-}
-
 const cset_font8x8_basic = 0
 const cset_font8x8_block = 1
 const cset_font8x8_box = 2
@@ -983,17 +938,16 @@ function send_to_chipset(addr, data, rw, sz)
 	{
 		addr_offset = addr - ROM_MEMORY_START_ADDRESS;
 		
-		memory_dev = 0; //ROM_MEMORY
+		memory_dev = ROM_MEMORY
 	}
     else if(addr >= RAM_START_ADDRESS && addr <= (RAM_START_ADDRESS+RAM_SIZE)-1)
 	{
-		memory_dev = 1; //RAM_MEMORY
+		memory_dev = RAM_MEMORY
 		addr_offset = addr - RAM_START_ADDRESS;
 		console.log("ADDR: "+addr)
 		console.log("RAM_START_ADDRESS: "+RAM_START_ADDRESS)
 		console.log("ADDR OFFSET: "+addr_offset)
 		console.log("RAM "+addr_offset+" -- "+rw+" -- "+sz)
-		//RAM_controller(addr_offset, data, rw, sz)
 		isram = true
 	}
     else if(addr >= MM_START_ADDRESS && addr <= (MM_START_ADDRESS+MM_SIZE)-1)
@@ -1003,7 +957,7 @@ function send_to_chipset(addr, data, rw, sz)
 		
 		addr_offset = addr - MM_START_ADDRESS;
 		
-		memory_dev = 2; //MM_MEMORY;
+		memory_dev = MM_MEMORY;
 	}
 	
 	if (memory_dev != null)
@@ -1011,24 +965,25 @@ function send_to_chipset(addr, data, rw, sz)
 		switch(memory_dev)
 		{
 			case 0:
-				mem_device_controller(ROM_MEMORY, addr_offset, data, rw, sz)
+				//mem_device_controller(ROM_MEMORY, addr_offset, data, rw, sz)
 				break;
 			case 1:
-				mem_device_controller(RAM_MEMORY, addr_offset, data, rw, sz)
+				//mem_device_controller(RAM_MEMORY, addr_offset, data, rw, sz)
 				break;
 			case 2:
-				mem_device_controller(MM_MEMORY, addr_offset, data, rw, sz)
+				//mem_device_controller(MM_MEMORY, addr_offset, data, rw, sz)
 				break;
 		}
 		
+		mem_device_controller(memory_dev, addr_offset, data, rw, sz)
 		if(isram)
 		{
 		console.log(addr_offset+" - "+data+" - "+rw+" - "+sz)
 		console.log("MEM DEV: "+memory_dev)
 		console.log("RAM MEM: "+RAM_MEMORY)
 		}
-		//memory_dev = null
-		memory_dev = -1
+		memory_dev = null
+		//memory_dev = -1
 		return
 	}
 
