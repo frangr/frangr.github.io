@@ -225,7 +225,7 @@
 	let VRAM_MEMORY = null;
 	let CHARACTER_MEMORY = null;
 	let pc = null;
-	let inst_arr = null;
+	let inst = null;
 	let reg = null; //pc included with gp registers
 	let pixel_addr = null;
 	let pixel_pixel = null;
@@ -264,7 +264,7 @@
 			pixel_bitmask = new Uint8Array(event.data[8]);
 			upd_pixel_cnt = new Uint16Array(event.data[9]);
 			ctrl_word = new Uint8Array(event.data[10]);
-			inst_arr = new Uint32Array(event.data[11]);
+			inst = new Uint32Array(event.data[11]);
 			keycode = new Uint8Array(event.data[12]);
 			
 			createPixelMap();
@@ -754,8 +754,8 @@
 		
 		if(inst_arr != null)
 		{
-			instnum[0] = ((inst_arr[0] & 0xFF) << 24) | ((inst_arr[0] & 0xFF00) << 8) | ((inst_arr[0] >> 8) & 0xFF00) | ((inst_arr[0] >> 24) & 0xFF);
-			html_inst_id.textContent = hex_dec == false? toHex32(instnum) : instnum;
+			//instnum[0] = ((inst_arr[0] & 0xFF) << 24) | ((inst_arr[0] & 0xFF00) << 8) | ((inst_arr[0] >> 8) & 0xFF00) | ((inst_arr[0] >> 24) & 0xFF);
+			html_inst_id.textContent = hex_dec == false? toHex32(inst) : inst;
 		}
 		
 		if(html_reg_id != null)

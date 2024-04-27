@@ -117,7 +117,7 @@ let pixel_bitmask = null;
 let upd_pixel_cnt = null;
 let ctrl_word = null;
 let keycode = null;
-let inst = new Uint32Array(1)
+let inst = null
 let hex_dec = false
 let u16 = new Uint16Array(5)
 let i16 = new Int16Array(5)
@@ -129,7 +129,6 @@ let i64 = new BigInt64Array(5)
 //RISC-V VARIABLES
 let pc = null;
 let reg = null; //SYSTEM REGISTERS
-let inst_arr = null; //= new Uint8Array(4) //INSTRUCTION REGISTER
 let reset_pin = 1
 
 //SHARED MEMORIES
@@ -140,7 +139,7 @@ let sh_VRAM_MEMORY = null;
 let sh_CHARACTER_MEMORY = null;
 let sh_pc = null;
 let sh_reg = null; //pc included with gp registers
-let sh_inst_arr = null;
+let sh_inst = null;
 let sh_pixel_addr = null;
 let sh_pixel_data = null;
 let sh_pixel_bitmask = null;
@@ -189,7 +188,7 @@ function init_frvse()
 	sh_VRAM_MEMORY = new SharedArrayBuffer((W*H)*4); 
 	sh_CHARACTER_MEMORY = new SharedArrayBuffer(TEXT_MODE_MEMORY_SIZE); 
 	sh_pc = new SharedArrayBuffer(4); 
-	sh_inst_arr = new SharedArrayBuffer(4); 
+	sh_inst = new SharedArrayBuffer(4); 
 	sh_reg = new SharedArrayBuffer(128); 
 	
 	//VIDEO
@@ -205,7 +204,7 @@ function init_frvse()
 	VRAM_MEMORY = new Uint32Array(sh_VRAM_MEMORY);
 	CHARACTER_MEMORY = new Uint32Array(sh_CHARACTER_MEMORY);
 	pc = new Uint32Array(sh_pc);
-	inst_arr = new Uint8Array(sh_inst_arr);
+	inst = new Uint32Array(sh_inst_arr);
 	reg = new Uint32Array(sh_reg);
 	pixel_addr = new Uint16Array(sh_pixel_addr);
 	pixel_data = new Uint32Array(sh_pixel_data);
@@ -973,8 +972,6 @@ function send_to_chipset(addr, data, idx, rw, sz)
 	
 	let addr_offset = 0
 	
-	let isram = false
-	
     if(addr >= ROM_MEMORY_START_ADDRESS && addr <= (ROM_MEMORY_START_ADDRESS + ROM_MEMORY_SIZE)-1)
 	{
 		addr_offset = addr - ROM_MEMORY_START_ADDRESS;
@@ -985,11 +982,6 @@ function send_to_chipset(addr, data, idx, rw, sz)
 	{
 		memory_dev = RAM_MEMORY
 		addr_offset = addr - RAM_START_ADDRESS;
-		console.log("ADDR: "+addr)
-		console.log("RAM_START_ADDRESS: "+RAM_START_ADDRESS)
-		console.log("ADDR OFFSET: "+addr_offset)
-		console.log("RAM "+addr_offset+" -- "+rw+" -- "+sz)
-		isram = true
 	}
     else if(addr >= MM_START_ADDRESS && addr <= (MM_START_ADDRESS+MM_SIZE)-1)
 	{
@@ -997,19 +989,12 @@ function send_to_chipset(addr, data, idx, rw, sz)
 			return;
 		
 		addr_offset = addr - MM_START_ADDRESS;
-		
 		memory_dev = MM_MEMORY;
 	}
 	
 	if (memory_dev != null)
 	{	
 		mem_device_controller(memory_dev, addr_offset, data, idx, rw, sz)
-		if(isram)
-		{
-		console.log(addr_offset+" - "+data+" - "+rw+" - "+sz)
-		console.log("MEM DEV: "+memory_dev)
-		console.log("RAM MEM: "+RAM_MEMORY)
-		}
 		memory_dev = null
 		return
 	}
