@@ -951,11 +951,11 @@ function text_mode_controller(addr, charac, idx, rw)
     }
 }
 
-function video_memory_controller(addr, color, rw)
+function video_memory_controller(addr, color, idx, rw)
 {
     if(rw)
     {
-        VRAM_MEMORY[addr/4] = color;
+        VRAM_MEMORY[addr/4] = color[idx];
 		pixel_bitmask[addr] = 1;
 		upd_pixel_cnt[0]++;
 		
@@ -963,7 +963,7 @@ function video_memory_controller(addr, color, rw)
     }
     else if(!rw)
     {
-        color = VRAM_MEMORY[addr/4];
+        color[idx] = VRAM_MEMORY[addr/4];
     }
 }
 
@@ -1005,7 +1005,7 @@ function send_to_chipset(addr, data, idx, rw, sz)
         if(sz != FOUR_BYTE)
             return; //FAULT
 
-        video_memory_controller(addr-VIDEO_MEMORY_START_ADDRESS, data, rw);
+        video_memory_controller(addr-VIDEO_MEMORY_START_ADDRESS, data, idx, rw);
         return;
     }
 
