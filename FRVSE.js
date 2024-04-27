@@ -961,7 +961,7 @@ function send_to_chipset(addr, data, rw, sz)
 	{	
 		console.log(addr_offset+" - "+data+" - "+rw+" - "+sz)
 		mem_device_controller(memory_dev, addr_offset, data, rw, sz)
-		memory_dev = null
+		//memory_dev = null
 		return
 	}
 
