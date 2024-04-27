@@ -522,7 +522,7 @@
 				if(i == 0)
 					td.textContent = byteToHex(id)
 				else
-					if(calc_page+arroff+id < array.length)
+					if(arroff+id < array.length) //calc_page
 						td.textContent = byteToHex(array[calc_page+arroff+id]) /*calc_page+*/
 					else
 						td.textContent = ""
@@ -540,7 +540,7 @@
 				tr.appendChild(td);
 			}
 			
-			//ASCI DATA
+			//ASCII DATA
 			for(let ix = 0; ix < 16; ix++)
 			{
 				var td = document.createElement("td");
@@ -548,7 +548,7 @@
 				if(i == 0)
 					td.textContent = ""
 				else
-					if(calc_page+arroff+ix < array.length)
+					if(arroff+ix < array.length) //calc_page
 						td.textContent = String.fromCharCode(array[calc_page+arroff+ix])
 					else
 						td.textContent = ""
