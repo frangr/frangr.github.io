@@ -755,7 +755,7 @@ function remu() //#
 function mem_device_controller(device, addr, data, rw, sz)
 {
 	let data8 = new Uint8Array(data.buffer)
-	console.log("MEM DEV2")
+	console.log("MEM DEV2: "+data8.length)
     if(rw == READ)
     {
 		console.log("MEM DEV3")
