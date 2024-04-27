@@ -752,6 +752,7 @@ function remu() //#
     reg[RD()] = reg[RS1()] % reg[RS2()];
 }
 
+/*
 function mem_device_controller(device, addr, data, rw, sz)
 {
 	let data8 = new Uint8Array(data.buffer)
@@ -793,6 +794,45 @@ function mem_device_controller(device, addr, data, rw, sz)
             device[addr+1] = data8[1];
             device[addr+2] = data8[2];
             device[addr+3] = data8[3];
+            break;
+        }
+    }
+}
+*/
+
+function mem_device_controller(device, addr, data, rw, sz)
+{
+    if(rw == READ)
+    {
+        switch(sz)
+        {
+        case ONE_BYTE:
+			data = device[addr]
+            break;
+        case TWO_BYTE:
+			data = (device[addr+1] << 16) | device[addr];
+            break;
+        case FOUR_BYTE:
+			data = (device[addr+3] << 24) | (device[addr+2] << 16) | (device[addr+1] << 8) | device[addr];
+            break;
+        }
+    }
+    else if(rw == WRITE)
+    {
+        switch(sz)
+        {
+        case ONE_BYTE:
+            device[addr] = data;
+            break;
+        case TWO_BYTE:
+            device[addr] = data;
+            device[addr+1] = (data >> 8) & 0xFF;
+            break;
+        case FOUR_BYTE:
+            device[addr] = data;
+            device[addr+1] = (data >> 8) & 0xFF;
+            device[addr+2] = (data >> 16) & 0xFF;
+            device[addr+3] = (data >> 24) & 0xFF;
             break;
         }
     }
@@ -1011,7 +1051,8 @@ function riscv32I_core()
 	if(ctrl_word[1] == 1)
 		reset_routine();
 
-    send_to_chipset(pc[0], inst_arr, READ, FOUR_BYTE);
+    //send_to_chipset(pc[0], inst_arr, READ, FOUR_BYTE);
+	send_to_chipset(pc[0], inst, READ, FOUR_BYTE);
 
 	inst = compose_array(inst_arr);
 
