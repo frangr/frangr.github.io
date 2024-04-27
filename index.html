@@ -523,7 +523,7 @@
 					td.textContent = byteToHex(id)
 				else
 					if(arroff+id < array.length) //calc_page
-						td.textContent = byteToHex(array[calc_page+arroff+id]) /*calc_page+*/
+						td.textContent = byteToHex(array[arroff+id]) /*calc_page+*/
 					else
 						td.textContent = ""
 				
@@ -549,7 +549,7 @@
 					td.textContent = ""
 				else
 					if(arroff+ix < array.length) //calc_page
-						td.textContent = String.fromCharCode(array[calc_page+arroff+ix])
+						td.textContent = String.fromCharCode(array[arroff+ix]) /*calc_page+*/
 					else
 						td.textContent = ""
 				
