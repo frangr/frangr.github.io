@@ -800,20 +800,20 @@ function mem_device_controller(device, addr, data, rw, sz)
 }
 */
 
-function mem_device_controller(device, addr, data, rw, sz)
+function mem_device_controller(device, addr, data, idx, rw, sz)
 {
     if(rw == READ)
     {
         switch(sz)
         {
         case ONE_BYTE:
-			data[0] = device[addr]
+			data[idx] = device[addr]
             break;
         case TWO_BYTE:
-			data[0] = (device[addr+1] << 16) | device[addr];
+			data[idx] = (device[addr+1] << 16) | device[addr];
             break;
         case FOUR_BYTE:
-			data[0] = 12; // (device[addr+3] << 24) | (device[addr+2] << 16) | (device[addr+1] << 8) | device[addr];
+			data[idx] = 12; // (device[addr+3] << 24) | (device[addr+2] << 16) | (device[addr+1] << 8) | device[addr];
             break;
         }
     }
@@ -822,17 +822,17 @@ function mem_device_controller(device, addr, data, rw, sz)
         switch(sz)
         {
         case ONE_BYTE:
-            device[addr] = data;
+            device[addr] = data[idx];
             break;
         case TWO_BYTE:
-            device[addr] = data;
-            device[addr+1] = (data >> 8) & 0xFF;
+            device[addr] = data[idx];
+            device[addr+1] = (data[idx] >> 8) & 0xFF;
             break;
         case FOUR_BYTE:
-            device[addr] = data;
-            device[addr+1] = (data >> 8) & 0xFF;
-            device[addr+2] = (data >> 16) & 0xFF;
-            device[addr+3] = (data >> 24) & 0xFF;
+            device[addr] = data[idx];
+            device[addr+1] = (data[idx] >> 8) & 0xFF;
+            device[addr+2] = (data[idx] >> 16) & 0xFF;
+            device[addr+3] = (data[idx] >> 24) & 0xFF;
             break;
         }
     }
@@ -966,7 +966,7 @@ function video_memory_controller(addr, color, rw)
     }
 }
 
-function send_to_chipset(addr, data, rw, sz)
+function send_to_chipset(addr, data, idx, rw, sz)
 {
 	let memory_dev = null
 	
@@ -1002,7 +1002,7 @@ function send_to_chipset(addr, data, rw, sz)
 	
 	if (memory_dev != null)
 	{	
-		mem_device_controller(memory_dev, addr_offset, data, rw, sz)
+		mem_device_controller(memory_dev, addr_offset, data, idx, rw, sz)
 		if(isram)
 		{
 		console.log(addr_offset+" - "+data+" - "+rw+" - "+sz)
@@ -1054,7 +1054,7 @@ function riscv32I_core()
 	let inst1 = new Uint32Array(1)
 
     //send_to_chipset(pc[0], inst_arr, READ, FOUR_BYTE);
-	send_to_chipset(pc[0], inst1, READ, FOUR_BYTE);
+	send_to_chipset(pc[0], inst1, 0, READ, FOUR_BYTE);
 
 	//inst = compose_array(inst_arr);
 
