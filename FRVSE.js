@@ -942,6 +942,9 @@ function send_to_chipset(addr, data, rw, sz)
 	{
 		memory_dev = RAM_MEMORY
 		addr_offset = addr - RAM_START_ADDRESS;
+		console.log("ADDR: "+addr)
+		console.log("RAM_START_ADDRESS: "+RAM_START_ADDRESS)
+		console.log("ADDR OFFSET: "+addr_offset)
 		console.log("RAM "+addr_offset+" -- "+rw+" -- "+sz)
 	}
     else if(addr >= MM_START_ADDRESS && addr <= (MM_START_ADDRESS+MM_SIZE)-1)
