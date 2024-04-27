@@ -471,7 +471,7 @@
 		tbody.innerHTML = "";
 		
 		pages = Math.trunc(totlen/512); //Math.trunc(array.length/512); totlen
-		pages = totlen%512? pages+1 : pages; //array.length%512? pages+1 : pages;
+		pages = array.length%512? pages+1 : pages; //array.length%512? pages+1 : pages;
 		hex_page_id.max = pages;
 		hex_mpage_id.value = pages;
 		
