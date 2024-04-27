@@ -1058,7 +1058,7 @@ function riscv32I_core()
 
 	//inst = compose_array(inst_arr);
 
-	console.log("INST: "+inst1[0])
+	console.log("INST2: "+inst1[0])
 
 	return
 
