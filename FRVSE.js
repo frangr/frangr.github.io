@@ -938,11 +938,11 @@ function send_to_chipset(addr, data, rw, sz)
 	{
 		addr_offset = addr - ROM_MEMORY_START_ADDRESS;
 		
-		memory_dev = ROM_MEMORY
+		memory_dev = 0; //ROM_MEMORY
 	}
     else if(addr >= RAM_START_ADDRESS && addr <= (RAM_START_ADDRESS+RAM_SIZE)-1)
 	{
-		memory_dev = RAM_MEMORY
+		memory_dev = 1; //RAM_MEMORY
 		addr_offset = addr - RAM_START_ADDRESS;
 		console.log("ADDR: "+addr)
 		console.log("RAM_START_ADDRESS: "+RAM_START_ADDRESS)
@@ -957,19 +957,32 @@ function send_to_chipset(addr, data, rw, sz)
 		
 		addr_offset = addr - MM_START_ADDRESS;
 		
-		memory_dev = MM_MEMORY;
+		memory_dev = 2; //MM_MEMORY;
 	}
 	
 	if (memory_dev != null)
 	{	
-		mem_device_controller(memory_dev, addr_offset, data, rw, sz)
+		switch(memory_dev)
+		{
+			case 0:
+				mem_device_controller(ROM_MEMORY, addr_offset, data, rw, sz)
+				break;
+			case 1:
+				mem_device_controller(RAM_MEMORY, addr_offset, data, rw, sz)
+				break;
+			case 2:
+				mem_device_controller(MM_MEMORY, addr_offset, data, rw, sz)
+				break;
+		}
+		
 		if(isram)
 		{
 		console.log(addr_offset+" - "+data+" - "+rw+" - "+sz)
 		console.log("MEM DEV: "+memory_dev)
 		console.log("RAM MEM: "+RAM_MEMORY)
 		}
-		memory_dev = null
+		//memory_dev = null
+		memory_dev = -1
 		return
 	}
 
