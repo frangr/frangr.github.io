@@ -932,6 +932,8 @@ function send_to_chipset(addr, data, rw, sz)
 	
 	let addr_offset = 0
 	
+	let isram = false
+	
     if(addr >= ROM_MEMORY_START_ADDRESS && addr <= (ROM_MEMORY_START_ADDRESS + ROM_MEMORY_SIZE)-1)
 	{
 		addr_offset = addr - ROM_MEMORY_START_ADDRESS;
@@ -946,6 +948,7 @@ function send_to_chipset(addr, data, rw, sz)
 		console.log("RAM_START_ADDRESS: "+RAM_START_ADDRESS)
 		console.log("ADDR OFFSET: "+addr_offset)
 		console.log("RAM "+addr_offset+" -- "+rw+" -- "+sz)
+		isram = true
 	}
     else if(addr >= MM_START_ADDRESS && addr <= (MM_START_ADDRESS+MM_SIZE)-1)
 	{
@@ -959,9 +962,14 @@ function send_to_chipset(addr, data, rw, sz)
 	
 	if (memory_dev != null)
 	{	
+		if(isram)
+		{
 		console.log(addr_offset+" - "+data+" - "+rw+" - "+sz)
+		console.log("MEM DEV: "+memory_dev)
+		console.log("RAM MEM: "+RAM_MEMORY)
+		}
 		mem_device_controller(memory_dev, addr_offset, data, rw, sz)
-		//memory_dev = null
+		memory_dev = null
 		return
 	}
 
