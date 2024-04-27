@@ -781,7 +781,7 @@ function mem_device_controller(device, addr, data, rw, sz)
         switch(sz)
         {
         case ONE_BYTE:
-            device[addr] = data[0];
+            device[addr] = 50; //data[0];
             break;
         case TWO_BYTE:
             device[addr] = data[0];
@@ -987,13 +987,13 @@ function send_to_chipset(addr, data, rw, sz)
 	}
     else if(addr >= RAM_START_ADDRESS && addr <= (RAM_START_ADDRESS+RAM_SIZE)-1)
 	{
-		memory_dev = null; //RAM_MEMORY
+		memory_dev = 1; //RAM_MEMORY
 		addr_offset = addr - RAM_START_ADDRESS;
 		console.log("ADDR: "+addr)
 		console.log("RAM_START_ADDRESS: "+RAM_START_ADDRESS)
 		console.log("ADDR OFFSET: "+addr_offset)
 		console.log("RAM "+addr_offset+" -- "+rw+" -- "+sz)
-		RAM_controller(addr_offset, data, rw, sz)
+		//RAM_controller(addr_offset, data, rw, sz)
 		isram = true
 	}
     else if(addr >= MM_START_ADDRESS && addr <= (MM_START_ADDRESS+MM_SIZE)-1)
