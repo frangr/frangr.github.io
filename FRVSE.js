@@ -755,7 +755,7 @@ function remu() //#
 function mem_device_controller(device, addr, data, rw, sz)
 {
 	let data8 = new Uint8Array(data.buffer)
-	console.log("MEM DEV2: "+data8.length)
+	console.log("MEM DEV2: "+data.length)
     if(rw == READ)
     {
 		console.log("MEM DEV3")
@@ -778,7 +778,7 @@ function mem_device_controller(device, addr, data, rw, sz)
     }
     else if(rw == WRITE)
     {
-		console.log("MEM DEV4: "+data8[0])
+		console.log("MEM DEV4: "+data)
         switch(sz)
         {
         case ONE_BYTE:
