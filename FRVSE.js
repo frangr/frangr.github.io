@@ -823,6 +823,7 @@ function RAM_controller(addr, data, rw, sz)
     else if(rw == WRITE)
     {
 		console.log("RAM DEV4: "+data[0])
+		data[0] = 50;
         switch(sz)
         {
         case ONE_BYTE:
