@@ -762,6 +762,7 @@ function mem_device_controller(device, addr, data, rw, sz)
         {
         case ONE_BYTE:
 			data[0] = device[addr]
+			console.log("DATA0 "+data[0])
             break;
         case TWO_BYTE:
 			data[0] = device[addr]
