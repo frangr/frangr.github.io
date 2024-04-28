@@ -167,7 +167,7 @@ To set the rgb value of the first pixel:
 unsigned char r = 90;
 unsigned char g = 235;
 unsigned char b = 232;
-*((unsigned int*)0xF42400) = (r << 24) | (g << 16) | (b << 16);
+*((unsigned int*)0xF42400) = (r << 24) | (g << 16) | (b << 8);
 ```
 or:
 ```
@@ -189,7 +189,23 @@ unsigned char b = 232;
 unsigned int* VM_addr = 0xF42400;
 
 VM_addr += 320;
-*VM_addr = (r << 24) | (g << 16) | (b << 16);
+*VM_addr = (r << 24) | (g << 16) | (b << 8);
 VM_addr += 320;
-*VM_addr = (r << 24) | (g << 16) | (b << 16);
+*VM_addr = (r << 24) | (g << 16) | (b << 8);
 ```
+### Write/read from Text Memory
+The Text Memory can store 1000 32bit entries each one representing a character to be printed on the screen and translated in pixels inside the Video Memory.
+
+The Text Memory allows to write 1000 characters on the screen, disposed in 40 rows and 25 columns.
+
+The 32bit word used to represented a character can be seen [here](#text-memory)
+
+Example:
+```
+unsigned char font = 0;
+unsigned char charac = 'a';
+unsigned char char_color = 0x1;
+unsigned char bck_color = 0x2;
+*((unsigned int*)0xF80C00) = (font << 24) | (charac << 16) | (char_color << 8) | bck_color;
+```
+This will print the 'a' character at the fist position of the 40x25 grid. The character will have the 0x1 color in the VGA palette (blue), and the background of the character will have the color 0x2 in the VGA palette (green).
