@@ -27,7 +27,7 @@ just write code that writes or read from the addresses reserved [(See Memory Map
 
 **Check [Memory Map](#memory-map) for components address table**
 
-- ROM MEMORY:
+### ROM MEMORY:
 
 A read/write memory emulating a Flash memory. It's where FRVSE start executing the code. Currently it have a maximum size of 3MB. 
 The user must upload a binary file serving as the Flash memory. The memory can be written but the uploaded file will not be modified. If you need the written file, 
@@ -35,25 +35,25 @@ you can downlaod it using the "Download ROM Buffer" button.
 This memory is mandatory and must be present when the emulator is started, otherwise there will be an error.
 See ROM Memory Example
 
-- RAM MEMORY:
+### RAM MEMORY:
 
 The RAM of the emulator, created when the emulator starts, with a size of 5MB. When the emulator is resetted, the memory is also resetted.
 See RAM Memory Example
 
-- Mass Memory:
+### Mass Memory:
 
 A read/write memory emulating a mass memory. It have a maximum size of 8MB. It may be used to store big data to be used in the code like images. 
 This memory is optional and can be not uploaded. If you try to write or read the Mass Memory when is not uploaded, nothing will happen.
 If the uploaded Mass Memory is written, the original file will not be modified. If you need the written file, you can download it using the "Download MM Buffer" button.
 See Mass Memory Example
 
-- Video Memory:
+### Video Memory:
 
 A read/write memory emulating a Video Memory. It is created when the emulator is started. It can represent a 320x200 screen, or 64000 pixels, each pixel represented by 4 byte
 for RGBA notation (the alpha channel is disabled). So the total size of the memory 256.000 bytes, or 256KB. The memory is updated in realtime and painted in the GUI.
 See Video Memory Example
 
-- Text Memory:
+### Text Memory:
 
 A read/write memory that allows you to easily print characters on the screen. FRVSE text mode can print 8x8 pixels character on the 320x200 screen, meaning you can have 1000 characters,
 disposed in 40 rows and 25 columns. In the Text Memory, each character is represented by 4 bytes. There are 1000 character, so the memory is 4000 bytes long.
@@ -78,12 +78,12 @@ the color of the character background, using the [VGA Palette](#vga-palette).
 writing these 4 byte in the Text Memory will draw a character on the screen.
 See Text Memory Example
 
-- Stop Register:
+### Stop Register:
 
 A 1 byte write only register. If written, it stops the emulator. Useful to be put at the end of your code.
 See Stop Register Example
 
-- Keycode Register:
+### Keycode Register:
 
 A 1 byte read only register. It's constantly updated with the currently pressed keyboard key.
 See Keycode Register Example
@@ -135,4 +135,61 @@ void _start()
 {
   //code
 }
+```
+### Write/read the ROM, RAM and Mass Memory
+to write or read from these memories, just write o read to a pointer having their address as value.
+
+for example, if you want to write to the first byte of the RAM Memory:
+```
+*((unsigned char*)0x2DC6C0) = 0xFF;
+```
+or to read the first two byte of ROM Memory:
+```
+unsigned short ROM_word = *((unsigned short*)0x0);
+```
+something more complex: fill an array of 10 ints, with 32bit words fetched from Mass Memory starting from a specified offset:
+```
+unsigned int arr[10];
+char offset = 16; 
+unsigned int* MM_address = 0x7A1200;
+MM_address += offset; //start from 0x7A1200 + (16*4) = 0x7A1264
+for(char i = 0; i < 10; i++)
+{
+  arr[i] = *MM_address;
+  MM_address++;
+}
+```
+### Write/read from Video Memory
+In this Memory there are 64.000 4byte words, each one representing a pixel. You can write a pixel (it will be updated on the screen)or read the value of a pixel.
+
+To set the rgb value of the first pixel:
+```
+unsigned char r = 90;
+unsigned char g = 235;
+unsigned char b = 232;
+*((unsigned int*)0xF42400) = (r << 24) | (g << 16) | (b << 16);
+```
+or:
+```
+unsigned char r = 90;
+unsigned char g = 235;
+unsigned char b = 232;
+*((unsigned char*)0xF42400) = r;
+*((unsigned char*)0xF42401) = g;
+*((unsigned char*)0xF42402) = b;
+```
+The alpha channel can be left void as it's not used by FRVSE.
+
+To set the first pixels of the second and third row on the screen:
+```
+unsigned char r = 90;
+unsigned char g = 235;
+unsigned char b = 232;
+
+unsigned int* VM_addr = 0xF42400;
+
+VM_addr += 320;
+*VM_addr = (r << 24) | (g << 16) | (b << 16);
+VM_addr += 320;
+*VM_addr = (r << 24) | (g << 16) | (b << 16);
 ```
