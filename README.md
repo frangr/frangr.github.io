@@ -264,3 +264,18 @@ void write_character(unsigned short pos, unsigned char font, unsigned char ascii
 Result:
 
 ![](doc_images/pixelmap3.png)
+
+## Stop register
+The stop register is a 8-bit write-only register. Writing anything in this register will result in FRVSE going into Stopped state.
+```
+*((unsigned char*)0xF81BA0) = 0xFF;
+```
+This register is useful to be put at the end of your code, preventing FRVSE to overflow and fetching random data as instructions.
+
+## Keycode register
+The Keycode register is a 8-bit read-only. It contains the current pressed key on the physical keyboard.
+When no key is pressed, the Keycode register value is 0, otherwise it contains a [keycode](https://www.toptal.com/developers/keycode)
+```
+unsigned char keycode = *((unsigned char*)0xF81BA1);
+```
+## Using the GUI
