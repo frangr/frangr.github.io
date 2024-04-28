@@ -6,7 +6,7 @@ This project is the web version of the original FRVSE, a C .DLL with a freeGLUT 
 
 FRVSE is intended for educational purposes and is pretty straightforward to use.
 
-FRVSE is just like a small computer. There is a CPU, a ROM, a RAM and an handful of peripherals such as Mass Memory, a screen or registers [(See Full List)](#frvse-components)
+FRVSE is just like a small computer. There is a CPU, a ROM, a RAM and an handful of peripherals such as Mass Memory, a screen and registers [(See Full List)](#frvse-components)
 you can watch the state of the system registers(PC, reg[0]-reg[31]) and the content of the peripherals using the GUI.
 
 To make FRVSE run code, you need to upload a .bin file, containing bare metal binaries, in the ROM path, and press the Start FRVSE button (or the Step FRVSE, if you want to step).
@@ -20,7 +20,7 @@ Personally, I compile my code using riscv-gcc. In FOLDER, you can find a .C file
 this .C file into bare metal binary.
 
 FRVSE's peripherals are memory mapped, being RISC-V a memory mapped architecture. To write or read from a memory 
-just write code that writes or read from the addresses reserved (See Memory Map) for the peripherals you want to use (See Examples)
+just write code that writes or read from the addresses reserved [(See Memory Map)](#memory-map) for the peripherals you want to use (See Examples)
 
 
 ## FRVSE COMPONENTS
