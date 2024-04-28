@@ -209,3 +209,26 @@ unsigned char bck_color = 0x2;
 *((unsigned int*)0xF80C00) = (font << 24) | (charac << 16) | (char_color << 8) | bck_color;
 ```
 This will print the 'a' character at the fist position of the 40x25 grid. The character will have the 0x1 color in the VGA palette (blue), and the background of the character will have the color 0x2 in the VGA palette (green).
+![](doc_images/pixelmap.png)
+
+the "font" field allows you so choose [different fonts](#text-mode-fonts) to use. The ones you want to use for normal usage are the "font8x8_basic" or the "code page 437" fonts. The other are for different alphabets
+(greek, hiragana) while the others are graphic ones (graphical element like "font8x8_block" or sprites like "Paul Lombard 8x8 1 bit pixel set")
+
+Fonts/Text Memory showcase:
+```
+write_character(0, 0, 'a', 0x20, 0x60);
+write_character(1, 1, 5, 0x21, 0x61);
+write_character(2, 2, 0xC, 0x22, 0x62);
+write_character(3, 3, 4, 0x23, 0x63);
+write_character(4, 4, 8, 0x24, 0x64);
+write_character(5, 5, 0xB, 0x25, 0x65);
+write_character(6, 6, 1, 0x26, 0x66);
+write_character(7, 7, 1, 0x27, 0x67);
+
+void write_character(unsigned short pos, unsigned char font, unsigned char ascii, unsigned char char_color, unsigned char background_color)
+{
+	unsigned int addr = 0xF80C00+pos;
+	*((unsigned int*)addr) = (font << 24) | (ascii << 16) | (char_color << 8) | background_color;
+}
+```
+The result:
