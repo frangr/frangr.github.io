@@ -1002,8 +1002,8 @@ function send_to_chipset(addr, data, idx, rw, sz)
 
     if(addr >= VIDEO_MEMORY_START_ADDRESS && addr <= (VIDEO_MEMORY_START_ADDRESS + VIDEO_MEMORY_SIZE)-1)
     {
-        if(sz != FOUR_BYTE)
-            return; //FAULT
+        //if(sz != FOUR_BYTE)
+            //return; //FAULT
 
         video_memory_controller(addr-VIDEO_MEMORY_START_ADDRESS, data, idx, rw);
         return;
