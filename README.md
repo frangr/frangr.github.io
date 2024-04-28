@@ -6,7 +6,7 @@ This project is the web version of the original FRVSE, a C .DLL with a freeGLUT 
 
 FRVSE is intended for educational purposes and is pretty straightforward to use.
 
-FRVSE is just like a small computer. There is a CPU, a ROM, a RAM and an handful of peripherals such as Mass Memory, a screen or registers [(See Full List)](#frvse-components)
+FRVSE is just like a small computer. There is a CPU, a ROM, a RAM and an handful of peripherals such as Mass Memory, a screen and registers [(See Full List)](#frvse-components)
 you can watch the state of the system registers(PC, reg[0]-reg[31]) and the content of the peripherals using the GUI.
 
 To make FRVSE run code, you need to upload a .bin file, containing bare metal binaries, in the ROM path, and press the Start FRVSE button (or the Step FRVSE, if you want to step).
@@ -20,14 +20,14 @@ Personally, I compile my code using riscv-gcc. In FOLDER, you can find a .C file
 this .C file into bare metal binary.
 
 FRVSE's peripherals are memory mapped, being RISC-V a memory mapped architecture. To write or read from a memory 
-just write code that writes or read from the addresses reserved (See Memory Map) for the peripherals you want to use (See Examples)
+just write code that writes or read from the addresses reserved [(See Memory Map)](#memory-map) for the peripherals you want to use (See Examples)
 
 
 ## FRVSE COMPONENTS
 
 **Check [Memory Map](#memory-map) for components address table**
 
-- ROM MEMORY:
+### ROM MEMORY:
 
 A read/write memory emulating a Flash memory. It's where FRVSE start executing the code. Currently it have a maximum size of 3MB. 
 The user must upload a binary file serving as the Flash memory. The memory can be written but the uploaded file will not be modified. If you need the written file, 
@@ -35,25 +35,25 @@ you can downlaod it using the "Download ROM Buffer" button.
 This memory is mandatory and must be present when the emulator is started, otherwise there will be an error.
 See ROM Memory Example
 
-- RAM MEMORY:
+### RAM MEMORY:
 
 The RAM of the emulator, created when the emulator starts, with a size of 5MB. When the emulator is resetted, the memory is also resetted.
 See RAM Memory Example
 
-- Mass Memory:
+### Mass Memory:
 
 A read/write memory emulating a mass memory. It have a maximum size of 8MB. It may be used to store big data to be used in the code like images. 
 This memory is optional and can be not uploaded. If you try to write or read the Mass Memory when is not uploaded, nothing will happen.
 If the uploaded Mass Memory is written, the original file will not be modified. If you need the written file, you can download it using the "Download MM Buffer" button.
 See Mass Memory Example
 
-- Video Memory:
+### Video Memory:
 
 A read/write memory emulating a Video Memory. It is created when the emulator is started. It can represent a 320x200 screen, or 64000 pixels, each pixel represented by 4 byte
 for RGBA notation (the alpha channel is disabled). So the total size of the memory 256.000 bytes, or 256KB. The memory is updated in realtime and painted in the GUI.
 See Video Memory Example
 
-- Text Memory:
+### Text Memory:
 
 A read/write memory that allows you to easily print characters on the screen. FRVSE text mode can print 8x8 pixels character on the 320x200 screen, meaning you can have 1000 characters,
 disposed in 40 rows and 25 columns. In the Text Memory, each character is represented by 4 bytes. There are 1000 character, so the memory is 4000 bytes long.
@@ -78,12 +78,12 @@ the color of the character background, using the [VGA Palette](#vga-palette).
 writing these 4 byte in the Text Memory will draw a character on the screen.
 See Text Memory Example
 
-- Stop Register:
+### Stop Register:
 
 A 1 byte write only register. If written, it stops the emulator. Useful to be put at the end of your code.
 See Stop Register Example
 
-- Keycode Register:
+### Keycode Register:
 
 A 1 byte read only register. It's constantly updated with the currently pressed keyboard key.
 See Keycode Register Example
@@ -114,3 +114,82 @@ See Keycode Register Example
 | 5  | font8x8_hiragana | 8x8 font map for unicode points U+3040 - U+309F (Hiragana) | dhepper | [show](https://github.com/dhepper/font8x8/blob/master/font8x8_hiragana.h) |
 | 6  | Code page 437 | Character set of the original IBM PC | - | [show](https://en.wikipedia.org/wiki/Code_page_437#/media/File:Codepage-437.png) |
 | 7  | Paul Lombard 8x8 1 bit pixel set | Simple set of a bunch of useful things for a game | [Paul Lombard](https://github.com/Pomb) | [show](https://opengameart.org/content/8x8-1-bit-pixel-set) |
+
+## Coding for FRVSE
+This section explain how to write code for FRVSE in C language. The code is compiled with riscv-gcc
+
+The entry point for gcc programs is _start(), so you want to add it to your .C file instead of main()
+
+remember to not put functions above the _start() function or they will get executed first as their machine language will be above the _start() one. The code you want to be executed first by the emulator must stay at the top.
+
+You can still put things like macros or prototypes, as they are compiler/preprocessor matter and they are not compiled in machine language.
+
+Another things you need to do is to set the "x2 sp" register, the stack address register, to make the compiled .C code to work.
+
+
+this is the bare basic you need to start coding for FRVSE. I decided to put the stack address into the RAM. RAM start address is 0x2DC6C0, and since stack grows downward, i added 100 byte of space from the start, so 0x2DC7C0.
+```
+asm("li sp, 0x2DC7C0;");
+
+void _start()
+{
+  //code
+}
+```
+### Write/read the ROM, RAM and Mass Memory
+to write or read from these memories, just write o read to a pointer having their address as value.
+
+for example, if you want to write to the first byte of the RAM Memory:
+```
+*((unsigned char*)0x2DC6C0) = 0xFF;
+```
+or to read the first two byte of ROM Memory:
+```
+unsigned short ROM_word = *((unsigned short*)0x0);
+```
+something more complex: fill an array of 10 ints, with 32bit words fetched from Mass Memory starting from a specified offset:
+```
+unsigned int arr[10];
+char offset = 16; 
+unsigned int* MM_address = 0x7A1200;
+MM_address += offset; //start from 0x7A1200 + (16*4) = 0x7A1264
+for(char i = 0; i < 10; i++)
+{
+  arr[i] = *MM_address;
+  MM_address++;
+}
+```
+### Write/read from Video Memory
+In this Memory there are 64.000 4byte words, each one representing a pixel. You can write a pixel (it will be updated on the screen)or read the value of a pixel.
+
+To set the rgb value of the first pixel:
+```
+unsigned char r = 90;
+unsigned char g = 235;
+unsigned char b = 232;
+*((unsigned int*)0xF42400) = (r << 24) | (g << 16) | (b << 16);
+```
+or:
+```
+unsigned char r = 90;
+unsigned char g = 235;
+unsigned char b = 232;
+*((unsigned char*)0xF42400) = r;
+*((unsigned char*)0xF42401) = g;
+*((unsigned char*)0xF42402) = b;
+```
+The alpha channel can be left void as it's not used by FRVSE.
+
+To set the first pixels of the second and third row on the screen:
+```
+unsigned char r = 90;
+unsigned char g = 235;
+unsigned char b = 232;
+
+unsigned int* VM_addr = 0xF42400;
+
+VM_addr += 320;
+*VM_addr = (r << 24) | (g << 16) | (b << 16);
+VM_addr += 320;
+*VM_addr = (r << 24) | (g << 16) | (b << 16);
+```
