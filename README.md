@@ -232,3 +232,4 @@ void write_character(unsigned short pos, unsigned char font, unsigned char ascii
 }
 ```
 The result:
+![](doc_images/pixelmap2.png)
