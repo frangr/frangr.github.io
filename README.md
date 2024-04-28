@@ -114,3 +114,25 @@ See Keycode Register Example
 | 5  | font8x8_hiragana | 8x8 font map for unicode points U+3040 - U+309F (Hiragana) | dhepper | [show](https://github.com/dhepper/font8x8/blob/master/font8x8_hiragana.h) |
 | 6  | Code page 437 | Character set of the original IBM PC | - | [show](https://en.wikipedia.org/wiki/Code_page_437#/media/File:Codepage-437.png) |
 | 7  | Paul Lombard 8x8 1 bit pixel set | Simple set of a bunch of useful things for a game | [Paul Lombard](https://github.com/Pomb) | [show](https://opengameart.org/content/8x8-1-bit-pixel-set) |
+
+## Coding for FRVSE
+This section explain how to write code for FRVSE in C language. The code is compiled with riscv-gcc
+
+The entry point for gcc programs is _start(), so you want to add it to your .C file instead of main()
+
+remember to not put functions above the _start() function or they will get executed first as their machine language will be above the _start() one. The code you want to be executed first by the emulator must stay at the top.
+
+You can still put things like macros or prototypes, as they are compiler/preprocessor matter and they are not compiled in machine language.
+
+Another things you need to do is to set the "x2 sp" register, the stack address register, to make the compiled .C code to work.
+
+
+this is the bare basic you need to start coding for FRVSE. I decided to put the stack address into the RAM. RAM start address is 0x2DC6C0, and since stack grows downward, i added 100 byte of space from the start, so 0x2DC7C0.
+```
+asm("li sp, 0x2DC7C0;");
+
+void _start()
+{
+  //code
+}
+```
