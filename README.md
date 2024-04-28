@@ -263,4 +263,4 @@ void write_character(unsigned short pos, unsigned char font, unsigned char ascii
 ```
 Result:
 
-![](doc_images/pixelmap2.png)
+![](doc_images/pixelmap3.png)
