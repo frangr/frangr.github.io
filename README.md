@@ -136,7 +136,7 @@ void _start()
   //code
 }
 ```
-### Write/read the ROM, RAM and Mass Memory
+## Write/read the ROM, RAM and Mass Memory
 to write or read from these memories, just write o read to a pointer having their address as value.
 
 for example, if you want to write to the first byte of the RAM Memory:
@@ -159,7 +159,7 @@ for(char i = 0; i < 10; i++)
   MM_address++;
 }
 ```
-### Write/read from Video Memory
+## Write/read from Video Memory
 In this Memory there are 64.000 4byte words, each one representing a pixel. You can write a pixel (it will be updated on the screen)or read the value of a pixel.
 
 To set the rgb value of the first pixel:
@@ -193,7 +193,7 @@ VM_addr += 320;
 VM_addr += 320;
 *VM_addr = (r << 24) | (g << 16) | (b << 8);
 ```
-### Write/read from Text Memory
+## Write/read from Text Memory
 The Text Memory can store 1000 32bit entries each one representing a character to be printed on the screen and translated in pixels inside the Video Memory.
 
 The Text Memory allows to write 1000 characters on the screen, disposed in 40 rows and 25 columns.
@@ -232,4 +232,35 @@ void write_character(unsigned short pos, unsigned char font, unsigned char ascii
 }
 ```
 The result:
+
+![](doc_images/pixelmap2.png)
+
+### VGA Palette special values
+in the [VGA palette](#vga-palette) you can see that the last 8 colors are all black. Since black color is already present at the top of the palette, I decided to reserve these last 8 values to special values.
+If one of these value is assigned at the character or its background, instead of a color, a special graphic operation is performed:
+
+| Value  | Operation |
+| ------------- | ------------- |
+| 0xF8  | Transparency  |
+| 0xF9  | reserved  |
+| 0xFA  | reserved  |
+| 0xFB  | reserved  |
+| 0xFC  | reserved  |
+| 0xFD  | reserved  |
+| 0xFE  | reserved  |
+| 0xFF  | reserved  |
+
+Red 'A' with transparent background and transparent 'B' with yellow background:
+```
+write_character(0, 0, 'A', 0x4, 0xF8);
+write_character(1, 0, 'B', 0xF8, 0xE);
+
+void write_character(unsigned short pos, unsigned char font, unsigned char ascii, unsigned char char_color, unsigned char background_color)
+{
+	unsigned int addr = 0xF80C00+pos;
+	*((unsigned int*)addr) = (font << 24) | (ascii << 16) | (char_color << 8) | background_color;
+}
+```
+Result:
+
 ![](doc_images/pixelmap2.png)
