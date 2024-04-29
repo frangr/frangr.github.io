@@ -909,8 +909,8 @@ function draw_character(addr, color)
 
     //addr *= 2;
 
-    //addr += ((addr/8)/40)* (320*7); //0xA00;
-	addr += (addr/40)* (320*7); //0xA00;
+	console.log("addr: "+addr)
+    addr += ((addr/8)/40)* (320*7); //0xA00;
 
 	//let char_arr = []
     for(let i = 0; i < 8; i++)
@@ -942,7 +942,6 @@ function text_mode_controller(addr, charac, idx, rw)
 {
     if(rw == WRITE)
     {
-		console.log("TMC: "+addr+" - "+charac[idx]+" - "+CHARACTER_MEMORY[addr])
         CHARACTER_MEMORY[addr] = charac[idx];
         draw_character(addr, CHARACTER_MEMORY[addr]);
     }
