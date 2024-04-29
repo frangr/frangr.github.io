@@ -99,6 +99,7 @@ See Keycode Register Example
 | 0xF80C00  | TEXT MODE MEMORY  | RW  | 0xFA0, 4KB  | 4 byte |
 | 0xF81BA0  | STOP REGISTER  | W  | 1 byte  | 1 byte |
 | 0xF81BA1  | KEYCODE REGISTER  | R  | 1 byte  | 1 byte |
+| 0xF81BA2  | DEBUG VALUE PORT  | W  | 4 byte  | -- |
 
 ## VGA Palette
 ![](https://www.fountainware.com/EXPL/vgapalette.png)
@@ -278,4 +279,18 @@ When no key is pressed, the Keycode register value is 0, otherwise it contains a
 ```
 unsigned char keycode = *((unsigned char*)0xF81BA1);
 ```
+## Debug Value Port
+The Debug Value Port allows you to log a value in the browser console, for debug purposes. Writing a value to its address will cause the value 
+to be printed in the browser console through console.log().
+```
+unsigned char dvp1 = 50;
+unsigned short dvp2 = 25000;
+unsigned int dvp3 = 150000;
+
+*((unsigned char*)0xF80C00) = dvp1;
+*((unsigned short*)0xF80C00) = dvp2;
+*((unsigned int*)0xF80C00) = dvp3;
+```
+Result:
+
 ## Using the GUI
