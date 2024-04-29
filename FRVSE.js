@@ -544,7 +544,8 @@ function addi() //#
 
     reg[RD()] = i32[1];
 	
-	console.log("RD: "+reg[RD()])
+	if(pc[0] == 0x28)
+		console.log("RD: "+reg[RD()])
 }
 function slti() //#
 {
