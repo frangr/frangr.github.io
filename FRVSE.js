@@ -907,9 +907,10 @@ function draw_character(addr, color)
 
     let clr = 0;
 
-    addr *= 2;
+    //addr *= 2;
 
-    addr += ((addr/8)/40)* (320*7); //0xA00;
+    //addr += ((addr/8)/40)* (320*7); //0xA00;
+	addr += (addr/40)* (320*7); //0xA00;
 
 	//let char_arr = []
     for(let i = 0; i < 8; i++)
