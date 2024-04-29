@@ -829,6 +829,7 @@ function mem_device_controller(device, addr, data, idx, rw, sz)
         case TWO_BYTE:
             device[addr] = data[idx];
             device[addr+1] = (data[idx] >> 8) & 0xFF;
+			console.log("DEVA: "+device[addr]+" .. "+device[addr+1])
             break;
         case FOUR_BYTE:
             device[addr] = data[idx];
@@ -1043,7 +1044,7 @@ function send_to_chipset(addr, data, idx, rw, sz)
 	{
         if(rw != WRITE)
             return;
-		console.log("debug value port: "+data[idx])
+		console.log("DVP: "+data[idx])
 		return;
 	}
 }
