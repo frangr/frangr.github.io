@@ -1015,7 +1015,7 @@ function send_to_chipset(addr, data, idx, rw, sz)
 
     if(addr >= TEXT_MODE_MEMORY_START_ADDRESS && addr <= (TEXT_MODE_MEMORY_START_ADDRESS + TEXT_MODE_MEMORY_SIZE)-1)
     {
-		console.log("ADDR: "+addr+" -- "+TEXT_MODE_MEMORY_START_ADDRESS)
+		//console.log("ADDR: "+addr+" -- "+TEXT_MODE_MEMORY_START_ADDRESS)
         text_mode_controller(addr-TEXT_MODE_MEMORY_START_ADDRESS, data, idx, rw);
         return;
     }
