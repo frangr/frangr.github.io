@@ -21,6 +21,8 @@ const STOP_REGISTER_ADDRESS = TEXT_MODE_MEMORY_START_ADDRESS + TEXT_MODE_MEMORY_
 
 const KEYCODE_REGISTER_ADDRESS = STOP_REGISTER_ADDRESS+1 //F81BA1
 
+const DEBUG_VALUE_PORT_ADDRESS = KEYCODE_REGISTER_ADDRESS+1 //F81BA2
+
 // READ WRITE
 const READ = 0;
 const WRITE = 1;
@@ -214,7 +216,8 @@ function init_frvse()
 	keycode = new Uint8Array(sh_keycode);
 	
 	ctrl_word[1] = 1;
-	self.postMessage(["CMR", sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_pc, sh_reg, sh_pixel_addr, sh_pixel_data, sh_pixel_bitmask, sh_upd_pixel_cnt, sh_ctrl_word, sh_inst, sh_keycode]);
+	self.postMessage(["CMR", sh_RAM_MEMORY, sh_VRAM_MEMORY, sh_CHARACTER_MEMORY, sh_pc, sh_reg, sh_pixel_addr, 
+	sh_pixel_data, sh_pixel_bitmask, sh_upd_pixel_cnt, sh_ctrl_word, sh_inst, sh_keycode]);
 	
 	init_lock = true;
 }
@@ -1033,6 +1036,14 @@ function send_to_chipset(addr, data, idx, rw, sz)
         if(sz != ONE_BYTE || rw != READ)
             return;
 		data[idx] = keycode[0];
+		return;
+	}
+	
+	if(addr == DEBUG_VALUE_PORT_ADDRESS)
+	{
+        if(rw != WRITE)
+            return;
+		console.log("debug value port: "+data[idx])
 		return;
 	}
 }
