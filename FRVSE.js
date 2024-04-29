@@ -513,6 +513,7 @@ function sb() //#
 }
 function sh() //#
 {
+	/*
 	let imm = new Int16Array(1);
 	imm[0] = SW_ADDRESS();
 
@@ -520,6 +521,14 @@ function sh() //#
         imm[0] |= 0xF000;
 
     send_to_chipset(reg[RS1()] + imm[0], reg, RS2(), WRITE, TWO_BYTE); //(SW_ADDRESS)
+	*/
+	
+	i16[0] = SW_ADDRESS();
+
+    if(i16[0] >> 11)
+        i16[0] |= 0xF000;
+
+    send_to_chipset(reg[RS1()] + i16[0], reg, RS2(), WRITE, TWO_BYTE); //(SW_ADDRESS)
 }
 function sw() //#
 {
