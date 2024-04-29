@@ -813,7 +813,6 @@ function mem_device_controller(device, addr, data, idx, rw, sz)
             break;
         case TWO_BYTE:
 			data[idx] = (device[addr+1] << 8) | device[addr];
-			console.log("DEVA: "+device[addr]+" .. "+device[addr+1]+" .. "+data[idx])
             break;
         case FOUR_BYTE:
 			data[idx] = (device[addr+3] << 24) | (device[addr+2] << 16) | (device[addr+1] << 8) | device[addr];
