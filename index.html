@@ -755,8 +755,8 @@
 		if(inst != null)
 		{
 			//instnum[0] = ((inst_arr[0] & 0xFF) << 24) | ((inst_arr[0] & 0xFF00) << 8) | ((inst_arr[0] >> 8) & 0xFF00) | ((inst_arr[0] >> 24) & 0xFF);
-			let rinst = ((inst & 0xFF) << 24) | ((inst & 0xFF00) << 8) | ((inst >> 8) & 0xFF00) | ((inst >> 24) & 0xFF);
-			html_inst_id.textContent = hex_dec == false? toHex32(rinst) : rinst;
+			instnum[0] = ((inst & 0xFF) << 24) | ((inst & 0xFF00) << 8) | ((inst >> 8) & 0xFF00) | ((inst >> 24) & 0xFF);
+			html_inst_id.textContent = hex_dec == false? toHex32(instnum[0]) : instnum[0];
 		}
 		
 		if(html_reg_id != null)
