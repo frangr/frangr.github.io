@@ -895,6 +895,8 @@ function draw_character(addr, color)
     if(addr > 999)
         return;
 
+	console.log("ADDR: "+addr)
+
     //return the bitmap of the character
     let character = get_char_array(CHARACTER);
 
