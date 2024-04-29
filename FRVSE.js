@@ -892,7 +892,7 @@ function draw_character(addr, color)
     const CHARACTER = color >> 16;
     const MODE_ALPHA_COLOR = 0xF8;
 
-    if((addr/4) > 999)
+    if(addr > 999)
         return;
 
     //return the bitmap of the character
