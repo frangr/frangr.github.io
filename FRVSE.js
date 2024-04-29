@@ -543,6 +543,8 @@ function addi() //#
 	i32[1] += i32[0];
 
     reg[RD()] = i32[1];
+	
+	console.log("RD: "+reg[RD()])
 }
 function slti() //#
 {
