@@ -914,7 +914,7 @@ function draw_character(addr, color)
 
 	console.log("crow: "+crow);
 	
-	addr = crow*(320*8);
+	addr += crow*(320*8);
 	
     //addr += ((addr/8)/40)*(320*7); //0xA00;
 	
