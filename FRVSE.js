@@ -911,7 +911,7 @@ function draw_character(addr, color)
 
 	(addr/40) (320*8)
 
-	console.log("addr1: "+addr)
+	console.log("addr1: "+addr);
     //addr += ((addr/8)/40)*(320*7); //0xA00;
 	addr += (addr/40)*(320*7); //0xA00;
 	console.log("addr2: "+addr)
