@@ -909,9 +909,15 @@ function draw_character(addr, color)
 
     //addr *= 2;
 
-	console.log("addr1: "+addr);
+	let crow = Math.trunc(addr/40)
+
+
+	console.log("crow: "+crow);
+	
+	addr = crow*(320*8);
+	
     //addr += ((addr/8)/40)*(320*7); //0xA00;
-	addr += ((addr/40)/8)*(320*7); //0xA00;
+	
 	console.log("addr2: "+addr)
 
 	//let char_arr = []
