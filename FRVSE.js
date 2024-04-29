@@ -909,16 +909,13 @@ function draw_character(addr, color)
 
     //addr *= 2;
 
-	let crow = Math.trunc(addr/40)
+	//let crow = Math.trunc(addr/40)
+	//addr = ((addr - (crow*40))*8) + crow*(320*8);
 
-
-	console.log("crow: "+crow);
-	
-	addr = ((addr - (crow*40))*8) + crow*(320*8);
-	
-    //addr += ((addr/8)/40)*(320*7); //0xA00;
-	
-	console.log("addr2: "+addr)
+	let row = Math.trunc(addr / 40); // Calculate row count
+	let columnOffset = (addr % 40) * 8; // Calculate column offset within row
+	let rowOffset = row * (320 * 8); // Calculate row offset
+	addr = columnOffset + rowOffset; // Final result
 
 	//let char_arr = []
     for(let i = 0; i < 8; i++)
