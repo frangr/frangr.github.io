@@ -295,3 +295,4 @@ Result:
 
 ![](doc_images/DVP.JPG)
 ## Using the GUI
+![](doc_images/DVP.JPG)
