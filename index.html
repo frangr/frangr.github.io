@@ -713,8 +713,8 @@
 	{
 		for (var i = 0; i < 320 * 200; i++) {
 		
-			if(!pixel_bitmask[i])
-				continue;
+			//if(!pixel_bitmask[i])
+				//continue;
 				
 			//if(!upd_pixel_cnt[0])
 				//break;
@@ -726,7 +726,7 @@
 			let blue = (pixel_rgb >> 8) & 0xFF;
 			
 			pixel_data[i].style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
-			pixel_bitmask[i] = 0;
+			//pixel_bitmask[i] = 0;
 			
 			//upd_pixel_cnt[0]--;
 		}
