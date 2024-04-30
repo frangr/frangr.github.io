@@ -295,4 +295,11 @@ Result:
 
 ![](doc_images/DVP.JPG)
 ## Using the GUI
-![](doc_images/DVP.JPG)
+![](doc_images/GUI.png)
+- A) The screen, updated every frame with the content of the Video Memory when FRVSE is started. The screen resolution is 320x200.
+- B) The Register Panel, when FRVSE is started, the Program Counter, Current Instruction and the RISC-V registers value will be updated real time. With the "DEC" and "HEX" function you can see these values in deciaml or hexadecimal
+- C) The System Button: you can start FRVSE, stop it, step it(executing instructions at once everytime you press the button), reset it. "Download Screen" downloads the Video Memory as a 640x400 png image.
+- D) The file panel allows you to upload the files for the ROM and Mass Memory. You must add a ROM file containing code to be executed, in order to FRVSE to start. Mass Memory file is optional. When these files are written by FRVSE,
+  the original files are not modified, instead a copied buffer is. To download it, press the dedicated Download Buffer buttons.
+- E) The Hex Viewer allows you to see the content of the memories in hexadecimal, updated in real time. By pressing the "Show" buttons you can choose among memories. At the bottom, you can navigate through the hex viewer pages.
+![](doc_images/hex.png)
