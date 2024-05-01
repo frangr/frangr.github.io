@@ -16,8 +16,17 @@ like an .exe/.elf file, bust just binary machine instructions.
 FRVSE's Reset Vector is at the first address of the ROM memory. So when the CPU is reset, it fetch the first 4 byte of the ROM Memory and decodes them as an instruction. That's you need to upload
 a binary file as your ROM Memory.
 
-Personally, I compile my code using riscv-gcc. In FOLDER, you can find a .C file containing a little library to write code for FRVSE, and in the same folder you can find a .bat file to compile
-this .C file into bare metal binary.
+To build the code to be executed by FRVSE, you can use the riscv-gcc toolchain. You can find the builds for linux [here](https://github.com/riscv-collab/riscv-gnu-toolchain/releases) or for windows [here.](https://gnutoolchains.com/risc-v/)
+
+Here are the utils/commands to execute in order to build the code. You only need to feed a .C code. The last two utils are optional but are helpful for debugging. You can also use the riscv32 version.
+
+With gcc, you can also compile assembly code, if you want something closer to the machine.
+```
+riscv64-unknown-elf-gcc -nostdlib -Ttext 0x0 -march=rv32im -mabi=ilp32 main.c -o main.o
+riscv64-unknown-elf-objcopy -O binary main.o main.bin
+riscv64-unknown-elf-objdump -d -D main.o> disass.txt
+riscv64-unknown-elf-objdump -d -D --disassembler-options=no-aliases main.o> disass_nopseudo.txt
+```
 
 FRVSE's peripherals are memory mapped, being RISC-V a memory mapped architecture. To write or read from a memory 
 just write code that writes or read from the addresses reserved [(See Memory Map)](#memory-map) for the peripherals you want to use (See Examples)
