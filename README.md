@@ -303,3 +303,32 @@ Result:
   the original files are not modified, instead a copied buffer is. To download it, press the dedicated Download Buffer buttons.
 - E) The Hex Viewer allows you to see the content of the memories in hexadecimal, updated in real time. By pressing the "Show" buttons you can choose among memories. At the bottom, you can navigate through the hex viewer pages.
 ![](doc_images/hex.png)
+
+## Examples
+### Drawing an image
+The first thing to do is to retrieve a 320x200 image. I go on Google, search "pixelart imagesize:320x200" and download the image.
+We could write a parser for the image to retrieve its RGB data but that's too much work. So using ImageMagick we convert the image into raw rgb data:
+```
+magick convert pixelart.png -colorspace RGB -depth 8 pixelart.rgb
+```
+Then we need to the code for FRVSE to read the .rgb file and print it on the screen.
+```
+asm("li sp, 0x2DC7C0;"); //0x5033C4
+
+void _start()
+{
+	unsigned char* mm_pixel = (unsigned char*)0x7A1200;
+	unsigned int* videomem = (unsigned int*)0xF42400;
+	unsigned int cnt = 0;
+	
+	for(unsigned short i = 0; i < 64000; i++)
+	{
+		*videomem = (mm_pixel[cnt] << 24) | (mm_pixel[cnt+1] << 16) | (mm_pixel[cnt+2] << 8) | mm_pixel[cnt+3];
+		cnt += 3;
+		videomem++;
+	}
+
+	*((unsigned char*)0xF81BA0) = 0xFF;
+}
+```
+Finally, we upload the compiled FRVSE code as ROM File, and the .rgb image as the Mass Memory file.
