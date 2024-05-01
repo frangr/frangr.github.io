@@ -53,14 +53,14 @@ void _start()
 		else
 			continue;
 		
-		if(!check_col(pos + new_pos))
+		if(!check_col(pos + new_pos)) //check collision
 			continue;
 		
 		prev_pos = pos;
 		pos += new_pos;
 		
-		unsigned int delay = 0xFFFFF;
-		while(delay--);
+		unsigned int delay = 0xFFFFF; 
+		while(delay--); //frame delay
 		
 		write_character(prev_pos, 0, 0, 0x0, 0x0);
 		write_character(pos, 7, 7, 0xF, 0xF8);
