@@ -19,6 +19,12 @@ void write_character(unsigned short pos, unsigned char font, unsigned char ascii
 	*((unsigned int*)addr) = (font << 24) | (ascii << 16) | (char_color << 8) | background_color;
 }
 
+void redraw_character(short pos)
+{
+	unsigned int* addr = (unsigned int*)TEXT_MODE_MEMORY_START_ADDRESS;
+	*addr = *addr;
+}
+
 void redraw_text_memory()
 {
 	unsigned int* addr = (unsigned int*)TEXT_MODE_MEMORY_START_ADDRESS;

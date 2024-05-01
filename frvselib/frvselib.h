@@ -24,6 +24,8 @@
 
 void write_character(unsigned short pos, unsigned char font, unsigned char ascii, unsigned char char_color, unsigned char background_color);
 
+void redraw_character(short pos);
+
 void redraw_text_memory();
 
 void write_string(short pos, char* str, short strlen, unsigned char font, unsigned char char_color, unsigned char background_color);
