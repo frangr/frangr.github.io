@@ -315,3 +315,11 @@ Result:
 
 ## Examples
 You can find examples [here](https://github.com/frangr/frangr.github.io/tree/main/examples).
+
+## FRVSE library
+FRVSE have a .C library to abstract the inner working. The library can be found [here.](https://github.com/frangr/frangr.github.io/tree/main/frvselib) To include it in your code, you need to add ```frvselib.h``` to your code.
+If you compile with gcc, you need to include ```frvselib.c``` in the gcc command:
+
+```
+riscv64-unknown-elf-gcc -nostdlib -Ttext 0x0 -march=rv32im -mabi=ilp32 main.c frvselib.c -o main.o
+```
