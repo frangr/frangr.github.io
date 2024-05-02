@@ -317,7 +317,7 @@ Result:
 ![](doc_images/hex.png)
 
 ## Examples
-You can find examples [here](https://github.com/frangr/frangr.github.io/tree/main/examples).
+You can find examples [here](https://github.com/frangr/frangr.github.io/tree/main/examples). Upload the main.bin file as ROM file and, if present, mass_memory as Mass Memory file.
 
 ## FRVSE library
 FRVSE have a .C library to abstract the inner working. The library can be found [here.](https://github.com/frangr/frangr.github.io/tree/main/frvselib) To include it in your code, you need to add ```frvselib.h``` to your code.
