@@ -65,7 +65,7 @@ See Video Memory Example
 ### Text Memory:
 
 A read/write memory that allows you to easily print characters on the screen. FRVSE text mode can print 8x8 pixels character on the 320x200 screen, meaning you can have 1000 characters,
-disposed in 40 rows and 25 columns. In the Text Memory, each character is represented by 4 bytes. There are 1000 character, so the memory is 4000 bytes long.
+disposed in 40 columns and 25 rows. In the Text Memory, each character is represented by 4 bytes. There are 1000 character, so the memory is 4000 bytes long.
 The 4 byte to represent a character are structured this way:
 
 | 31-24  | 23-16 | 15-8 | 7-0 |
@@ -97,6 +97,9 @@ See Stop Register Example
 A 1 byte read only register. It's constantly updated with the currently pressed keyboard key.
 See Keycode Register Example
 
+### Debug Value Port
+
+A 4 byte write only register. If written, it prints the passed value on the browser console. Internally uses console.log().
 
 ## Memory Map
 | Start Address  | Device Name | R/W | Size | Word Size |
@@ -314,11 +317,11 @@ Result:
 ![](doc_images/hex.png)
 
 ## Examples
-You can find examples [here](https://github.com/frangr/frangr.github.io/tree/main/examples).
+You can find examples [here](https://github.com/frangr/frangr.github.io/tree/main/examples). Upload the main.bin file as ROM file and, if present, mass_memory as Mass Memory file.
 
 ## FRVSE library
 FRVSE have a .C library to abstract the inner working. The library can be found [here.](https://github.com/frangr/frangr.github.io/tree/main/frvselib) To include it in your code, you need to add ```frvselib.h``` to your code.
-If you compile with gcc, you need to include ```frvselib.c``` in the gcc command:
+If you compile with gcc, you need to include also ```frvselib.c``` in the gcc command:
 
 ```
 riscv64-unknown-elf-gcc -nostdlib -Ttext 0x0 -march=rv32im -mabi=ilp32 main.c frvselib.c -o main.o
