@@ -292,7 +292,7 @@ When no key is pressed, the Keycode register value is 0, otherwise it contains a
 unsigned char keycode = *((unsigned char*)0xF81BA1);
 ```
 ## Debug Value Port
-The Debug Value Port allows you to log a value in the browser console, for debug purposes. Writing a value to its address will cause the value 
+The Debug Value Port allows you to log a value in the browser console, for debug purposes. Writing a value to debug port value address will cause the value 
 to be printed in the browser console through console.log().
 ```
 unsigned char dvp1 = 50;
