@@ -6,19 +6,19 @@ This project is the web version of the original FRVSE, a C .DLL with a freeGLUT 
 
 FRVSE is intended for educational purposes and is pretty straightforward to use.
 
-FRVSE is just like a small computer. There is a CPU, a ROM, a RAM and an handful of peripherals such as Mass Memory, a screen and registers [(See Full List)](#frvse-components)
-you can watch the state of the system registers(PC, reg[0]-reg[31]) and the content of the peripherals using the GUI.
+FRVSE is just like a small computer. There is a CPU, a ROM, a RAM and an handful of peripherals such as Mass Memory, a screen and registers [(See Full List.)](#frvse-components)
+You can watch the state of the system registers(PC, reg[0]-reg[31]) and the content of the peripherals using the web GUI.
 
-To make FRVSE run code, you need to upload a .bin file, containing bare metal binaries, in the ROM path, and press the Start FRVSE button (or the Step FRVSE, if you want to step).
+To make FRVSE run code, you need to upload a .bin file, containing bare metal binaries, in the ROM path and press the Start FRVSE button (or the Step FRVSE, if you want to step).
 To create bare metal binaries to feed into FRVSE you just need to compile your code into RISC-V machine language. Bare metal binaries means it doesnt need to have things like headers or similiar
 like an .exe/.elf file, bust just binary machine instructions.
 
-FRVSE's Reset Vector is at the first address of the ROM memory. So when the CPU is reset, it fetch the first 4 byte of the ROM Memory and decodes them as an instruction. That's you need to upload
+FRVSE's Reset Vector is at the first address of the ROM memory. So when the CPU is reset, it fetch the first 4 byte of the ROM Memory and decodes them as an instruction. That's why you need to upload
 a binary file as your ROM Memory.
 
-To build the code to be executed by FRVSE, you can use the riscv-gcc toolchain. You can find the builds for linux [here](https://github.com/riscv-collab/riscv-gnu-toolchain/releases) or for windows [here.](https://gnutoolchains.com/risc-v/)
+To build the code to be executed by FRVSE, you can use the riscv-gcc toolchain. You can find the builds for Linux [here](https://github.com/riscv-collab/riscv-gnu-toolchain/releases) or for Windows [here.](https://gnutoolchains.com/risc-v/)
 
-Here are the utils/commands to execute in order to build the code. You only need to feed a .C code. The last two utils are optional but are helpful for debugging. You can also use the riscv32 version.
+Here are the commands to execute in order to build the code. You only need to feed a .C code. The last two commands are optional but are helpful for debugging. You can also use the 'riscv32' version.
 
 With gcc, you can also compile assembly code, if you want something closer to the machine.
 ```
@@ -29,7 +29,7 @@ riscv64-unknown-elf-objdump -d -D --disassembler-options=no-aliases main.o> disa
 ```
 
 FRVSE's peripherals are memory mapped, being RISC-V a memory mapped architecture. To write or read from a memory 
-just write code that writes or read from the addresses reserved [(See Memory Map)](#memory-map) for the peripherals you want to use (See Examples)
+just write code that writes or read from the addresses reserved [(See Memory Map)](#memory-map) for the peripherals you want to use [(See Examples)](#writeread-the-rom-ram-and-mass-memory)
 
 
 ## FRVSE COMPONENTS
@@ -38,29 +38,29 @@ just write code that writes or read from the addresses reserved [(See Memory Map
 
 ### ROM MEMORY:
 
-A read/write memory emulating a Flash memory. It's where FRVSE start executing the code. Currently it have a maximum size of 3MB. 
-The user must upload a binary file serving as the Flash memory. The memory can be written but the uploaded file will not be modified. If you need the written file, 
+A read/write memory emulating a ROM memory. It's where FRVSE start executing the code. Currently it have a maximum size of 3MB. 
+The user must upload a binary file serving as the ROM memory. The memory can be written but the uploaded file will not be modified. If you need the written file, 
 you can downlaod it using the "Download ROM Buffer" button. 
 This memory is mandatory and must be present when the emulator is started, otherwise there will be an error.
-See ROM Memory Example
+[See ROM Memory Example](#writeread-the-rom-ram-and-mass-memory)
 
 ### RAM MEMORY:
 
 The RAM of the emulator, created when the emulator starts, with a size of 5MB. When the emulator is resetted, the memory is also resetted.
-See RAM Memory Example
+[See RAM Memory Example](#writeread-the-rom-ram-and-mass-memory)
 
 ### Mass Memory:
 
-A read/write memory emulating a mass memory. It have a maximum size of 8MB. It may be used to store big data to be used in the code like images. 
-This memory is optional and can be not uploaded. If you try to write or read the Mass Memory when is not uploaded, nothing will happen.
+A read/write memory emulating a mass memory. It have a maximum size of 8MB. It may be used to store big data to be used in the code, like images. 
+This memory is optional and can be not uploaded. If you try to write or read the Mass Memory when it's not uploaded, nothing will happen.
 If the uploaded Mass Memory is written, the original file will not be modified. If you need the written file, you can download it using the "Download MM Buffer" button.
-See Mass Memory Example
+[See Mass Memory Example](#writeread-the-rom-ram-and-mass-memory)
 
 ### Video Memory:
 
-A read/write memory emulating a Video Memory. It is created when the emulator is started. It can represent a 320x200 screen, or 64000 pixels, each pixel represented by 4 byte
+A read/write memory emulating a Video Memory. It's created when the emulator is started. It can represent a 320x200 screen, or 64000 pixels, each pixel represented by 4 byte
 for RGBA notation (the alpha channel is disabled). So the total size of the memory 256.000 bytes, or 256KB. The memory is updated in realtime and painted in the GUI.
-See Video Memory Example
+[See Video Memory Example](#writeread-from-video-memory)
 
 ### Text Memory:
 
@@ -85,21 +85,23 @@ The color of the character, using the [VGA Palette](#vga-palette).
 the color of the character background, using the [VGA Palette](#vga-palette).
 
 writing these 4 byte in the Text Memory will draw a character on the screen.
-See Text Memory Example
+[See Text Memory Example](#writeread-from-text-memory)
 
 ### Stop Register:
 
 A 1 byte write only register. If written, it stops the emulator. Useful to be put at the end of your code.
-See Stop Register Example
+[See Stop Register Example](#stop-register-1)
 
 ### Keycode Register:
 
 A 1 byte read only register. It's constantly updated with the currently pressed keyboard key.
-See Keycode Register Example
+[See Keycode Register Example](#keycode-register-1)
 
 ### Debug Value Port
 
 A 4 byte write only register. If written, it prints the passed value on the browser console. Internally uses console.log().
+
+[See Debug Value Port Example](#debug-value-port-1)
 
 ## Memory Map
 | Start Address  | Device Name | R/W | Size | Word Size |
@@ -207,11 +209,11 @@ VM_addr += 320;
 *VM_addr = (r << 24) | (g << 16) | (b << 8);
 ```
 ## Write/read from Text Memory
-The Text Memory can store 1000 32bit entries each one representing a character to be printed on the screen and translated in pixels inside the Video Memory.
+The Text Memory can store 1000 4byte entries each one representing a character to be printed on the screen and translated in pixels inside the Video Memory.
 
 The Text Memory allows to write 1000 characters on the screen, disposed in 40 rows and 25 columns.
 
-The 32bit word used to represented a character can be seen [here](#text-memory)
+The 4byte word used to represented a character can be seen [here](#text-memory)
 
 Example:
 ```
